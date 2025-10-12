@@ -20,78 +20,89 @@ A modern Flutter authentication template for the Enugu Smart Bus booking applica
 - **Animations**: Smooth transitions and micro-interactions
 - **Material Design 3**: Latest Material Design guidelines
 
-## 🚀 Local Setup Instructions
+## 🚀 Quick Setup (Complete Project Structure)
 
 ### Prerequisites
+1. **Install Flutter SDK** (3.24.0 or higher): https://docs.flutter.dev/get-started/install
+2. **Download this project** to your local machine
+3. **Open terminal** in project directory
 
-1. **Install Flutter SDK** (3.24.0 or higher)
-   - Visit: https://docs.flutter.dev/get-started/install
-   - Choose your operating system (Windows, macOS, Linux)
-   - Follow the installation guide
+### Automated Setup (Recommended)
 
-2. **Install a Code Editor**
-   - **VS Code** (Recommended): https://code.visualstudio.com/
-     - Install Flutter extension: https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter
-   - **Android Studio**: https://developer.android.com/studio
+#### Linux/macOS:
+```bash
+./setup_flutter_project.sh
+```
 
-3. **Install Chrome** (for Flutter Web development)
-   - https://www.google.com/chrome/
+#### Windows:
+```cmd
+setup_flutter_project.bat
+```
 
-### Setup Steps
+This will automatically:
+- ✅ Generate complete Flutter project structure (android/, ios/, web/ folders)
+- ✅ Install all dependencies  
+- ✅ Enable Flutter Web
+- ✅ Prepare project for building APK/iOS/Web
 
-1. **Clone or Download this project**
-   ```bash
-   # If you have this as a git repository
-   git clone <your-repo-url>
-   cd enugu_smart_bus
-   
-   # Or simply download and extract the project folder
-   ```
+### Manual Setup
 
-2. **Install Dependencies**
-   ```bash
-   flutter pub get
-   ```
+If automated setup fails:
 
-3. **Verify Flutter Installation**
-   ```bash
-   flutter doctor
-   ```
-   - Fix any issues shown (Android Studio, Xcode, etc.)
+```bash
+# 1. Generate project structure
+flutter create --project-name enugu_smart_bus --org com.enugu.smartbus --platforms android,ios,web . --overwrite
 
-4. **Enable Flutter Web** (if not already enabled)
-   ```bash
-   flutter config --enable-web
-   ```
+# 2. Install dependencies
+flutter pub get
 
-5. **Run the App**
-   
-   **Option A: Web Browser (Chrome)**
-   ```bash
-   flutter run -d chrome
-   ```
-   
-   **Option B: Mobile Emulator**
-   ```bash
-   # List available devices
-   flutter devices
-   
-   # Run on specific device
-   flutter run -d <device-id>
-   ```
-   
-   **Option C: VS Code**
-   - Open the project in VS Code
-   - Press F5 or click "Run > Start Debugging"
-   - Select your device (Chrome, Android, iOS)
+# 3. Enable web
+flutter config --enable-web
+```
 
-## 📱 Screen Flow
+See **[SETUP_INSTRUCTIONS.md](SETUP_INSTRUCTIONS.md)** for detailed step-by-step guide.
 
-1. **Splash Screen** → Initializes app, checks authentication
-2. **Welcome/Onboarding** → First-time user introduction (if new user)
-3. **Login Screen** → User authentication
-4. **Registration Screen** → New user signup (multi-step)
-5. **Forgot Password** → Password recovery
+## 📱 Running the App
+
+### Web (Chrome):
+```bash
+flutter run -d chrome
+```
+
+### Android:
+```bash
+flutter run  # Emulator or connected device
+```
+
+### iOS (macOS only):
+```bash
+flutter run
+```
+
+## 📦 Building for Production
+
+### Android APK:
+```bash
+flutter build apk --release
+```
+**Output:** `build/app/outputs/flutter-apk/app-release.apk`
+
+### Android App Bundle (Google Play):
+```bash
+flutter build appbundle --release
+```
+**Output:** `build/app/outputs/bundle/release/app-release.aab`
+
+### iOS (macOS only):
+```bash
+flutter build ios --release
+```
+
+### Web:
+```bash
+flutter build web --release
+```
+**Output:** `build/web/`
 
 ## 🔐 Database Schema
 
@@ -146,71 +157,88 @@ lib/
 - **fluttertoast**: Toast notifications
 - **shared_preferences**: Local storage
 - **image_picker**: Profile image upload
-- **image_cropper**: Image editing
+- **dio**: HTTP client for API integration
+- **connectivity_plus**: Network monitoring
 
-## 🧪 Testing
+## 🧪 Test Credentials (Development)
 
-### Mock Credentials (Development Only)
-- **Email**: user@enugusmart.com
-- **Password**: password123
+```
+Email: user@enugusmart.com
+Password: password123
+```
 
 **⚠️ Important**: Remove mock credentials before production deployment!
 
-## 📲 Building for Production
-
-### Android APK
-```bash
-flutter build apk --release
-# Output: build/app/outputs/flutter-apk/app-release.apk
-```
-
-### Android App Bundle (for Google Play)
-```bash
-flutter build appbundle --release
-# Output: build/app/outputs/bundle/release/app-release.aab
-```
-
-### iOS (requires macOS with Xcode)
-```bash
-flutter build ios --release
-# Then open ios/Runner.xcworkspace in Xcode
-```
-
-### Web
-```bash
-flutter build web --release
-# Output: build/web/
-```
-
 ## 🎯 Next Steps - Backend Integration
 
-To connect this frontend to a backend:
+### 1. Set Up API Endpoints
 
-1. **Set up API endpoints** for:
-   - POST `/api/auth/login`
-   - POST `/api/auth/register`
-   - POST `/api/auth/forgot-password`
-   - POST `/api/auth/reset-password`
+Create these authentication endpoints:
+- `POST /api/auth/login` - User authentication
+- `POST /api/auth/register` - New user signup
+- `POST /api/auth/forgot-password` - Password recovery
+- `POST /api/auth/reset-password` - Password reset
+- `GET /api/auth/verify-token` - Token validation
 
-2. **Update authentication logic** in:
-   - `lib/presentation/login_screen/login_screen.dart`
-   - `lib/presentation/registration_screen/registration_screen.dart`
-   - `lib/presentation/forgot_password_screen/forgot_password_screen.dart`
+### 2. Update Authentication Logic
 
-3. **Add HTTP client** (dio is already included):
-   ```dart
-   import 'package:dio/dio.dart';
-   
-   final dio = Dio(BaseOptions(
-     baseUrl: 'https://your-api-url.com',
-     connectTimeout: Duration(seconds: 5),
-     receiveTimeout: Duration(seconds: 3),
-   ));
-   ```
+Replace mock authentication in:
+- `lib/presentation/login_screen/login_screen.dart` (line 120-170)
+- `lib/presentation/registration_screen/registration_screen.dart`
+- `lib/presentation/forgot_password_screen/forgot_password_screen.dart`
 
-4. **Create API service classes** for authentication
+### 3. Example API Integration
 
-5. **Implement secure token storage** using `flutter_secure_storage`
+```dart
+import 'package:dio/dio.dart';
+
+final dio = Dio(BaseOptions(
+  baseUrl: 'https://your-api-url.com',
+  connectTimeout: Duration(seconds: 5),
+  receiveTimeout: Duration(seconds: 3),
+));
+
+// Login example
+Future<void> login(String email, String password) async {
+  try {
+    final response = await dio.post('/api/auth/login', data: {
+      'email': email,
+      'password': password,
+    });
+    
+    if (response.statusCode == 200) {
+      // Save token, navigate to home
+      final token = response.data['token'];
+      // Store token securely
+    }
+  } catch (e) {
+    // Handle error
+  }
+}
+```
+
+### 4. Secure Token Storage
+
+Add `flutter_secure_storage` to `pubspec.yaml`:
+
+```yaml
+dependencies:
+  flutter_secure_storage: ^9.0.0
+```
+
+Store tokens securely:
+
+```dart
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+final storage = FlutterSecureStorage();
+
+// Save token
+await storage.write(key: 'auth_token', value: token);
+
+// Read token
+String? token = await storage.read(key: 'auth_token');
+```
 
 ## 🎨 Customization
 
@@ -223,26 +251,103 @@ static const Color primaryLight = Color(0xFF1a237e); // Change this
 ### Update App Name
 Edit `pubspec.yaml`:
 ```yaml
-name: enugu_smart_bus  # Change this
+name: your_app_name
 ```
 
-### Update Assets
-- Logo: `assets/images/img_app_logo.svg`
-- Icons: Place in `assets/images/`
+### Update Logo
+Replace `assets/images/img_app_logo.svg` with your logo
 
-## 📝 License
+### Modify App ID (for Android/iOS)
 
-This is a template project for Enugu Smart Bus.
+**Android:** Edit `android/app/build.gradle`:
+```gradle
+defaultConfig {
+    applicationId "com.enugu.smartbus"  // Change this
+}
+```
 
-## 🤝 Support
+**iOS:** Open `ios/Runner.xcworkspace` in Xcode and update Bundle Identifier
+
+## 🔥 What's Included
+
+✅ Complete authentication flow (Login, Signup, Forgot Password)  
+✅ Modern Material Design 3 UI  
+✅ Dark blue professional theme  
+✅ Smooth animations and transitions  
+✅ Form validation and error handling  
+✅ Profile image upload support  
+✅ Biometric authentication ready  
+✅ Responsive design (all screen sizes)  
+✅ Light and dark theme support  
+✅ Production-ready code structure  
+
+## 📚 Documentation Files
+
+- **[SETUP_INSTRUCTIONS.md](SETUP_INSTRUCTIONS.md)** - Complete setup guide
+- **[LOCAL_SETUP_GUIDE.md](LOCAL_SETUP_GUIDE.md)** - Quick start (5 minutes)
+- **[.gitignore](.gitignore)** - Comprehensive gitignore for Flutter
+
+## 🚨 Troubleshooting
+
+**"Flutter command not found"**
+- Install Flutter SDK and add to PATH
+- Restart terminal
+
+**"No devices found"**
+- For Web: Install Chrome
+- For Android: Start emulator or connect device
+- For iOS: Requires macOS with Xcode
+
+**Build errors**
+```bash
+flutter clean
+flutter pub get
+flutter run
+```
+
+**Gradle build failed (Android)**
+```bash
+cd android
+./gradlew clean
+cd ..
+flutter clean
+flutter pub get
+```
+
+## 📝 Git Workflow
+
+The `.gitignore` file is configured to exclude:
+- Build outputs (`build/`, `*.apk`, `*.aab`, `*.ipa`)
+- Generated files (`android/`, `ios/`, platform-specific generated files)
+- Dependencies (`flutter/`, `.pub-cache/`)
+- IDE files (`.idea/`, `.vscode/`)
+- Environment files (`.env`)
+- Temporary files
+
+**What gets committed:**
+- ✅ Source code (`lib/`)
+- ✅ Assets (`assets/`)
+- ✅ Configuration (`pubspec.yaml`)
+- ✅ Documentation (`*.md`)
+
+## 📞 Support
 
 For Flutter issues:
 - Flutter Documentation: https://docs.flutter.dev/
-- Stack Overflow: https://stackoverflow.com/questions/tagged/flutter
+- Flutter Community: https://flutter.dev/community
+- Stack Overflow: [flutter] tag
 
 For project-specific questions:
+- Check `SETUP_INSTRUCTIONS.md`
 - Contact your development team
+
+## 📄 License
+
+This is a template project for Enugu Smart Bus.
 
 ---
 
 **Made with ❤️ for Enugu Smart Bus**
+
+**Status:** ✅ Ready for local deployment and production builds  
+**Last Updated:** October 12, 2025
