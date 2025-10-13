@@ -11,11 +11,11 @@ deploymentTarget = "cloudrun"
 
 [[ports]]
 localPort = 5000
-externalPort = 5000
+externalPort = 80
 
 [[ports]]
-localPort = 8000
-externalPort = 80
+localPort = 45541
+externalPort = 3000
 
 [agent]
 expertMode = true
@@ -36,10 +36,10 @@ args = "Server"
 name = "Server"
 author = "agent"
 
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "php -S 0.0.0.0:5000"
-waitForPort = 5000
-
 [workflows.workflow.metadata]
 outputType = "webview"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd backend && php -S 0.0.0.0:5000 -t public"
+waitForPort = 5000

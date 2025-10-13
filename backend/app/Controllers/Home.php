@@ -37,7 +37,28 @@ class Home extends BaseController
 
     public function index()
     {
-        return redirect()->route('admin-home');
+        // Disable error display for deprecation warnings
+        ini_set('display_errors', '0');
+        error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+        
+        // Load homepage with dynamic data
+        $data = [];
+        
+        // You can populate these from database tables if needed
+        $data['title'] = 'Enugu Smart Bus Service';
+        $data['hero_title'] = 'Welcome to Enugu Smart Bus';
+        $data['hero_subtitle'] = 'Smart. Safe. Seamless Mobility for Everyone in Enugu State.';
+        $data['hero_button_text'] = 'Learn More';
+        $data['hero_bg_image'] = '/images/hero-bus.jpg';
+        $data['hero_image'] = '/images/hero-bus.png';
+        
+        $data['about_title'] = 'The Smart Way to Travel Across Enugu State';
+        $data['about_description'] = 'Enugu Smart Bus is revolutionizing public transportation in Enugu State. We provide safe, comfortable, and reliable bus services that connect communities and make travel easier for everyone.';
+        
+        $data['how_it_works_title'] = 'Book Your Trip in 4 Simple Steps';
+        $data['how_it_works_subtitle'] = 'Getting around Enugu State has never been easier';
+        
+        return view('template/web/home', $data);
     }
 
     public function admin()

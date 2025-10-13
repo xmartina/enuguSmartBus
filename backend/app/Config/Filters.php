@@ -19,7 +19,7 @@ class Filters extends BaseConfig
 
     public $globals = [
         'before' => [
-            'honeypot',
+            // 'honeypot',
             'csrf' => [
                 'except' => [
                     // ✅ Exclude Paystack & API routes from CSRF
@@ -36,7 +36,7 @@ class Filters extends BaseConfig
         ],
         'after' => [
             'toolbar',
-            'honeypot',
+            // 'honeypot',
         ],
     ];
 
