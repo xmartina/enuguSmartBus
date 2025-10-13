@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../core/app_export.dart';
+import '../../core/app_export.dart';
+import '../welcome_onboarding_screen/welcome_onboarding_screen.dart';
+import '../login_screen/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -156,21 +158,21 @@ class _SplashScreenState extends State<SplashScreen>
   void _navigateToNextScreen() {
     if (!mounted) return;
 
-    // Simulate navigation logic based on user state
-    final bool isAuthenticated = false; // Mock authentication check
-    final bool isFirstTime = true; // Mock first time user check
+    // Determine navigation based on user state
+    final bool isAuthenticated = false; // TODO: Check actual authentication status
+    final bool isFirstTime = true; // TODO: Check if first time user from SharedPreferences
 
-    // Fade transition to next screen
+    // Navigate to appropriate screen with fade transition
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) {
           if (isAuthenticated) {
-            // Navigate to dashboard (not implemented in this scope)
-            return Container(); // Placeholder
+            // TODO: Navigate to dashboard/home screen when implemented
+            return const LoginScreen();
           } else if (isFirstTime) {
-            return Container(); // Welcome onboarding screen placeholder
+            return const WelcomeOnboardingScreen();
           } else {
-            return Container(); // Login screen placeholder
+            return const LoginScreen();
           }
         },
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -182,13 +184,6 @@ class _SplashScreenState extends State<SplashScreen>
         transitionDuration: const Duration(milliseconds: 500),
       ),
     );
-
-    // For demo purposes, navigate to welcome screen after delay
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      if (mounted) {
-        Navigator.pushNamed(context, '/welcome-onboarding-screen');
-      }
-    });
   }
 
   void _retryInitialization() {
@@ -224,7 +219,7 @@ class _SplashScreenState extends State<SplashScreen>
             end: Alignment.bottomCenter,
             colors: [
               AppTheme.lightTheme.primaryColor,
-              AppTheme.lightTheme.primaryColor.withValues(alpha: 0.8),
+              AppTheme.lightTheme.primaryColor.withOpacity(0.8),
               AppTheme.lightTheme.colorScheme.primaryContainer,
             ],
           ),
@@ -258,7 +253,7 @@ class _SplashScreenState extends State<SplashScreen>
                                   boxShadow: [
                                     BoxShadow(
                                       color:
-                                          Colors.black.withValues(alpha: 0.2),
+                                          Colors.black.withOpacity(0.2),
                                       blurRadius: 20,
                                       offset: const Offset(0, 10),
                                     ),
@@ -294,7 +289,7 @@ class _SplashScreenState extends State<SplashScreen>
                                     ?.copyWith(
                                   color: AppTheme
                                       .lightTheme.colorScheme.onPrimary
-                                      .withValues(alpha: 0.8),
+                                      .withOpacity(0.8),
                                   letterSpacing: 0.5,
                                 ),
                                 textAlign: TextAlign.center,
@@ -336,7 +331,7 @@ class _SplashScreenState extends State<SplashScreen>
                                     ?.copyWith(
                                   color: AppTheme
                                       .lightTheme.colorScheme.onPrimary
-                                      .withValues(alpha: 0.7),
+                                      .withOpacity(0.7),
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -355,7 +350,7 @@ class _SplashScreenState extends State<SplashScreen>
                   'Version 1.0.0',
                   style: AppTheme.lightTheme.textTheme.bodySmall?.copyWith(
                     color: AppTheme.lightTheme.colorScheme.onPrimary
-                        .withValues(alpha: 0.5),
+                        .withOpacity(0.5),
                   ),
                 ),
               ),
