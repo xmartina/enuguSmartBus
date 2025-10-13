@@ -1,0 +1,13 @@
+entrypoint = "main.dart"
+modules = ["dart-3.3", "flutter-3.24.5"]
+
+[nix]
+channel="stable-24_05"
+packages = ["flutter", "jdk17", "android-tools", "chromium"]
+
+[deployment]
+run = ["dart", "main.dart"]
+deploymentTarget = "cloudrun"
+
+[agent]
+expertMode = true
