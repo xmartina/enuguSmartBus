@@ -159,7 +159,7 @@ class _PasswordFormState extends State<PasswordForm> {
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
                   color: AppTheme.lightTheme.colorScheme.outline
-                      .withValues(alpha: 0.3),
+                      .withOpacity(0.3),
                 ),
               ),
               child: Column(
@@ -189,7 +189,7 @@ class _PasswordFormState extends State<PasswordForm> {
                   LinearProgressIndicator(
                     value: _passwordStrength,
                     backgroundColor: AppTheme.lightTheme.colorScheme.outline
-                        .withValues(alpha: 0.3),
+                        .withOpacity(0.3),
                     valueColor: AlwaysStoppedAnimation<Color>(_strengthColor),
                   ),
                   SizedBox(height: 1.h),

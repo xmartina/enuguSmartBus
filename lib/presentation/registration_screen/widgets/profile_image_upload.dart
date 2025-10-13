@@ -138,7 +138,7 @@ class _ProfileImageUploadState extends State<ProfileImageUpload> {
         decoration: BoxDecoration(
           border: Border.all(
             color:
-                AppTheme.lightTheme.colorScheme.outline.withValues(alpha: 0.3),
+                AppTheme.lightTheme.colorScheme.outline.withOpacity(0.3),
           ),
           borderRadius: BorderRadius.circular(12),
         ),
@@ -148,7 +148,7 @@ class _ProfileImageUploadState extends State<ProfileImageUpload> {
               padding: EdgeInsets.all(3.w),
               decoration: BoxDecoration(
                 color: AppTheme.lightTheme.colorScheme.primary
-                    .withValues(alpha: 0.1),
+                    .withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: CustomIconWidget(
@@ -227,10 +227,6 @@ class _ProfileImageUploadState extends State<ProfileImageUpload> {
           ),
           WebUiSettings(
             context: context,
-            size: const CropperSize(
-              width: 320,
-              height: 320,
-            ),
           ),
         ],
       );
@@ -320,7 +316,7 @@ class _ProfileImageUploadState extends State<ProfileImageUpload> {
                   color: AppTheme.lightTheme.colorScheme.surface,
                   border: Border.all(
                     color: AppTheme.lightTheme.colorScheme.outline
-                        .withValues(alpha: 0.3),
+                        .withOpacity(0.3),
                     width: 2,
                   ),
                 ),

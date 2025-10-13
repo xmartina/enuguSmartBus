@@ -71,14 +71,14 @@ class OnboardingNavigationWidget extends StatelessWidget {
               onPressed: onSkip,
               style: TextButton.styleFrom(
                 foregroundColor: AppTheme.lightTheme.colorScheme.primary
-                    .withValues(alpha: 0.7),
+                    .withOpacity(0.7),
                 padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
               ),
               child: Text(
                 'Skip',
                 style: AppTheme.lightTheme.textTheme.titleSmall?.copyWith(
                   color: AppTheme.lightTheme.colorScheme.primary
-                      .withValues(alpha: 0.7),
+                      .withOpacity(0.7),
                   fontWeight: FontWeight.w500,
                 ),
               ),

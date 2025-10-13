@@ -57,7 +57,7 @@ class OnboardingSlideWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               style: AppTheme.lightTheme.textTheme.bodyLarge?.copyWith(
                 color: AppTheme.lightTheme.colorScheme.onSurface
-                    .withValues(alpha: 0.7),
+                    .withOpacity(0.7),
                 height: 1.5,
               ),
             ),

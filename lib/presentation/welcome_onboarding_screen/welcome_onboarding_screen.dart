@@ -139,7 +139,7 @@ class _WelcomeOnboardingScreenState extends State<WelcomeOnboardingScreen>
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                AppTheme.lightTheme.colorScheme.primary.withValues(alpha: 0.05),
+                AppTheme.lightTheme.colorScheme.primary.withOpacity(0.05),
                 AppTheme.lightTheme.scaffoldBackgroundColor,
                 AppTheme.lightTheme.scaffoldBackgroundColor,
               ],
@@ -163,7 +163,7 @@ class _WelcomeOnboardingScreenState extends State<WelcomeOnboardingScreen>
                           style: TextButton.styleFrom(
                             foregroundColor: AppTheme
                                 .lightTheme.colorScheme.primary
-                                .withValues(alpha: 0.7),
+                                .withOpacity(0.7),
                             padding: EdgeInsets.symmetric(
                                 horizontal: 3.w, vertical: 1.h),
                           ),
@@ -172,7 +172,7 @@ class _WelcomeOnboardingScreenState extends State<WelcomeOnboardingScreen>
                             style: AppTheme.lightTheme.textTheme.titleSmall
                                 ?.copyWith(
                               color: AppTheme.lightTheme.colorScheme.primary
-                                  .withValues(alpha: 0.7),
+                                  .withOpacity(0.7),
                               fontWeight: FontWeight.w500,
                             ),
                           ),

@@ -26,12 +26,12 @@ dependencies:
   camera: ^0.10.5+5
   image_picker: ^1.0.4
   permission_handler: ^11.1.0
-  image_cropper: ^11.0.0
+  image_cropper: ^5.0.0
 
 dev_dependencies:
   flutter_test:    # CRITICAL: Required for Flutter project testing - DO NOT REMOVE
     sdk: flutter   # CRITICAL: Required for Flutter project testing - DO NOT REMOVE
-  flutter_lints: ^5.0.0 # CRITICAL: Required for code quality - DO NOT REMOVE
+  flutter_lints: ^3.0.0 # CRITICAL: Required for code quality - DO NOT REMOVE
 
 flutter:
   uses-material-design: true # CRITICAL: Required for Material icon font - DO NOT REMOVE

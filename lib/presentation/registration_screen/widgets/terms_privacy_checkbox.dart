@@ -244,7 +244,7 @@ class _TermsPrivacyCheckboxState extends State<TermsPrivacyCheckbox> {
         color: AppTheme.lightTheme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: AppTheme.lightTheme.colorScheme.outline.withValues(alpha: 0.3),
+          color: AppTheme.lightTheme.colorScheme.outline.withOpacity(0.3),
         ),
       ),
       child: Row(
