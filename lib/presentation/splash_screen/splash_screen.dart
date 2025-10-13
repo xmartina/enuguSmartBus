@@ -93,13 +93,15 @@ class _SplashScreenState extends State<SplashScreen>
       // Start loading animation
       _loadingAnimationController.forward();
 
-      // Simulate initialization tasks
-      await Future.wait([
+      // Run initialization tasks
+      final results = await Future.wait([
         _checkAuthenticationToken(),
         _loadUserPreferences(),
         _fetchEssentialConfiguration(),
         _prepareCachedData(),
       ]);
+
+      final bool hasCompletedOnboarding = results[1] as bool;
 
       setState(() {
         _isInitialized = true;
@@ -108,8 +110,8 @@ class _SplashScreenState extends State<SplashScreen>
       // Wait minimum splash time
       await Future.delayed(const Duration(milliseconds: 500));
 
-      // Navigate based on authentication status
-      _navigateToNextScreen();
+      // Navigate based on authentication status and onboarding completion
+      _navigateToNextScreen(hasCompletedOnboarding);
     } catch (e) {
       // Handle initialization error
       _handleInitializationError();
@@ -122,10 +124,14 @@ class _SplashScreenState extends State<SplashScreen>
     // In real implementation, check stored token validity
   }
 
-  Future<void> _loadUserPreferences() async {
-    // Simulate loading user preferences
-    await Future.delayed(const Duration(milliseconds: 600));
-    // In real implementation, load from SharedPreferences
+  Future<bool> _loadUserPreferences() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final bool hasCompletedOnboarding = prefs.getBool('hasCompletedOnboarding') ?? false;
+      return hasCompletedOnboarding;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<void> _fetchEssentialConfiguration() async {
@@ -155,12 +161,13 @@ class _SplashScreenState extends State<SplashScreen>
     });
   }
 
-  void _navigateToNextScreen() {
+  void _navigateToNextScreen(bool hasCompletedOnboarding) {
     if (!mounted) return;
 
     // Determine navigation based on user state
-    final bool isAuthenticated = false; // TODO: Check actual authentication status
-    final bool isFirstTime = true; // TODO: Check if first time user from SharedPreferences
+    // TODO: Check if user is authenticated (has valid token) to navigate to dashboard
+    final bool isAuthenticated = false;
+    final bool isFirstTime = !hasCompletedOnboarding;
 
     // Navigate to appropriate screen with fade transition
     Navigator.of(context).pushReplacement(
@@ -170,8 +177,10 @@ class _SplashScreenState extends State<SplashScreen>
             // TODO: Navigate to dashboard/home screen when implemented
             return const LoginScreen();
           } else if (isFirstTime) {
+            // First-time users see onboarding
             return const WelcomeOnboardingScreen();
           } else {
+            // Returning users go directly to login
             return const LoginScreen();
           }
         },
