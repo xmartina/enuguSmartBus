@@ -227,14 +227,21 @@ Create API service classes using Dio for HTTP requests.
 
 ## 📅 Recent Changes
 
+**2025-10-13 (Android-Only Focus - Latest)**
+- ✅ Removed web-specific dependencies and workflows
+- ✅ Updated image_cropper from v6.0.0 to v8.1.0 (fixes web compilation errors)
+- ✅ Removed `web` package dependency from pubspec.yaml
+- ✅ Cleaned up web service worker files
+- ✅ **App is now Android/iOS focused** - no web compilation errors
+- ✅ Replit now serves documentation only (app runs locally on Android Studio)
+- ✅ Safe to pull changes to Android Studio workspace
+
 **2025-10-13 (Build & Deployment Fixes)**
 - ✅ Fixed missing SharedPreferences import in splash_screen.dart
-- ✅ Updated image_cropper to v6.0.0 (compatible with Flutter 3.22)
 - ✅ Added UCropActivity configuration to AndroidManifest.xml
 - ✅ Added required permissions for camera, storage, and internet
 - ✅ Verified Android build configuration (Gradle 8.12, AGP 8.7.3, Kotlin 2.1.0)
 - ✅ Created LOCAL_BUILD_INSTRUCTIONS.md for APK generation
-- ✅ All compilation errors fixed - ready for `flutter build apk`
 
 **2025-10-12 (Final Integration)**
 - ✅ Complete Flutter app template implemented
@@ -242,7 +249,6 @@ Create API service classes using Dio for HTTP requests.
 - ✅ Setup automation scripts added (sh & bat)
 - ✅ Comprehensive .gitignore configured
 - ✅ Multiple documentation guides created
-- ✅ Ready for `flutter build apk` locally
 
 ## 🏆 Project Status
 
