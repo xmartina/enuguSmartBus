@@ -1,5 +1,5 @@
 entrypoint = "main.dart"
-modules = ["dart-3.3", "flutter-3.24.5"]
+modules = ["dart-3.3", "flutter-3.24.5", "python-3.11"]
 
 [nix]
 channel="stable-24_05"
@@ -22,15 +22,15 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Flutter App"
+args = "Documentation Server"
 
 [[workflows.workflow]]
-name = "Flutter App"
+name = "Documentation Server"
 author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "flutter run -d web-server --web-port=5000 --web-hostname=0.0.0.0"
+args = "python3 -m http.server 5000"
 waitForPort = 5000
 
 [workflows.workflow.metadata]
@@ -39,14 +39,6 @@ outputType = "webview"
 [[ports]]
 localPort = 5000
 externalPort = 80
-
-[[ports]]
-localPort = 33255
-externalPort = 3002
-
-[[ports]]
-localPort = 34013
-externalPort = 3001
 
 [[ports]]
 localPort = 36379
