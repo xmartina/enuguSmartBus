@@ -15,7 +15,6 @@ dependencies:
   flutter_svg: ^2.0.9        # Required for SVG icon support
   google_fonts: ^6.1.0       # Required for typography (replaces local fonts)
   shared_preferences: ^2.2.2 # Required for local data storage
-  web: ^1.1.1
   
   # Feature dependencies - safe to modify
   cached_network_image: ^3.3.1
@@ -26,7 +25,7 @@ dependencies:
   camera: ^0.10.5+5
   image_picker: ^1.0.4
   permission_handler: ^11.1.0
-  image_cropper: ^6.0.0
+  image_cropper: ^8.0.2
 
 dev_dependencies:
   flutter_test:    # CRITICAL: Required for Flutter project testing - DO NOT REMOVE
