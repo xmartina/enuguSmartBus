@@ -100,7 +100,7 @@ class CustomSideDrawer extends StatelessWidget {
             height: 16.w,
             decoration: BoxDecoration(
               color: theme.colorScheme.surface,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -118,8 +118,8 @@ class CustomSideDrawer extends StatelessWidget {
             'Enugu Smart Bus',
             style: theme.textTheme.titleMedium?.copyWith(
               color: theme.colorScheme.onPrimary,
-              fontWeight: FontWeight.w600,
-              fontSize: 16.sp,
+              fontWeight: FontWeight.w500,
+              fontSize: 14.sp,
             ),
           ),
           SizedBox(height: 0.5.h),
@@ -127,7 +127,7 @@ class CustomSideDrawer extends StatelessWidget {
             'user@enugusmartbus.com',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onPrimary.withOpacity(0.8),
-              fontSize: 11.sp,
+              fontSize: 10.sp,
             ),
           ),
         ],
@@ -158,8 +158,8 @@ class CustomSideDrawer extends StatelessWidget {
           color: isDestructive
               ? theme.colorScheme.error
               : theme.colorScheme.onSurface,
-          fontWeight: FontWeight.w500,
-          fontSize: 14.sp,
+          fontWeight: FontWeight.w400,
+          fontSize: 12.sp,
         ),
       ),
       trailing: CustomIconWidget(
@@ -189,7 +189,7 @@ class CustomSideDrawer extends StatelessWidget {
             'Version 1.0.0',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
-              fontSize: 10.sp,
+              fontSize: 9.sp,
             ),
           ),
           SizedBox(height: 0.5.h),
@@ -197,7 +197,7 @@ class CustomSideDrawer extends StatelessWidget {
             '\u00A9 2025 Enugu Smart Bus',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
-              fontSize: 10.sp,
+              fontSize: 9.sp,
             ),
           ),
         ],
@@ -213,7 +213,7 @@ class CustomSideDrawer extends StatelessWidget {
           title: Text(
             'Logout',
             style: theme.textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
             ),
           ),
           content: Text(

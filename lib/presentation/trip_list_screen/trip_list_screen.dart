@@ -44,7 +44,7 @@ class _TripListScreenState extends State<TripListScreen> {
           widget.routeName ?? 'Available Trips',
           style: theme.textTheme.titleLarge?.copyWith(
             color: theme.colorScheme.onPrimary,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
           ),
         ),
         centerTitle: true,
@@ -64,7 +64,8 @@ class _TripListScreenState extends State<TripListScreen> {
               Text(
                 'Trip List Screen',
                 style: theme.textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18.sp,
                 ),
               ),
               SizedBox(height: 1.h),

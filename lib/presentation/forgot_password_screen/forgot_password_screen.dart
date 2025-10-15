@@ -155,7 +155,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           'Reset Password',
           style: AppTheme.lightTheme.textTheme.titleLarge?.copyWith(
             color: AppTheme.lightTheme.colorScheme.onSurface,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
+            fontSize: 16.sp,
           ),
         ),
         centerTitle: true,
@@ -194,7 +195,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         style: AppTheme.lightTheme.textTheme.headlineSmall
                             ?.copyWith(
                           color: AppTheme.lightTheme.colorScheme.onSurface,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18.sp,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -248,32 +250,32 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       ),
                       errorText: _emailError,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(
                           color: AppTheme.lightTheme.colorScheme.outline,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(
                           color: AppTheme.lightTheme.colorScheme.outline,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(
                           color: AppTheme.lightTheme.colorScheme.primary,
                           width: 2,
                         ),
                       ),
                       errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(
                           color: AppTheme.lightTheme.colorScheme.error,
                         ),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(
                           color: AppTheme.lightTheme.colorScheme.error,
                           width: 2,
@@ -310,7 +312,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             AppTheme.lightTheme.colorScheme.onPrimary,
                         elevation: 2,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         disabledBackgroundColor: AppTheme
                             .lightTheme.colorScheme.onSurface
@@ -336,7 +338,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   ?.copyWith(
                                 color:
                                     AppTheme.lightTheme.colorScheme.onPrimary,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                     ),
@@ -349,7 +351,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     decoration: BoxDecoration(
                       color: AppTheme.lightTheme.colorScheme.secondary
                           .withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(8),
                       border: Border.all(
                         color: AppTheme.lightTheme.colorScheme.secondary
                             .withOpacity(0.3),
@@ -368,7 +370,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           style: AppTheme.lightTheme.textTheme.titleMedium
                               ?.copyWith(
                             color: AppTheme.lightTheme.colorScheme.secondary,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         SizedBox(height: 1.h),
@@ -401,7 +403,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     padding: EdgeInsets.all(4.w),
                     decoration: BoxDecoration(
                       color: AppTheme.lightTheme.colorScheme.surface,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(8),
                       border: Border.all(
                         color: AppTheme.lightTheme.colorScheme.outline
                             .withOpacity(0.3),
@@ -415,7 +417,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           style: AppTheme.lightTheme.textTheme.titleSmall
                               ?.copyWith(
                             color: AppTheme.lightTheme.colorScheme.onSurface,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         SizedBox(height: 2.h),
@@ -519,7 +521,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             style: AppTheme.lightTheme.textTheme.titleSmall
                                 ?.copyWith(
                               color: AppTheme.lightTheme.colorScheme.tertiary,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],

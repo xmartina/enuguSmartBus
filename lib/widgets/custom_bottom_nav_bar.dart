@@ -86,17 +86,17 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar>
         ),
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: theme.colorScheme.shadow.withOpacity(0.15),
-              blurRadius: 16,
-              offset: const Offset(0, 4),
+              color: theme.colorScheme.shadow.withOpacity(0.12),
+              blurRadius: 12,
+              offset: const Offset(0, 3),
             ),
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
           child: BottomNavigationBar(
             currentIndex: widget.currentIndex,
             onTap: widget.onTap,
@@ -105,9 +105,9 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar>
             unselectedItemColor: theme.colorScheme.onSurfaceVariant,
             type: BottomNavigationBarType.fixed,
             elevation: 0,
-            selectedFontSize: 11.sp,
-            unselectedFontSize: 10.sp,
-            iconSize: 20,
+            selectedFontSize: 10.sp,
+            unselectedFontSize: 9.sp,
+            iconSize: 18,
             items: [
               BottomNavigationBarItem(
                 icon: Padding(

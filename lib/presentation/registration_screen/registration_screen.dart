@@ -202,6 +202,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           'Create Account',
           style: AppTheme.lightTheme.textTheme.titleLarge?.copyWith(
             color: AppTheme.lightTheme.colorScheme.onSurface,
+            fontWeight: FontWeight.w500,
+            fontSize: 16.sp,
           ),
         ),
         centerTitle: true,
