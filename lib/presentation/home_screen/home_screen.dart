@@ -4,6 +4,7 @@ import '../../core/app_export.dart';
 import '../../widgets/custom_bottom_nav_bar.dart';
 import '../../widgets/custom_icon_widget.dart';
 import '../../widgets/custom_side_drawer.dart';
+import '../trip_list_screen/trip_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,9 +17,17 @@ class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
   int _currentNavIndex = 0;
 
+  // Trip search form controllers
+  final TextEditingController _departureController = TextEditingController();
+  final TextEditingController _destinationController = TextEditingController();
+  DateTime _selectedDate = DateTime.now();
+  int _passengerCount = 1;
+
   @override
   void dispose() {
     _scrollController.dispose();
+    _departureController.dispose();
+    _destinationController.dispose();
     super.dispose();
   }
 
@@ -28,15 +37,136 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     switch (index) {
-      case 0:
+      case 0: // Home
         break;
-      case 1:
+      case 1: // My Tickets
         break;
-      case 2:
+      case 2: // Luggage
         break;
-      case 3:
+      case 3: // Profile
         break;
     }
+  }
+
+  void _swapLocations() {
+    setState(() {
+      final temp = _departureController.text;
+      _departureController.text = _destinationController.text;
+      _destinationController.text = temp;
+    });
+  }
+
+  void _incrementPassengers() {
+    setState(() {
+      _passengerCount++;
+    });
+  }
+
+  void _decrementPassengers() {
+    if (_passengerCount > 1) {
+      setState(() {
+        _passengerCount--;
+      });
+    }
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime now = DateTime.now();
+    final DateTime maxDate = now.add(const Duration(days: 90));
+
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: now,
+      lastDate: maxDate,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppTheme.lightTheme.colorScheme.primary,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
+
+  void _searchTrips() {
+    // Validation
+    if (_departureController.text.isEmpty || _destinationController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Please select all locations and dates.'),
+          backgroundColor: AppTheme.lightTheme.colorScheme.error,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
+
+    // Navigate to trip list screen
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TripListScreen(
+          fromLocation: _departureController.text,
+          toLocation: _destinationController.text,
+          date: '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
+          passengers: _passengerCount,
+        ),
+      ),
+    );
+  }
+
+  void _viewPopularRoute(String routeName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TripListScreen(
+          routeName: routeName,
+        ),
+      ),
+    );
+  }
+
+  void _showAgentBenefitsDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          'Agent Benefits Coming Soon',
+          style: AppTheme.lightTheme.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Text(
+          'We are preparing an exclusive agent program with amazing benefits. Stay tuned!',
+          style: AppTheme.lightTheme.textTheme.bodyMedium,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              'Got it',
+              style: TextStyle(
+                color: AppTheme.lightTheme.colorScheme.primary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
+    );
   }
 
   @override
@@ -92,24 +222,357 @@ class _HomeScreenState extends State<HomeScreen> {
       controller: _scrollController,
       padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
       children: [
-        _buildWelcomeCard(theme),
-        SizedBox(height: 2.h),
-        _buildQuickActions(theme),
-        SizedBox(height: 2.h),
-        _buildRecentTrips(theme),
-        SizedBox(height: 10.h),
+        _buildTripSearchCard(theme),
+        SizedBox(height: 3.h),
+        _buildPopularRoutesSection(theme),
+        SizedBox(height: 3.h),
+        _buildAgentPromotionCard(theme),
+        SizedBox(height: 12.h), // Extra padding for bottom nav
       ],
     );
   }
 
-  Widget _buildWelcomeCard(ThemeData theme) {
+  // 1. Enhanced Trip Search Card
+  Widget _buildTripSearchCard(ThemeData theme) {
     return Container(
       padding: EdgeInsets.all(4.w),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: theme.colorScheme.shadow.withOpacity(0.1),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header
+          Row(
+            children: [
+              CustomIconWidget(
+                iconName: 'search',
+                color: theme.colorScheme.primary,
+                size: 24,
+              ),
+              SizedBox(width: 2.w),
+              Text(
+                'Book Your Trip',
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.sp,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 2.5.h),
+
+          // Departure Location
+          _buildLocationInput(
+            theme: theme,
+            controller: _departureController,
+            label: 'From',
+            hint: 'Select departure city',
+            icon: 'location_on',
+          ),
+          SizedBox(height: 1.5.h),
+
+          // Swap Button
+          Center(
+            child: InkWell(
+              onTap: _swapLocations,
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                padding: EdgeInsets.all(1.w),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primary.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: CustomIconWidget(
+                  iconName: 'swap_vert',
+                  color: theme.colorScheme.primary,
+                  size: 20,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 1.5.h),
+
+          // Destination Location
+          _buildLocationInput(
+            theme: theme,
+            controller: _destinationController,
+            label: 'To',
+            hint: 'Select destination city',
+            icon: 'location_on',
+          ),
+          SizedBox(height: 2.h),
+
+          // Date Picker and Passenger Counter Row
+          Row(
+            children: [
+              Expanded(
+                child: _buildDatePicker(theme),
+              ),
+              SizedBox(width: 3.w),
+              Expanded(
+                child: _buildPassengerCounter(theme),
+              ),
+            ],
+          ),
+          SizedBox(height: 3.h),
+
+          // Search Button
+          SizedBox(
+            width: double.infinity,
+            height: 6.h,
+            child: ElevatedButton(
+              onPressed: _searchTrips,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                elevation: 2,
+              ),
+              child: Text(
+                'SEARCH TRIPS',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onPrimary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.sp,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLocationInput({
+    required ThemeData theme,
+    required TextEditingController controller,
+    required String label,
+    required String hint,
+    required String icon,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: theme.textTheme.bodyMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+            fontSize: 13.sp,
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+        SizedBox(height: 0.8.h),
+        TextField(
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant.withOpacity(0.5),
+              fontSize: 13.sp,
+            ),
+            prefixIcon: Padding(
+              padding: EdgeInsets.all(3.w),
+              child: CustomIconWidget(
+                iconName: icon,
+                color: theme.colorScheme.primary,
+                size: 20,
+              ),
+            ),
+            filled: true,
+            fillColor: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide.none,
+            ),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 4.w,
+              vertical: 1.5.h,
+            ),
+          ),
+          style: theme.textTheme.bodyMedium?.copyWith(
+            fontSize: 14.sp,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDatePicker(ThemeData theme) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Date',
+          style: theme.textTheme.bodyMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+            fontSize: 13.sp,
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+        SizedBox(height: 0.8.h),
+        InkWell(
+          onTap: () => _selectDate(context),
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.5.h),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              children: [
+                CustomIconWidget(
+                  iconName: 'calendar_today',
+                  color: theme.colorScheme.primary,
+                  size: 18,
+                ),
+                SizedBox(width: 2.w),
+                Expanded(
+                  child: Text(
+                    '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPassengerCounter(ThemeData theme) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Passengers',
+          style: theme.textTheme.bodyMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+            fontSize: 13.sp,
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+        SizedBox(height: 0.8.h),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: _decrementPassengers,
+                icon: CustomIconWidget(
+                  iconName: 'remove_circle',
+                  color: _passengerCount > 1
+                      ? theme.colorScheme.primary
+                      : theme.colorScheme.onSurfaceVariant.withOpacity(0.3),
+                  size: 24,
+                ),
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+              ),
+              Text(
+                '$_passengerCount',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.sp,
+                ),
+              ),
+              IconButton(
+                onPressed: _incrementPassengers,
+                icon: CustomIconWidget(
+                  iconName: 'add_circle',
+                  color: theme.colorScheme.primary,
+                  size: 24,
+                ),
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  // 2. Popular Routes Section
+  Widget _buildPopularRoutesSection(ThemeData theme) {
+    final List<Map<String, String>> routes = [
+      {'route': 'Enugu ↔ Abuja', 'price': 'From NGN 18,500'},
+      {'route': 'Enugu ↔ Lagos', 'price': 'From NGN 22,000'},
+      {'route': 'Enugu ↔ Port Harcourt', 'price': 'From NGN 12,500'},
+      {'route': 'Enugu ↔ Onitsha', 'price': 'From NGN 5,500'},
+      {'route': 'Enugu ↔ Aba', 'price': 'From NGN 8,000'},
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 1.w),
+          child: Text(
+            'Popular Routes',
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: 17.sp,
+            ),
+          ),
+        ),
+        SizedBox(height: 1.5.h),
+        SizedBox(
+          height: 20.h,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: routes.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.only(
+                  left: index == 0 ? 0 : 0,
+                  right: 3.w,
+                ),
+                child: _buildPopularRouteCard(
+                  theme: theme,
+                  routeName: routes[index]['route']!,
+                  price: routes[index]['price']!,
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPopularRouteCard({
+    required ThemeData theme,
+    required String routeName,
+    required String price,
+  }) {
+    return Container(
+      width: 65.w,
+      padding: EdgeInsets.all(3.5.w),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
             theme.colorScheme.primary,
-            theme.colorScheme.primaryContainer,
+            theme.colorScheme.primary.withOpacity(0.8),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -125,206 +588,149 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            'Welcome Back!',
-            style: theme.textTheme.headlineSmall?.copyWith(
-              color: theme.colorScheme.onPrimary,
-              fontWeight: FontWeight.bold,
-              fontSize: 20.sp,
-            ),
+          Row(
+            children: [
+              CustomIconWidget(
+                iconName: 'directions_bus',
+                color: theme.colorScheme.onPrimary,
+                size: 28,
+              ),
+              SizedBox(width: 2.w),
+              Expanded(
+                child: Text(
+                  routeName,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: theme.colorScheme.onPrimary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.sp,
+                  ),
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 1.h),
-          Text(
-            'Where would you like to go today?',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onPrimary.withOpacity(0.9),
-              fontSize: 13.sp,
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                price,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: theme.colorScheme.onPrimary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14.sp,
+                ),
+              ),
+              SizedBox(height: 1.h),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => _viewPopularRoute(routeName),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.colorScheme.onPrimary,
+                    foregroundColor: theme.colorScheme.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 1.2.h),
+                  ),
+                  child: Text(
+                    'VIEW TRIPS',
+                    style: theme.textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 
-  Widget _buildQuickActions(ThemeData theme) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Quick Actions',
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w600,
-            fontSize: 16.sp,
-          ),
-        ),
-        SizedBox(height: 1.5.h),
-        Row(
-          children: [
-            Expanded(
-              child: _buildActionCard(
-                theme: theme,
-                icon: 'search',
-                title: 'Search Routes',
-                onTap: () {},
-              ),
-            ),
-            SizedBox(width: 3.w),
-            Expanded(
-              child: _buildActionCard(
-                theme: theme,
-                icon: 'location_on',
-                title: 'Find Station',
-                onTap: () {},
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildActionCard({
-    required ThemeData theme,
-    required String icon,
-    required String title,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 3.w),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: theme.colorScheme.outline.withOpacity(0.2),
-            width: 1,
-          ),
-        ),
-        child: Column(
-          children: [
-            CustomIconWidget(
-              iconName: icon,
-              color: theme.colorScheme.primary,
-              size: 28,
-            ),
-            SizedBox(height: 1.h),
-            Text(
-              title,
-              style: theme.textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.w500,
-                fontSize: 12.sp,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildRecentTrips(ThemeData theme) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Recent Trips',
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w600,
-            fontSize: 16.sp,
-          ),
-        ),
-        SizedBox(height: 1.5.h),
-        _buildTripCard(
-          theme: theme,
-          from: 'Enugu',
-          to: 'Abuja',
-          date: 'Dec 15, 2024',
-          status: 'Completed',
-        ),
-        SizedBox(height: 1.5.h),
-        _buildTripCard(
-          theme: theme,
-          from: 'Enugu',
-          to: 'Lagos',
-          date: 'Dec 10, 2024',
-          status: 'Completed',
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTripCard({
-    required ThemeData theme,
-    required String from,
-    required String to,
-    required String date,
-    required String status,
-  }) {
+  // 3. Agent/Loyalty Promotion Card
+  Widget _buildAgentPromotionCard(ThemeData theme) {
     return Container(
-      padding: EdgeInsets.all(3.w),
+      padding: EdgeInsets.all(4.w),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        gradient: LinearGradient(
+          colors: [
+            theme.colorScheme.tertiary,
+            theme.colorScheme.tertiary.withOpacity(0.7),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.08),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: theme.colorScheme.shadow.withOpacity(0.15),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: EdgeInsets.all(2.w),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: CustomIconWidget(
-              iconName: 'directions_bus',
-              color: theme.colorScheme.primary,
-              size: 24,
-            ),
-          ),
-          SizedBox(width: 3.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '$from \u2192 $to',
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14.sp,
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(2.w),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.onTertiary.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: CustomIconWidget(
+                  iconName: 'groups',
+                  color: theme.colorScheme.onTertiary,
+                  size: 28,
+                ),
+              ),
+              SizedBox(width: 3.w),
+              Expanded(
+                child: Text(
+                  'Join Our Agent Network',
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    color: theme.colorScheme.onTertiary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17.sp,
                   ),
                 ),
-                SizedBox(height: 0.5.h),
-                Text(
-                  date,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                    fontSize: 12.sp,
-                  ),
-                ),
-              ],
+              ),
+            ],
+          ),
+          SizedBox(height: 2.h),
+          Text(
+            'Become a partner agent and enjoy exclusive benefits, higher commissions, and priority support.',
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onTertiary.withOpacity(0.9),
+              fontSize: 13.sp,
+              height: 1.4,
             ),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.secondary.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Text(
-              status,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.secondary,
-                fontWeight: FontWeight.w500,
-                fontSize: 11.sp,
+          SizedBox(height: 2.5.h),
+          SizedBox(
+            width: double.infinity,
+            height: 5.5.h,
+            child: ElevatedButton(
+              onPressed: _showAgentBenefitsDialog,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.onTertiary,
+                foregroundColor: theme.colorScheme.tertiary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                elevation: 0,
+              ),
+              child: Text(
+                'Explore Benefits',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14.sp,
+                ),
               ),
             ),
           ),

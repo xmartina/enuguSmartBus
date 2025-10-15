@@ -1,0 +1,52 @@
+Main Layout - Home Screen Content TEMPLATE (home_screen.dart)
+1. Core Objective and File Specification 🎯
+AI Agent, your task is to construct the complete, fully responsive UI template and structure for the main user application Home Screen. This content will be rendered inside the Scaffold's body and must be fully scrollable.
+
+File Path: lib/presentation/home_screen/home_screen.dart.
+
+Context Note: Do NOT implement the Bottom Navigation Bar or the Side Drawer; focus strictly on the main screen content.
+
+Focus: Prioritize UI Layout and Styling. All data shown must be mock data/placeholders. All buttons must use the specified navigation or pop-up logic.
+
+Style Mandate: Strictly adhere to the UI Style Mandate (smaller sizes/fonts, use existing theme/widgets, use contemporary, rounded design for all cards and inputs).
+
+2. Primary Feature: Enhanced Trip Search Card TEMPLATE 🔍
+The main interactive card must be at the top of the scrollable area, designed for quick, one-handed input.
+
+A. Input Fields (Mock Data Interaction)
+Departure Location: Text input field with placeholder city/stop names.
+
+Destination Location: Text input field.
+
+Swap Action: Icon button (Icons.swap_vert_rounded). The onPressed must contain placeholder logic to swap the field values.
+
+Departure Date: Date picker component. The displayed value should be a mock date string, and the visual selection component should simulate the constraint (Current Day to +90 Days).
+
+Adult/Passengers Counter: Compact widget with ± icons. The onPressed for ± must use placeholder logic to increment/decrement the passenger count (must be ≥1).
+
+B. Search Execution
+Button: Full-width, dominant button labeled "SEARCH TRIPS".
+
+Action: When pressed, this button must contain the following logic:
+
+A simple validation check. If validation fails, display a SnackBar message (e.g., "Please select all locations and dates.").
+
+If validated, the app must navigate to the TripListScreen() (target path: lib/presentation/trip_list_screen/trip_list_screen.dart).
+
+3. Secondary Feature: Popular Routes Section TEMPLATE 🗺️
+Immediately below the search card, include a horizontal scrollable section.
+
+Title: "Popular Routes"
+
+Structure: Use at least four compact, clean cards suitable for horizontal scrolling.
+
+Card Data (Placeholder): Each card must display the Route Name (e.g., "Abuja ↔ Lagos") and a simulated Starting Price (e.g., "From NGN 18,500").
+
+Call-to-Action Button: "VIEW TRIPS". The onPressed action must navigate to the TripListScreen() (target path: lib/presentation/trip_list_screen/trip_list_screen.dart), simulating the route name being passed as an argument.
+
+4. Tertiary Section: Agent/Loyalty Promotion TEMPLATE 🤝
+Introduce a promotional card near the bottom of the screen.
+
+Content: Title (e.g., "Join Our Agent Network"), descriptive text.
+
+Button: Labeled "Explore Benefits". The onPressed action must trigger a placeholder pop-up (e.g., a simple Dialog or showModalBottomSheet) with a title like "Agent Benefits Coming Soon." This action must not navigate to a new screen.
