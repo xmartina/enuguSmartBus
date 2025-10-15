@@ -258,17 +258,17 @@ class _LoginScreenState extends State<LoginScreen>
 
   Widget _buildLogo() {
     return Container(
-      width: 25.w,
-      height: 12.h,
+      width: 22.w,
+      height: 10.h,
       decoration: BoxDecoration(
         color: AppTheme.lightTheme.colorScheme.primary,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
             color:
-                AppTheme.lightTheme.colorScheme.primary.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+                AppTheme.lightTheme.colorScheme.primary.withOpacity(0.25),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -278,15 +278,15 @@ class _LoginScreenState extends State<LoginScreen>
           CustomIconWidget(
             iconName: 'directions_bus',
             color: AppTheme.lightTheme.colorScheme.onPrimary,
-            size: 8.w,
+            size: 7.w,
           ),
-          SizedBox(height: 0.5.h),
+          SizedBox(height: 0.4.h),
           Text(
             'ESB',
             style: AppTheme.lightTheme.textTheme.titleMedium?.copyWith(
               color: AppTheme.lightTheme.colorScheme.onPrimary,
-              fontWeight: FontWeight.bold,
-              fontSize: 12.sp,
+              fontWeight: FontWeight.w500,
+              fontSize: 10.sp,
             ),
           ),
         ],
@@ -300,17 +300,17 @@ class _LoginScreenState extends State<LoginScreen>
       constraints: BoxConstraints(maxWidth: 90.w),
       decoration: BoxDecoration(
         color: AppTheme.lightTheme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+            color: Colors.black.withOpacity(0.06),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.all(6.w),
+        padding: EdgeInsets.all(5.w),
         child: Form(
           key: _formKey,
           child: Column(
@@ -319,7 +319,8 @@ class _LoginScreenState extends State<LoginScreen>
               Text(
                 'Welcome Back',
                 style: AppTheme.lightTheme.textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18.sp,
                   color: AppTheme.lightTheme.colorScheme.onSurface,
                 ),
               ),
@@ -483,7 +484,7 @@ class _LoginScreenState extends State<LoginScreen>
   Widget _buildLoginButton() {
     return SizedBox(
       width: double.infinity,
-      height: 7.h,
+      height: 5.5.h,
       child: ElevatedButton(
         onPressed: _isLoading ? null : _handleLogin,
         child: _isLoading
@@ -501,7 +502,8 @@ class _LoginScreenState extends State<LoginScreen>
                 'Sign In',
                 style: AppTheme.lightTheme.textTheme.titleMedium?.copyWith(
                   color: AppTheme.lightTheme.colorScheme.onPrimary,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 13.sp,
                 ),
               ),
       ),
@@ -511,7 +513,7 @@ class _LoginScreenState extends State<LoginScreen>
   Widget _buildBiometricButton() {
     return Container(
       width: double.infinity,
-      height: 7.h,
+      height: 5.5.h,
       child: OutlinedButton.icon(
         onPressed: _isLoading ? null : _handleBiometricLogin,
         icon: CustomIconWidget(
@@ -523,7 +525,8 @@ class _LoginScreenState extends State<LoginScreen>
           'Use Biometric Login',
           style: AppTheme.lightTheme.textTheme.titleMedium?.copyWith(
             color: AppTheme.lightTheme.colorScheme.primary,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
+            fontSize: 13.sp,
           ),
         ),
       ),
@@ -546,7 +549,7 @@ class _LoginScreenState extends State<LoginScreen>
             'Sign Up',
             style: AppTheme.lightTheme.textTheme.bodyMedium?.copyWith(
               color: AppTheme.lightTheme.colorScheme.tertiary,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),
