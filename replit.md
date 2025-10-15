@@ -67,6 +67,24 @@ flutter run
 4. **Registration Screen** - Multi-step signup with profile image upload
 5. **Forgot Password** - Password recovery flow
 
+### Universal Navigation Components (NEW)
+1. **Custom Floating Bottom Navigation Bar** (`lib/widgets/custom_bottom_nav_bar.dart`)
+   - 4 tabs: Book Trip, My Tickets, Luggage, Profile
+   - Auto-hide/show on scroll (smooth slide animation)
+   - Floating design with shadow and rounded corners
+   - Fully responsive with theme integration
+   
+2. **Custom Side Drawer** (`lib/widgets/custom_side_drawer.dart`)
+   - Professional header with user info
+   - Menu items: Agent Management, Cancellations, About Us, Logout
+   - Logout confirmation dialog
+   - Theme-consistent styling
+
+3. **Home Screen** (`lib/presentation/home_screen/home_screen.dart`)
+   - Demo implementation showing both navigation components
+   - Welcome card, quick actions, recent trips
+   - Fully functional with scroll-responsive bottom nav
+
 ### Design System
 - **Primary Color**: Dark Blue (#1a237e) - Professional & trustworthy
 - **Typography**: Inter font family via Google Fonts
@@ -227,7 +245,16 @@ Create API service classes using Dio for HTTP requests.
 
 ## 📅 Recent Changes
 
-**2025-10-13 (Android-Only Focus - Latest)**
+**2025-10-15 (Universal Navigation Components - Latest)**
+- ✅ Created CustomBottomNavBar widget with scroll-responsive hide/show animation
+- ✅ Created CustomSideDrawer widget with professional menu and logout dialog
+- ✅ Built HomeScreen as a demo implementation showing both navigation components
+- ✅ Updated routes to include home screen (/home-screen)
+- ✅ Exported new widgets in core/app_export.dart
+- ✅ Fixed registration screen close button navigation issue
+- ✅ All components follow existing theme and design system
+
+**2025-10-13 (Android-Only Focus)**
 - ✅ Removed web-specific dependencies and workflows
 - ✅ Updated image_cropper from v6.0.0 to v8.1.0 (fixes web compilation errors)
 - ✅ Removed `web` package dependency from pubspec.yaml

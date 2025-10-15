@@ -1,0 +1,46 @@
+Universal Navigation Components (Floating Bottom Bar & Side Drawer)
+AI Agent, your task is to build the two universal navigation components: the Floating Bottom Navigation Bar (4 links) and the Side Drawer menu, ensuring a professional look and using icons relevant to a bus ticketing platform.
+
+Read the "Flutter App Development Workflow" summary first. Strictly adhere to the UI Style Mandate (smaller sizes/fonts, use existing theme/widgets).
+
+Part A: Custom Floating Bottom Navigation Bar (custom_bottom_nav_bar.dart)
+This component must be a floating navigation bar and dynamically hide/show based on user scrolling.
+
+File Path: lib/widgets/custom_bottom_nav_bar.dart.
+
+Create a custom StatefulWidget (as it will manage visibility state) named CustomBottomNavBar that accepts a ScrollController as a required parameter in its constructor.
+
+Implement logic that makes the bar slide down/fade out when the user scrolls down (hiding it) and slide up/fade back in when the user scrolls up (showing it).
+
+Define the four mandatory tabs with professional and relevant icons in this specific order:
+
+Home/Book Trip: Icon: DirectionsBus or Search. This item should navigate to HomeScreen() upon tap.
+
+My Tickets: Icon: ConfirmationNumber or Receipt (based on the tickets table).
+
+Luggage: Icon: Luggage or Case (based on the luggage table).
+
+Profile: Icon: Person (MUST be the rightmost item on the bar).
+
+The bar must look professional and compact, inheriting colors and style from lib/theme/app_theme.dart. Use placeholder onTap logic that handles navigation for each of the four links.
+
+Part B: Custom Side Drawer (custom_side_drawer.dart)
+This component will hold secondary links and administrative functions, accessible from the HomeScreen.
+
+File Path: lib/widgets/custom_side_drawer.dart.
+
+Create a custom StatelessWidget named CustomSideDrawer that returns a Drawer.
+
+Include a simple DrawerHeader with a placeholder user name/logo.
+
+Define a vertical list of ListTile widgets for the sidebar menu. Include:
+
+Agent Management: Icon: People (based on the agents table).
+
+Cancellations: Icon: Close or Cancel (based on the cancels table).
+
+About Us: Icon: Info (based on the abouts table).
+
+Logout: Icon: ExitToApp.
+
+Use placeholder onTap logic for each ListTile and ensure the styling matches the app's theme.
