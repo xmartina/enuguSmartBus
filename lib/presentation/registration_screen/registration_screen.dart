@@ -186,7 +186,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               )
             : IconButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => Navigator.pushReplacementNamed(context, '/login-screen'),
                 icon: CustomIconWidget(
                   iconName: 'close',
                   color: AppTheme.lightTheme.colorScheme.onSurface,
