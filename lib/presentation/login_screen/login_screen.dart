@@ -5,6 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/app_export.dart';
+import '../home_screen/home_screen.dart';
+import '../registration_screen/registration_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -147,11 +149,13 @@ class _LoginScreenState extends State<LoginScreen>
           textColor: AppTheme.lightTheme.colorScheme.onSecondary,
         );
 
-        // Navigate to dashboard (simulated)
+        // Navigate to dashboard
         await Future.delayed(const Duration(milliseconds: 500));
         if (mounted) {
-          // In a real app, this would navigate to the main dashboard
-          Navigator.pushReplacementNamed(context, '/welcome-onboarding-screen');
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+          );
         }
       } else {
         // Show error for invalid credentials
@@ -201,7 +205,10 @@ class _LoginScreenState extends State<LoginScreen>
 
       // Navigate to dashboard
       if (mounted) {
-        Navigator.pushReplacementNamed(context, '/welcome-onboarding-screen');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
       }
     } catch (e) {
       _showErrorMessage("Biometric authentication failed. Please try again.");
@@ -213,7 +220,10 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
   void _navigateToRegistration() {
-    Navigator.pushNamed(context, '/registration-screen');
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const RegistrationScreen()),
+    );
   }
 
   @override

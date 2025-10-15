@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/app_export.dart';
+import '../home_screen/home_screen.dart';
+import '../login_screen/login_screen.dart';
 import './widgets/password_form.dart';
 import './widgets/personal_info_form.dart';
 import './widgets/profile_image_upload.dart';
@@ -132,11 +134,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       // Show success message
       _showSuccessSnackBar('Account created successfully!');
 
-      // Navigate to login screen after a short delay
+      // Navigate to home screen after a short delay
       await Future.delayed(const Duration(seconds: 1));
 
       if (mounted) {
-        Navigator.pushReplacementNamed(context, '/login-screen');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
       }
     } catch (e) {
       _showErrorSnackBar('Failed to create account. Please try again.');
@@ -308,8 +313,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => Navigator.pushReplacementNamed(
-                          context, '/login-screen'),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LoginScreen()),
+                      ),
                       child: Text(
                         'Sign In',
                         style:
