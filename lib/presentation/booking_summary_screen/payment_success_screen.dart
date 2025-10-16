@@ -128,7 +128,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> with Single
                 SizedBox(height: 3.5.h),
                 SizedBox(
                   width: double.infinity,
-                  height: 5.h,
+                  height: 5.5.h,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamedAndRemoveUntil(
@@ -143,6 +143,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> with Single
                         borderRadius: BorderRadius.circular(8),
                       ),
                       elevation: 1,
+                      padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
                     ),
                     child: Text(
                       'BACK TO HOME',
