@@ -387,6 +387,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   borderRadius: BorderRadius.circular(8),
                 ),
                 elevation: 1,
+                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
               ),
               child: Text(
                 'SEARCH TRIPS',
