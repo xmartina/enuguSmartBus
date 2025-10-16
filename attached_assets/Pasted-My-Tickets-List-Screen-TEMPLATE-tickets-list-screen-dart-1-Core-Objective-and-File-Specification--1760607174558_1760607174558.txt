@@ -1,0 +1,66 @@
+My Tickets List Screen TEMPLATE (tickets_list_screen.dart)
+1. Core Objective and File Specification 🎯
+AI Agent, your task is to construct the complete, fully responsive UI template and structure for the My Tickets List Screen. This screen displays a log of the user's bookings, drawing conceptually from the tickets and cancels tables.
+
+Read the "Flutter App Development Workflow" summary first.
+
+File Path: lib/presentation/tickets_list_screen/tickets_list_screen.dart.
+
+Context Note: Do NOT implement the Bottom Navigation Bar; focus strictly on the scrollable main content.
+
+Focus: Prioritize data organization and status visualization. All ticket data must be mock data/placeholders.
+
+Style Mandate: Strictly adhere to the UI Style Mandate (smaller sizes/fonts, use existing theme/widgets, use contemporary, rounded design).
+
+2. Header and Segmented Control
+AppBar: Use a standard AppBar with the title "My Tickets."
+
+Segmented Control: Immediately below the AppBar, include a simple, professional segmented control (or tab bar) that takes up the full width, simulating filtering between:
+
+Upcoming Trips: (Default view)
+
+Past Trips:
+
+Cancelled Trips: (Based on the cancels table)
+
+Placeholder Logic: The selection of these segments should trigger a placeholder state change that switches the content displayed in the ListView.builder.
+
+3. Main Content: Ticket Cards (ListView.builder)
+The main body must be a vertically scrollable ListView.builder displaying a minimum of six distinct ticket cards (simulating 2 Upcoming, 2 Past, and 2 Cancelled tickets).
+
+A. Card Structure and Data (Placeholder)
+Each card must be designed like a compact ticket stub, using clear visual hierarchy to display the following information:
+
+Ticket Identity & Status:
+
+Ticket Token: Prominently displayed (e.g., "#AXB-9321"). This links to the tickets.ticket_token column.
+
+Status Indicator: Use a small, colored, highly visible badge or chip to indicate the status:
+
+Upcoming: (e.g., Green/Primary Color)
+
+Past/Completed: (e.g., Gray/Muted Color)
+
+Cancelled: (e.g., Red/Warning Color)
+
+Trip Details:
+
+Route: (e.g., "Lagos ↔ Enugu").
+
+Date & Time: (e.g., "Wed, Dec 18 @ 10:00 AM").
+
+Seats Booked: (e.g., "Seats: 3 (A1, A2, B1)").
+
+Total Fare: (e.g., ₦30,000).
+
+B. Call-to-Action
+Button: A clearly visible button labeled "VIEW TICKET".
+
+Action: The onPressed action for this button must navigate to the TicketDetailsScreen() (a new placeholder screen that you must create in the same folder: lib/presentation/tickets_list_screen/ticket_details_screen.dart). This navigation must simulate passing the unique Ticket Token for the selected ticket card.
+
+4. Placeholder Details Screen
+You must also create the companion placeholder screen required for navigation:
+
+File Path: lib/presentation/tickets_list_screen/ticket_details_screen.dart
+
+Content: A very simple StatelessWidget that only contains an AppBar titled "Ticket Details" and a center-aligned text widget saying, "Details for Token #XXXXXX would go here."
