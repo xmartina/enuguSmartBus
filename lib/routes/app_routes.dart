@@ -8,6 +8,8 @@ import '../presentation/home_screen/home_screen.dart';
 import '../presentation/trip_list_screen/trip_list_screen.dart';
 import '../presentation/seat_selection_screen/seat_selection_screen.dart';
 import '../presentation/booking_summary_screen/booking_summary_screen.dart';
+import '../presentation/tickets_list_screen/tickets_list_screen.dart';
+import '../presentation/profile_screen/profile_screen.dart';
 
 class AppRoutes {
   static const String initial = '/';
@@ -20,6 +22,8 @@ class AppRoutes {
   static const String tripList = '/trip-list-screen';
   static const String seatSelection = '/seat-selection-screen';
   static const String bookingSummary = '/booking-summary-screen';
+  static const String ticketsList = '/tickets-list-screen';
+  static const String profile = '/profile-screen';
 
   static Map<String, WidgetBuilder> routes = {
     initial: (context) => const SplashScreen(),
@@ -32,5 +36,7 @@ class AppRoutes {
     tripList: (context) => const TripListScreen(),
     seatSelection: (context) => const SeatSelectionScreen(),
     bookingSummary: (context) => const BookingSummaryScreen(),
+    ticketsList: (context) => const TicketsListScreen(),
+    profile: (context) => const ProfileScreen(),
   };
 }

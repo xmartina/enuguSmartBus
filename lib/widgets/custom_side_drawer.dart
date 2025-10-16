@@ -25,8 +25,8 @@ class CustomSideDrawer extends StatelessWidget {
                     _buildDrawerItem(
                       context: context,
                       theme: theme,
-                      icon: 'people',
-                      title: 'Agent Management',
+                      icon: 'home',
+                      title: 'Home',
                       onTap: () {
                         Navigator.pop(context);
                       },
@@ -34,19 +34,41 @@ class CustomSideDrawer extends StatelessWidget {
                     _buildDrawerItem(
                       context: context,
                       theme: theme,
-                      icon: 'cancel',
-                      title: 'Cancellations',
+                      icon: 'confirmation_number',
+                      title: 'My Tickets',
                       onTap: () {
                         Navigator.pop(context);
+                        Navigator.pushNamed(context, '/tickets-list-screen');
                       },
                     ),
                     _buildDrawerItem(
                       context: context,
                       theme: theme,
-                      icon: 'info',
-                      title: 'About Us',
+                      icon: 'settings',
+                      title: 'Settings',
                       onTap: () {
                         Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('Settings feature coming soon.'),
+                            backgroundColor: theme.colorScheme.primary,
+                          ),
+                        );
+                      },
+                    ),
+                    _buildDrawerItem(
+                      context: context,
+                      theme: theme,
+                      icon: 'help_outline',
+                      title: 'Help & Support',
+                      onTap: () {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('Help & Support feature coming soon.'),
+                            backgroundColor: theme.colorScheme.primary,
+                          ),
+                        );
                       },
                     ),
                     Divider(
@@ -96,21 +118,18 @@ class CustomSideDrawer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 16.w,
-            height: 16.w,
+            width: 20.w,
+            height: 20.w,
             decoration: BoxDecoration(
               color: theme.colorScheme.surface,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomIconWidget(
-                  iconName: 'directions_bus',
-                  color: theme.colorScheme.primary,
-                  size: 8.w,
-                ),
-              ],
+            child: Padding(
+              padding: EdgeInsets.all(2.w),
+              child: Image.asset(
+                'assets/images/logo.png',
+                fit: BoxFit.contain,
+              ),
             ),
           ),
           SizedBox(height: 2.h),

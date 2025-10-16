@@ -114,7 +114,7 @@ class _WelcomeOnboardingScreenState extends State<WelcomeOnboardingScreen>
     try {
       // Store onboarding completion flag
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('onboarding_completed', true);
+      await prefs.setBool('hasCompletedOnboarding', true);
 
       // Navigate to registration screen
       if (mounted) {

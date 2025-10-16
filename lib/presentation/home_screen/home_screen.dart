@@ -5,6 +5,8 @@ import '../../widgets/custom_bottom_nav_bar.dart';
 import '../../widgets/custom_icon_widget.dart';
 import '../../widgets/custom_side_drawer.dart';
 import '../trip_list_screen/trip_list_screen.dart';
+import '../tickets_list_screen/tickets_list_screen.dart';
+import '../profile_screen/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -32,18 +34,56 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onNavBarTap(int index) {
-    setState(() {
-      _currentNavIndex = index;
-    });
-
     switch (index) {
-      case 0: // Home
+      case 0: // Book Trip (Home)
+        // Already on home, scroll to top
+        if (_scrollController.hasClients) {
+          _scrollController.animateTo(
+            0,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        }
+        setState(() {
+          _currentNavIndex = 0;
+        });
         break;
       case 1: // My Tickets
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const TicketsListScreen(),
+          ),
+        ).then((_) {
+          // Reset index when returning
+          setState(() {
+            _currentNavIndex = 0;
+          });
+        });
         break;
-      case 2: // Luggage
+      case 2: // Luggage - placeholder for now
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Luggage tracking feature coming soon.'),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+          ),
+        );
+        setState(() {
+          _currentNavIndex = 0;
+        });
         break;
       case 3: // Profile
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ProfileScreen(),
+          ),
+        ).then((_) {
+          // Reset index when returning
+          setState(() {
+            _currentNavIndex = 0;
+          });
+        });
         break;
     }
   }
