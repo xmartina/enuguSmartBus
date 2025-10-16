@@ -1,0 +1,57 @@
+User Profile Screen TEMPLATE (profile_screen/profile_screen.dart)
+1. Core Objective and File Specification 🎯
+AI Agent, your task is to construct the complete, fully responsive UI template and structure for the User Profile Screen. This screen serves as the central hub for the user's identity, settings, and secondary actions.
+
+Read the "Flutter App Development Workflow" summary first.
+
+File Path: lib/presentation/profile_screen/profile_screen.dart.
+
+Context Note: Do NOT implement the Bottom Navigation Bar; focus strictly on the scrollable main content.
+
+Focus: Prioritize clean presentation of user data and clear navigation. All data must be mock data/placeholders.
+
+Style Mandate: Strictly adhere to the UI Style Mandate (smaller sizes/fonts, use existing theme/widgets, use contemporary, rounded design).
+
+2. Header and User Identity Card
+AppBar: Use a standard AppBar with the title "My Profile."
+
+Identity Card: Create a prominent, compact card at the top of the scrollable body to display the user's identity:
+
+Profile Picture Placeholder: A large, circular placeholder avatar (e.g., Icons.person).
+
+User Name: Mock Full Name (e.g., "Aisha Okoro").
+
+User Email: Mock Email (e.g., "aisha.okoro@example.com").
+
+Action: Include a small button/icon below the photo labeled "Edit Info." This button must trigger a placeholder dialog/Modal for editing (e.g., a simple AlertDialog), and must not navigate.
+
+3. Profile Links (Actionable ListView)
+Use a vertically scrollable ListView of clean, well-spaced ListTile widgets. Group these logically into two distinct sections: Account Management and General/Support.
+
+A. Account Management Links
+Edit Profile: Icon: Icons.person_outline. Action: Placeholder Dialog (re-use the one from Section 2).
+
+Change Password: Icon: Icons.lock_outline. Action: Placeholder SnackBar (e.g., "Password change feature accessed.").
+
+My Cancellations: Icon: Icons.cancel_outlined. Action: Must navigate to the TicketsListScreen() (target path: lib/presentation/tickets_list_screen/tickets_list_screen.dart) and simulate switching the segmented control to the "Cancelled Trips" view (e.g., by passing a required argument).
+
+Agent Dashboard: Icon: Icons.people_alt_outlined. Action: Must navigate to the AgentDashboardScreen().
+
+B. General/Support Links
+About Us: Icon: Icons.info_outline. Action: Placeholder Dialog/Modal showing app information.
+
+Terms & Privacy: Icon: Icons.policy_outlined. Action: Placeholder SnackBar ("Terms opened in browser.").
+
+4. Logout Section
+Logout Button: A distinctly colored ListTile or full-width button (e.g., in red or a warning color) labeled "Logout".
+
+Icon: Icons.exit_to_app_outlined.
+
+Action: The onTap action must navigate to the LoginScreen() (target path: lib/presentation/login_screen/login_screen.dart). This navigation must use a clear method to reset/clear the navigation stack (e.g., Navigator.pushAndRemoveUntil) to simulate being logged out.
+
+5. Placeholder Navigation Target Creation
+You must also create the companion placeholder screen required for navigation, ensuring it follows the folder-per-file structure:
+
+File Path: lib/presentation/agent_dashboard_screen/agent_dashboard_screen.dart
+
+Content: A very simple StatelessWidget that only contains an AppBar titled "Agent Dashboard" and a center-aligned text widget saying, "Agent portal features coming soon."

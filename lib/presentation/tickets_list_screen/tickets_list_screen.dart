@@ -8,14 +8,25 @@ enum TicketFilter { upcoming, past, cancelled }
 enum TicketStatus { upcoming, completed, cancelled }
 
 class TicketsListScreen extends StatefulWidget {
-  const TicketsListScreen({Key? key}) : super(key: key);
+  final TicketFilter? initialFilter;
+  
+  const TicketsListScreen({
+    Key? key,
+    this.initialFilter,
+  }) : super(key: key);
 
   @override
   State<TicketsListScreen> createState() => _TicketsListScreenState();
 }
 
 class _TicketsListScreenState extends State<TicketsListScreen> {
-  TicketFilter _selectedFilter = TicketFilter.upcoming;
+  late TicketFilter _selectedFilter;
+  
+  @override
+  void initState() {
+    super.initState();
+    _selectedFilter = widget.initialFilter ?? TicketFilter.upcoming;
+  }
 
   // Mock ticket data
   final List<Map<String, dynamic>> _allTickets = [
