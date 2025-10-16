@@ -143,14 +143,14 @@ class ProfileScreen extends StatelessWidget {
   Widget _buildIdentityCard(BuildContext context, ThemeData theme) {
     return Container(
       margin: EdgeInsets.all(3.w),
-      padding: EdgeInsets.all(4.w),
+      padding: EdgeInsets.all(3.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.08),
-            blurRadius: 8,
+            color: theme.colorScheme.shadow.withOpacity(0.06),
+            blurRadius: 6,
             offset: const Offset(0, 2),
           ),
         ],
@@ -158,40 +158,40 @@ class ProfileScreen extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            width: 25.w,
-            height: 25.w,
+            width: 20.w,
+            height: 20.w,
             decoration: BoxDecoration(
               color: theme.colorScheme.primaryContainer.withOpacity(0.3),
               shape: BoxShape.circle,
             ),
             child: Icon(
               Icons.person,
-              size: 60,
+              size: 40,
               color: theme.colorScheme.primary,
             ),
           ),
-          SizedBox(height: 2.h),
+          SizedBox(height: 1.5.h),
           Text(
             'Aisha Okoro',
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
-              fontSize: 18.sp,
+              fontSize: 16.sp,
             ),
           ),
-          SizedBox(height: 0.5.h),
+          SizedBox(height: 0.4.h),
           Text(
             'aisha.okoro@example.com',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
-              fontSize: 13.sp,
+              fontSize: 12.sp,
             ),
           ),
-          SizedBox(height: 2.h),
+          SizedBox(height: 1.5.h),
           OutlinedButton.icon(
             onPressed: () => _showEditProfileDialog(context),
             icon: Icon(
               Icons.edit_outlined,
-              size: 18,
+              size: 16,
               color: theme.colorScheme.primary,
             ),
             label: Text(
@@ -199,18 +199,18 @@ class ProfileScreen extends StatelessWidget {
               style: theme.textTheme.labelMedium?.copyWith(
                 color: theme.colorScheme.primary,
                 fontWeight: FontWeight.w600,
-                fontSize: 12.sp,
+                fontSize: 11.sp,
               ),
             ),
             style: OutlinedButton.styleFrom(
               side: BorderSide(
                 color: theme.colorScheme.primary,
-                width: 1.5,
+                width: 1.2,
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(6),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
+              padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 0.8.h),
             ),
           ),
         ],
@@ -223,7 +223,7 @@ class ProfileScreen extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 3.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,7 +232,7 @@ class ProfileScreen extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(4.w, 2.h, 4.w, 1.h),
             child: Text(
               'Account Management',
-              style: theme.textTheme.labelLarge?.copyWith(
+              style: theme.textTheme.labelMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.w600,
                 fontSize: 11.sp,
@@ -318,7 +318,7 @@ class ProfileScreen extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 3.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -327,7 +327,7 @@ class ProfileScreen extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(4.w, 2.h, 4.w, 1.h),
             child: Text(
               'General & Support',
-              style: theme.textTheme.labelLarge?.copyWith(
+              style: theme.textTheme.labelMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.w600,
                 fontSize: 11.sp,
@@ -371,7 +371,7 @@ class ProfileScreen extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 3.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 0.5.h),

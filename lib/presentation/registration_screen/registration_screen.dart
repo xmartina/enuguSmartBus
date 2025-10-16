@@ -278,9 +278,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               children: [
                 SizedBox(
                   width: double.infinity,
-                  height: 6.h,
+                  height: 5.5.h,
                   child: ElevatedButton(
                     onPressed: _isLoading ? null : _nextStep,
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 1.5.h),
+                    ),
                     child: _isLoading
                         ? SizedBox(
                             width: 20,
@@ -298,6 +304,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ?.copyWith(
                               color: AppTheme.lightTheme.colorScheme.onPrimary,
                               fontWeight: FontWeight.w600,
+                              fontSize: 14.sp,
                             ),
                           ),
                   ),

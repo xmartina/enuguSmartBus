@@ -175,8 +175,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   child: Column(
                     children: [
                       Container(
-                        width: 20.w,
-                        height: 20.w,
+                        width: 16.w,
+                        height: 16.w,
                         decoration: BoxDecoration(
                           color: AppTheme.lightTheme.colorScheme.primary
                               .withOpacity(0.1),
@@ -185,20 +185,21 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         child: CustomIconWidget(
                           iconName: 'lock_reset',
                           color: AppTheme.lightTheme.colorScheme.primary,
-                          size: 8.w,
+                          size: 6.w,
                         ),
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 2.h),
                       Text(
                         _isEmailSent ? 'Check Your Email' : 'Forgot Password?',
-                        style: AppTheme.lightTheme.textTheme.headlineSmall
+                        style: AppTheme.lightTheme.textTheme.titleLarge
                             ?.copyWith(
                           color: AppTheme.lightTheme.colorScheme.onSurface,
                           fontWeight: FontWeight.w700,
+                          fontSize: 18.sp,
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 1.5.h),
                       Text(
                         _isEmailSent
                             ? 'We\'ve sent a password reset link to your email address. Please check your inbox and follow the instructions to reset your password.'
@@ -207,7 +208,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             AppTheme.lightTheme.textTheme.bodyMedium?.copyWith(
                           color:
                               AppTheme.lightTheme.colorScheme.onSurfaceVariant,
-                          height: 1.5,
+                          height: 1.4,
+                          fontSize: 12.sp,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -221,12 +223,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   // Email Input Section
                   Text(
                     'Email Address',
-                    style: AppTheme.lightTheme.textTheme.titleSmall?.copyWith(
+                    style: AppTheme.lightTheme.textTheme.labelMedium?.copyWith(
                       color: AppTheme.lightTheme.colorScheme.onSurface,
                       fontWeight: FontWeight.w600,
+                      fontSize: 12.sp,
                     ),
                   ),
-                  SizedBox(height: 1.h),
+                  SizedBox(height: 0.8.h),
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -243,37 +246,37 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               ? AppTheme.lightTheme.colorScheme.error
                               : AppTheme
                                   .lightTheme.colorScheme.onSurfaceVariant,
-                          size: 5.w,
+                          size: 20,
                         ),
                       ),
                       errorText: _emailError,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(6),
                         borderSide: BorderSide(
                           color: AppTheme.lightTheme.colorScheme.outline,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(6),
                         borderSide: BorderSide(
                           color: AppTheme.lightTheme.colorScheme.outline,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(6),
                         borderSide: BorderSide(
                           color: AppTheme.lightTheme.colorScheme.primary,
                           width: 2,
                         ),
                       ),
                       errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(6),
                         borderSide: BorderSide(
                           color: AppTheme.lightTheme.colorScheme.error,
                         ),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(6),
                         borderSide: BorderSide(
                           color: AppTheme.lightTheme.colorScheme.error,
                           width: 2,
@@ -296,7 +299,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   // Send Reset Link Button
                   SizedBox(
                     width: double.infinity,
-                    height: 6.h,
+                    height: 5.5.h,
                     child: ElevatedButton(
                       onPressed: _isLoading ||
                               _emailError != null ||
@@ -308,10 +311,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             AppTheme.lightTheme.colorScheme.primary,
                         foregroundColor:
                             AppTheme.lightTheme.colorScheme.onPrimary,
-                        elevation: 2,
+                        elevation: 1,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(6),
                         ),
+                        padding: EdgeInsets.symmetric(vertical: 1.5.h),
                         disabledBackgroundColor: AppTheme
                             .lightTheme.colorScheme.onSurface
                             .withOpacity(0.12),
@@ -321,8 +325,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       ),
                       child: _isLoading
                           ? SizedBox(
-                              width: 5.w,
-                              height: 5.w,
+                              width: 20,
+                              height: 20,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
                                 valueColor: AlwaysStoppedAnimation<Color>(
@@ -337,6 +341,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 color:
                                     AppTheme.lightTheme.colorScheme.onPrimary,
                                 fontWeight: FontWeight.w600,
+                                fontSize: 14.sp,
                               ),
                             ),
                     ),
@@ -345,11 +350,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   // Success State
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.all(4.w),
+                    padding: EdgeInsets.all(3.w),
                     decoration: BoxDecoration(
                       color: AppTheme.lightTheme.colorScheme.secondary
                           .withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(8),
                       border: Border.all(
                         color: AppTheme.lightTheme.colorScheme.secondary
                             .withOpacity(0.3),
@@ -360,33 +365,36 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         CustomIconWidget(
                           iconName: 'check_circle',
                           color: AppTheme.lightTheme.colorScheme.secondary,
-                          size: 8.w,
+                          size: 40,
                         ),
-                        SizedBox(height: 2.h),
+                        SizedBox(height: 1.5.h),
                         Text(
                           'Reset link sent successfully!',
                           style: AppTheme.lightTheme.textTheme.titleMedium
                               ?.copyWith(
                             color: AppTheme.lightTheme.colorScheme.secondary,
                             fontWeight: FontWeight.w600,
+                            fontSize: 14.sp,
                           ),
                         ),
-                        SizedBox(height: 1.h),
+                        SizedBox(height: 0.8.h),
                         Text(
                           'Sent to: ${_emailController.text}',
-                          style: AppTheme.lightTheme.textTheme.bodyMedium
+                          style: AppTheme.lightTheme.textTheme.bodySmall
                               ?.copyWith(
                             color: AppTheme
                                 .lightTheme.colorScheme.onSurfaceVariant,
+                            fontSize: 11.sp,
                           ),
                         ),
-                        SizedBox(height: 1.h),
+                        SizedBox(height: 0.5.h),
                         Text(
                           'Estimated delivery: 2-5 minutes',
                           style:
                               AppTheme.lightTheme.textTheme.bodySmall?.copyWith(
                             color: AppTheme
                                 .lightTheme.colorScheme.onSurfaceVariant,
+                            fontSize: 10.sp,
                           ),
                         ),
                       ],
@@ -398,10 +406,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   // Didn't receive email section
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.all(4.w),
+                    padding: EdgeInsets.all(3.w),
                     decoration: BoxDecoration(
                       color: AppTheme.lightTheme.colorScheme.surface,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(8),
                       border: Border.all(
                         color: AppTheme.lightTheme.colorScheme.outline
                             .withOpacity(0.3),
@@ -412,17 +420,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       children: [
                         Text(
                           'Didn\'t receive the email?',
-                          style: AppTheme.lightTheme.textTheme.titleSmall
+                          style: AppTheme.lightTheme.textTheme.labelLarge
                               ?.copyWith(
                             color: AppTheme.lightTheme.colorScheme.onSurface,
                             fontWeight: FontWeight.w600,
+                            fontSize: 13.sp,
                           ),
                         ),
-                        SizedBox(height: 2.h),
+                        SizedBox(height: 1.5.h),
 
                         // Resend button
                         SizedBox(
                           width: double.infinity,
+                          height: 5.h,
                           child: OutlinedButton(
                             onPressed:
                                 _canResend && !_isLoading ? _resendEmail : null,
@@ -434,13 +444,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                         .withOpacity(0.12),
                               ),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(6),
                               ),
+                              padding: EdgeInsets.symmetric(vertical: 1.2.h),
                             ),
                             child: _isLoading
                                 ? SizedBox(
-                                    width: 4.w,
-                                    height: 4.w,
+                                    width: 18,
+                                    height: 18,
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
                                       valueColor: AlwaysStoppedAnimation<Color>(
@@ -461,28 +472,32 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                           : AppTheme
                                               .lightTheme.colorScheme.onSurface
                                               .withOpacity(0.38),
+                                      fontSize: 13.sp,
                                     ),
                                   ),
                           ),
                         ),
 
-                        SizedBox(height: 2.h),
+                        SizedBox(height: 1.5.h),
 
                         // Try different email button
                         SizedBox(
                           width: double.infinity,
+                          height: 5.h,
                           child: TextButton(
                             onPressed: _tryDifferentEmail,
                             style: TextButton.styleFrom(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(6),
                               ),
+                              padding: EdgeInsets.symmetric(vertical: 1.2.h),
                             ),
                             child: Text(
                               'Try Different Email',
                               style: AppTheme.lightTheme.textTheme.labelLarge
                                   ?.copyWith(
                                 color: AppTheme.lightTheme.colorScheme.primary,
+                                fontSize: 13.sp,
                               ),
                             ),
                           ),
@@ -497,11 +512,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 // Helpful tips section
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.all(4.w),
+                  padding: EdgeInsets.all(3.w),
                   decoration: BoxDecoration(
                     color: AppTheme.lightTheme.colorScheme.tertiary
                         .withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -511,20 +526,21 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           CustomIconWidget(
                             iconName: 'info',
                             color: AppTheme.lightTheme.colorScheme.tertiary,
-                            size: 5.w,
+                            size: 18,
                           ),
                           SizedBox(width: 2.w),
                           Text(
                             'Helpful Tips',
-                            style: AppTheme.lightTheme.textTheme.titleSmall
+                            style: AppTheme.lightTheme.textTheme.labelLarge
                                 ?.copyWith(
                               color: AppTheme.lightTheme.colorScheme.tertiary,
                               fontWeight: FontWeight.w600,
+                              fontSize: 13.sp,
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 1.5.h),
                       _buildTipItem('Check your spam or junk folder'),
                       _buildTipItem('Make sure you entered the correct email'),
                       _buildTipItem('Email delivery may take up to 5 minutes'),

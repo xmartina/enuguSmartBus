@@ -258,17 +258,17 @@ class _LoginScreenState extends State<LoginScreen>
 
   Widget _buildLogo() {
     return Container(
-      width: 25.w,
-      height: 12.h,
+      width: 20.w,
+      height: 10.h,
       decoration: BoxDecoration(
         color: AppTheme.lightTheme.colorScheme.primary,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
             color:
-                AppTheme.lightTheme.colorScheme.primary.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+                AppTheme.lightTheme.colorScheme.primary.withOpacity(0.2),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -278,15 +278,15 @@ class _LoginScreenState extends State<LoginScreen>
           CustomIconWidget(
             iconName: 'directions_bus',
             color: AppTheme.lightTheme.colorScheme.onPrimary,
-            size: 8.w,
+            size: 6.w,
           ),
-          SizedBox(height: 0.5.h),
+          SizedBox(height: 0.3.h),
           Text(
             'ESB',
             style: AppTheme.lightTheme.textTheme.titleMedium?.copyWith(
               color: AppTheme.lightTheme.colorScheme.onPrimary,
               fontWeight: FontWeight.bold,
-              fontSize: 12.sp,
+              fontSize: 10.sp,
             ),
           ),
         ],
@@ -300,17 +300,17 @@ class _LoginScreenState extends State<LoginScreen>
       constraints: BoxConstraints(maxWidth: 90.w),
       decoration: BoxDecoration(
         color: AppTheme.lightTheme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+            color: Colors.black.withOpacity(0.06),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.all(6.w),
+        padding: EdgeInsets.all(5.w),
         child: Form(
           key: _formKey,
           child: Column(
@@ -318,19 +318,21 @@ class _LoginScreenState extends State<LoginScreen>
             children: [
               Text(
                 'Welcome Back',
-                style: AppTheme.lightTheme.textTheme.headlineSmall?.copyWith(
+                style: AppTheme.lightTheme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: AppTheme.lightTheme.colorScheme.onSurface,
+                  fontSize: 18.sp,
                 ),
               ),
-              SizedBox(height: 1.h),
+              SizedBox(height: 0.8.h),
               Text(
                 'Sign in to your Enugu Smart Bus account',
                 style: AppTheme.lightTheme.textTheme.bodyMedium?.copyWith(
                   color: AppTheme.lightTheme.colorScheme.onSurfaceVariant,
+                  fontSize: 12.sp,
                 ),
               ),
-              SizedBox(height: 4.h),
+              SizedBox(height: 3.h),
               _buildEmailField(),
               SizedBox(height: 3.h),
               _buildPasswordField(),
@@ -357,12 +359,13 @@ class _LoginScreenState extends State<LoginScreen>
       children: [
         Text(
           'Email Address',
-          style: AppTheme.lightTheme.textTheme.labelLarge?.copyWith(
+          style: AppTheme.lightTheme.textTheme.labelMedium?.copyWith(
             color: AppTheme.lightTheme.colorScheme.onSurface,
             fontWeight: FontWeight.w500,
+            fontSize: 12.sp,
           ),
         ),
-        SizedBox(height: 1.h),
+        SizedBox(height: 0.8.h),
         TextFormField(
           controller: _emailController,
           keyboardType: TextInputType.emailAddress,
@@ -391,12 +394,13 @@ class _LoginScreenState extends State<LoginScreen>
       children: [
         Text(
           'Password',
-          style: AppTheme.lightTheme.textTheme.labelLarge?.copyWith(
+          style: AppTheme.lightTheme.textTheme.labelMedium?.copyWith(
             color: AppTheme.lightTheme.colorScheme.onSurface,
             fontWeight: FontWeight.w500,
+            fontSize: 12.sp,
           ),
         ),
-        SizedBox(height: 1.h),
+        SizedBox(height: 0.8.h),
         TextFormField(
           controller: _passwordController,
           obscureText: !_isPasswordVisible,
@@ -483,13 +487,19 @@ class _LoginScreenState extends State<LoginScreen>
   Widget _buildLoginButton() {
     return SizedBox(
       width: double.infinity,
-      height: 7.h,
+      height: 6.h,
       child: ElevatedButton(
         onPressed: _isLoading ? null : _handleLogin,
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+          ),
+          padding: EdgeInsets.symmetric(vertical: 1.5.h),
+        ),
         child: _isLoading
             ? SizedBox(
-                width: 5.w,
-                height: 5.w,
+                width: 20,
+                height: 20,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
                   valueColor: AlwaysStoppedAnimation<Color>(
@@ -502,6 +512,7 @@ class _LoginScreenState extends State<LoginScreen>
                 style: AppTheme.lightTheme.textTheme.titleMedium?.copyWith(
                   color: AppTheme.lightTheme.colorScheme.onPrimary,
                   fontWeight: FontWeight.w600,
+                  fontSize: 14.sp,
                 ),
               ),
       ),
@@ -509,21 +520,28 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
   Widget _buildBiometricButton() {
-    return Container(
+    return SizedBox(
       width: double.infinity,
-      height: 7.h,
+      height: 6.h,
       child: OutlinedButton.icon(
         onPressed: _isLoading ? null : _handleBiometricLogin,
+        style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+          ),
+          padding: EdgeInsets.symmetric(vertical: 1.5.h),
+        ),
         icon: CustomIconWidget(
           iconName: 'fingerprint',
           color: AppTheme.lightTheme.colorScheme.primary,
-          size: 5.w,
+          size: 20,
         ),
         label: Text(
           'Use Biometric Login',
           style: AppTheme.lightTheme.textTheme.titleMedium?.copyWith(
             color: AppTheme.lightTheme.colorScheme.primary,
             fontWeight: FontWeight.w600,
+            fontSize: 13.sp,
           ),
         ),
       ),

@@ -150,14 +150,14 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
   Widget _buildTripSummaryCard(ThemeData theme) {
     return Container(
       margin: EdgeInsets.all(3.w),
-      padding: EdgeInsets.all(3.w),
+      padding: EdgeInsets.all(2.5.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.08),
-            blurRadius: 8,
+            color: theme.colorScheme.shadow.withOpacity(0.06),
+            blurRadius: 6,
             offset: const Offset(0, 2),
           ),
         ],
@@ -170,7 +170,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
               CustomIconWidget(
                 iconName: 'route',
                 color: theme.colorScheme.primary,
-                size: 18,
+                size: 16,
               ),
               SizedBox(width: 2.w),
               Expanded(
@@ -178,25 +178,25 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                   widget.route ?? 'Enugu to Abuja',
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontSize: 14.sp,
+                    fontSize: 13.sp,
                   ),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 1.h),
+          SizedBox(height: 0.8.h),
           Row(
             children: [
               CustomIconWidget(
                 iconName: 'event',
                 color: theme.colorScheme.onSurfaceVariant,
-                size: 16,
+                size: 14,
               ),
               SizedBox(width: 2.w),
               Text(
                 widget.dateTime ?? 'Sat, Nov 16 @ 07:00 AM',
                 style: theme.textTheme.bodySmall?.copyWith(
-                  fontSize: 12.sp,
+                  fontSize: 11.sp,
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
               ),
@@ -204,14 +204,14 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
               CustomIconWidget(
                 iconName: 'directions_bus',
                 color: theme.colorScheme.onSurfaceVariant,
-                size: 16,
+                size: 14,
               ),
               SizedBox(width: 1.w),
               Expanded(
                 child: Text(
                   widget.busType ?? 'VIP Luxury Coach, 2x1 Layout',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    fontSize: 12.sp,
+                    fontSize: 11.sp,
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ),
@@ -299,10 +299,10 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
 
   Widget _buildDriverSection(ThemeData theme) {
     return Container(
-      padding: EdgeInsets.all(2.w),
+      padding: EdgeInsets.all(1.5.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.primaryContainer.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(6),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -310,7 +310,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
           CustomIconWidget(
             iconName: 'airline_seat_recline_normal',
             color: theme.colorScheme.primary,
-            size: 24,
+            size: 20,
           ),
           SizedBox(width: 2.w),
           Text(
@@ -318,7 +318,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
             style: theme.textTheme.labelMedium?.copyWith(
               color: theme.colorScheme.primary,
               fontWeight: FontWeight.w600,
-              fontSize: 12.sp,
+              fontSize: 11.sp,
             ),
           ),
         ],
@@ -391,18 +391,18 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
     return GestureDetector(
       onTap: isInteractive ? () => _toggleSeat(seatId) : null,
       child: Container(
-        width: 18.w,
-        height: 18.w,
+        width: 16.w,
+        height: 16.w,
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(6),
           border: borderColor != null ? Border.all(color: borderColor, width: 1) : null,
         ),
         child: Center(
           child: Text(
             seatId,
             style: theme.textTheme.labelSmall?.copyWith(
-              fontSize: 11.sp,
+              fontSize: 10.sp,
               fontWeight: FontWeight.w600,
               color: status == SeatStatus.selected
                   ? theme.colorScheme.onSecondary
@@ -423,10 +423,10 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
 
     return Container(
       margin: EdgeInsets.all(3.w),
-      padding: EdgeInsets.all(3.w),
+      padding: EdgeInsets.all(2.5.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.primaryContainer.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: theme.colorScheme.primary.withOpacity(0.3),
           width: 1,
@@ -442,7 +442,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                 'Selected Seats:',
                 style: theme.textTheme.labelMedium?.copyWith(
                   fontWeight: FontWeight.w600,
-                  fontSize: 12.sp,
+                  fontSize: 11.sp,
                 ),
               ),
               GestureDetector(
@@ -453,29 +453,29 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                       'Fare Breakdown',
                       style: theme.textTheme.labelSmall?.copyWith(
                         color: theme.colorScheme.primary,
-                        fontSize: 11.sp,
+                        fontSize: 10.sp,
                       ),
                     ),
                     SizedBox(width: 1.w),
                     CustomIconWidget(
                       iconName: 'info_outline',
                       color: theme.colorScheme.primary,
-                      size: 16,
+                      size: 14,
                     ),
                   ],
                 ),
               ),
             ],
           ),
-          SizedBox(height: 1.h),
+          SizedBox(height: 0.8.h),
           Text(
             selectedSeats.toList().join(', '),
             style: theme.textTheme.bodyMedium?.copyWith(
-              fontSize: 13.sp,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(height: 1.5.h),
+          SizedBox(height: 1.2.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -483,7 +483,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                 'Total Fare:',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontSize: 15.sp,
+                  fontSize: 14.sp,
                 ),
               ),
               Text(
@@ -491,7 +491,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                 style: theme.textTheme.titleLarge?.copyWith(
                   color: theme.colorScheme.primary,
                   fontWeight: FontWeight.bold,
-                  fontSize: 18.sp,
+                  fontSize: 16.sp,
                 ),
               ),
             ],
@@ -508,8 +508,8 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
         color: theme.colorScheme.surface,
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.1),
-            blurRadius: 8,
+            color: theme.colorScheme.shadow.withOpacity(0.08),
+            blurRadius: 6,
             offset: const Offset(0, -2),
           ),
         ],
@@ -517,15 +517,16 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
       child: SafeArea(
         child: SizedBox(
           width: double.infinity,
-          height: 6.h,
+          height: 5.5.h,
           child: ElevatedButton(
             onPressed: _proceedToBooking,
             style: ElevatedButton.styleFrom(
               backgroundColor: theme.colorScheme.primary,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(6),
               ),
-              elevation: 2,
+              elevation: 1,
+              padding: EdgeInsets.symmetric(vertical: 1.5.h),
             ),
             child: Text(
               selectedSeats.isEmpty
@@ -534,7 +535,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
               style: theme.textTheme.titleMedium?.copyWith(
                 color: theme.colorScheme.onPrimary,
                 fontWeight: FontWeight.bold,
-                fontSize: 14.sp,
+                fontSize: 13.sp,
               ),
             ),
           ),
