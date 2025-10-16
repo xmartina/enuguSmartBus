@@ -7,6 +7,7 @@ import '../presentation/registration_screen/registration_screen.dart';
 import '../presentation/home_screen/home_screen.dart';
 import '../presentation/trip_list_screen/trip_list_screen.dart';
 import '../presentation/seat_selection_screen/seat_selection_screen.dart';
+import '../presentation/booking_summary_screen/booking_summary_screen.dart';
 
 class AppRoutes {
   static const String initial = '/';
@@ -18,6 +19,7 @@ class AppRoutes {
   static const String home = '/home-screen';
   static const String tripList = '/trip-list-screen';
   static const String seatSelection = '/seat-selection-screen';
+  static const String bookingSummary = '/booking-summary-screen';
 
   static Map<String, WidgetBuilder> routes = {
     initial: (context) => const SplashScreen(),
@@ -29,5 +31,6 @@ class AppRoutes {
     home: (context) => const HomeScreen(),
     tripList: (context) => const TripListScreen(),
     seatSelection: (context) => const SeatSelectionScreen(),
+    bookingSummary: (context) => const BookingSummaryScreen(),
   };
 }
