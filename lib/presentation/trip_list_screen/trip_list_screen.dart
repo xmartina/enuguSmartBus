@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../core/app_export.dart';
 import '../seat_selection_screen/seat_selection_screen.dart';
-import '../home_screen/home_screen.dart';
 
 class TripListScreen extends StatefulWidget {
   final String? fromLocation;
@@ -143,12 +142,7 @@ class _TripListScreenState extends State<TripListScreen> {
   }
 
   void _modifySearch() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const HomeScreen(),
-      ),
-    );
+    Navigator.pop(context);
   }
 
   @override
