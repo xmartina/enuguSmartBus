@@ -1,0 +1,55 @@
+Booking Summary & Passenger Details Screen TEMPLATE (booking_summary_screen.dart)
+1. Core Objective and File Specification 🎯
+AI Agent, your task is to construct the complete, fully responsive UI template and structure for the Booking Summary and Passenger Details Input Screen. This screen confirms the order and collects required passenger information before payment (data that will populate the tickets table).
+
+Read the "Flutter App Development Workflow" summary first.
+
+File Path: lib/presentation/booking_summary_screen/booking_summary_screen.dart.
+
+Focus: Prioritize data summary clarity and form structure. All data must be mock data/placeholders.
+
+Style Mandate: Strictly adhere to the UI Style Mandate (smaller sizes/fonts, use existing theme/widgets, use contemporary, rounded design).
+
+2. Booking Summary Card (Fixed at Top)
+A non-scrollable, prominent card must be positioned at the top of the screen to confirm the booking details passed from the previous screen.
+
+Content: Display the final, critical summary details clearly:
+
+Route: (e.g., "Abuja to Lagos").
+
+Date & Time: (e.g., "Sat, Nov 16 @ 07:00 AM").
+
+Selected Seats: (e.g., "A1, B2, B3").
+
+Final Grand Total: Prominently displayed (e.g., ₦55,500).
+
+Action: Include a small icon button (e.g., Icons.edit or Icons.close) that, when pressed, allows the user to "Modify Seats". This action must navigate back to SeatSelectionScreen() (target path: lib/presentation/seat_selection_screen/seat_selection_screen.dart).
+
+3. Passenger Details Form (Scrollable Section)
+The main body must be a vertically scrollable form section for collecting passenger information.
+
+Structure: Since multiple seats can be booked, the form must accommodate multiple passengers. Use a ListView or similar widget to iterate over the number of seats selected (using placeholder/mock data for 3 passengers).
+
+Per-Passenger Section: For each selected seat (e.g., Seat A1), create a collapsible or distinct card section with inputs for:
+
+Full Name: Text input field (required).
+
+Phone Number: Text input field (required, numeric input mask if possible).
+
+Email Address: Text input field (required).
+
+4. Optional & Auxiliary Fields Section
+Include a dedicated, smaller card section below the passenger details for optional or auxiliary information, reflecting other tables in the database.
+
+Luggage Details: Based on the luggage_setting table, include an input field or selection dropdown/radio button set for Luggage Weight/Quantity. Include a small text hint about the free allowance (e.g., "10KG free allowance per ticket.").
+
+Next of Kin/Emergency Contact: A single, optional text input field for an emergency contact name/number.
+
+5. Primary Call-to-Action (Fixed Bottom Button)
+Button: A full-width, visually dominant button fixed at the very bottom, labeled with the final price: "PAY NOW (₦55,500)" (using the placeholder total).
+
+Action:
+
+The onPressed must first contain placeholder validation logic to ensure all required fields (Name, Phone, Email for all passengers) are non-empty. If validation fails, show a SnackBar.
+
+If validated, the app must navigate to a new, simple placeholder screen named PaymentSuccessScreen() (create this as a basic StatelessWidget within the same folder, lib/presentation/booking_summary_screen/payment_success_screen.dart). This new screen only needs to show a large success icon and a message (e.g., "Payment Simulated!").

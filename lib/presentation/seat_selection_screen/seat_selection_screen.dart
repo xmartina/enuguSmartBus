@@ -98,6 +98,8 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
           selectedSeats: selectedSeats.toList(),
           totalFare: _calculateTotal(),
           tripId: widget.tripId,
+          route: widget.route,
+          dateTime: widget.dateTime,
         ),
       ),
     );
