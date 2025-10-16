@@ -673,6 +673,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               SizedBox(height: 0.8.h),
               SizedBox(
                 width: double.infinity,
+                height: 4.h,
                 child: ElevatedButton(
                   onPressed: () => _viewPopularRoute(routeName),
                   style: ElevatedButton.styleFrom(
@@ -681,7 +682,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 1.h),
+                    padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.8.h),
                   ),
                   child: Text(
                     'VIEW TRIPS',
@@ -762,7 +763,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           SizedBox(height: 2.h),
           SizedBox(
             width: double.infinity,
-            height: 4.8.h,
+            height: 5.h,
             child: ElevatedButton(
               onPressed: _showAgentBenefitsDialog,
               style: ElevatedButton.styleFrom(
@@ -772,6 +773,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   borderRadius: BorderRadius.circular(8),
                 ),
                 elevation: 0,
+                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
               ),
               child: Text(
                 'Explore Benefits',
