@@ -28,6 +28,8 @@ The core application is built with Flutter. It includes comprehensive authentica
 - **Seat Selection Screen:** Interactive seat layout with real-time selection, dynamic booking summary, and fare breakdown.
 - **Booking Summary Screen:** Fixed booking summary card at top showing route, date/time, selected seats, and total with edit button. Scrollable passenger details form (name, phone, email) for each seat with validation. Optional fields for luggage weight and emergency contact. PAY NOW button with full form validation.
 - **Payment Success Screen:** Simple placeholder screen showing payment simulation confirmation with success icon and back-to-home navigation.
+- **My Tickets Screen:** Segmented control for filtering tickets (Upcoming, Past, Cancelled). Scrollable list of ticket cards showing ticket token, status badge, route, date/time, seats, and total fare. VIEW TICKET button for navigation to details.
+- **Ticket Details Screen:** Simple placeholder screen showing ticket token and ready for detailed ticket information implementation.
 - **Theming:** Light/dark mode support with easily customizable primary color.
 
 ### System Design Choices
