@@ -254,18 +254,18 @@ class _SplashScreenState extends State<SplashScreen>
                             children: [
                               // App logo
                               Container(
-                                width: 25.w,
-                                height: 25.w,
+                                width: 20.w,
+                                height: 20.w,
                                 decoration: BoxDecoration(
                                   color:
                                       AppTheme.lightTheme.colorScheme.surface,
-                                  borderRadius: BorderRadius.circular(4.w),
+                                  borderRadius: BorderRadius.circular(2.w),
                                   boxShadow: [
                                     BoxShadow(
                                       color:
-                                          Colors.black.withOpacity(0.2),
-                                      blurRadius: 20,
-                                      offset: const Offset(0, 10),
+                                          Colors.black.withOpacity(0.15),
+                                      blurRadius: 15,
+                                      offset: const Offset(0, 5),
                                     ),
                                   ],
                                 ),
@@ -273,11 +273,11 @@ class _SplashScreenState extends State<SplashScreen>
                                   child: CustomIconWidget(
                                     iconName: 'directions_bus',
                                     color: AppTheme.lightTheme.primaryColor,
-                                    size: 12.w,
+                                    size: 10.w,
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 3.h),
+                              SizedBox(height: 2.h),
                               // App name
                               Text(
                                 'Enugu Smart Bus',
@@ -287,11 +287,12 @@ class _SplashScreenState extends State<SplashScreen>
                                   color:
                                       AppTheme.lightTheme.colorScheme.onPrimary,
                                   fontWeight: FontWeight.bold,
-                                  letterSpacing: 1.2,
+                                  fontSize: 18.sp,
+                                  letterSpacing: 0.5,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                              SizedBox(height: 1.h),
+                              SizedBox(height: 0.8.h),
                               // Tagline
                               Text(
                                 'Smart Transportation Solutions',
@@ -300,7 +301,8 @@ class _SplashScreenState extends State<SplashScreen>
                                   color: AppTheme
                                       .lightTheme.colorScheme.onPrimary
                                       .withOpacity(0.8),
-                                  letterSpacing: 0.5,
+                                  fontSize: 11.sp,
+                                  letterSpacing: 0.3,
                                 ),
                                 textAlign: TextAlign.center,
                               ),

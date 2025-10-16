@@ -45,22 +45,22 @@ class TicketDetailsScreen extends StatelessWidget {
               CustomIconWidget(
                 iconName: 'confirmation_number',
                 color: theme.colorScheme.primary,
-                size: 64,
+                size: 48,
               ),
-              SizedBox(height: 3.h),
+              SizedBox(height: 2.h),
               Text(
                 'Details for Token $ticketToken would go here.',
                 style: theme.textTheme.titleMedium?.copyWith(
-                  fontSize: 15.sp,
+                  fontSize: 13.sp,
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 1.h),
+              SizedBox(height: 0.8.h),
               Text(
                 'This is a placeholder screen for the ticket details view.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
-                  fontSize: 12.sp,
+                  fontSize: 10.sp,
                 ),
                 textAlign: TextAlign.center,
               ),

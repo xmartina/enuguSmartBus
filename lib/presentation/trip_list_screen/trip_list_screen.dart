@@ -189,16 +189,16 @@ class _TripListScreenState extends State<TripListScreen> {
     String travelDate = widget.date ?? 'Sat, Nov 16';
 
     return Container(
-      margin: EdgeInsets.all(3.w),
-      padding: EdgeInsets.all(3.w),
+      margin: EdgeInsets.all(2.5.w),
+      padding: EdgeInsets.all(2.5.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.08),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: theme.colorScheme.shadow.withOpacity(0.06),
+            blurRadius: 6,
+            offset: const Offset(0, 1),
           ),
         ],
       ),
@@ -385,20 +385,20 @@ class _TripListScreenState extends State<TripListScreen> {
 
   Widget _buildTripCard(ThemeData theme, Map<String, dynamic> trip) {
     return Container(
-      margin: EdgeInsets.only(bottom: 2.h),
-      padding: EdgeInsets.all(3.w),
+      margin: EdgeInsets.only(bottom: 1.5.h),
+      padding: EdgeInsets.all(2.5.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: theme.colorScheme.outline.withOpacity(0.2),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.06),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: theme.colorScheme.shadow.withOpacity(0.04),
+            blurRadius: 6,
+            offset: const Offset(0, 1),
           ),
         ],
       ),
@@ -415,7 +415,7 @@ class _TripListScreenState extends State<TripListScreen> {
                       trip['vehicleName'],
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
-                        fontSize: 14.sp,
+                        fontSize: 12.sp,
                       ),
                     ),
                     SizedBox(height: 0.3.h),
@@ -423,24 +423,24 @@ class _TripListScreenState extends State<TripListScreen> {
                       'Reg No: ${trip['regNumber']}',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
-                        fontSize: 11.sp,
+                        fontSize: 9.sp,
                       ),
                     ),
                   ],
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
+                padding: EdgeInsets.symmetric(horizontal: 1.5.w, vertical: 0.4.h),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.primaryContainer.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(6),
+                  borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
                   trip['seatingLayout'],
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.w600,
-                    fontSize: 10.sp,
+                    fontSize: 9.sp,
                   ),
                 ),
               ),
@@ -457,7 +457,7 @@ class _TripListScreenState extends State<TripListScreen> {
                     trip['departureTime'],
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.bold,
-                      fontSize: 15.sp,
+                      fontSize: 13.sp,
                     ),
                   ),
                   SizedBox(height: 0.3.h),
@@ -465,7 +465,7 @@ class _TripListScreenState extends State<TripListScreen> {
                     'Departure',
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
-                      fontSize: 11.sp,
+                      fontSize: 9.sp,
                     ),
                   ),
                 ],
@@ -475,14 +475,14 @@ class _TripListScreenState extends State<TripListScreen> {
                   CustomIconWidget(
                     iconName: 'arrow_forward',
                     color: theme.colorScheme.primary,
-                    size: 20,
+                    size: 18,
                   ),
                   SizedBox(height: 0.3.h),
                   Text(
                     trip['duration'],
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
-                      fontSize: 10.sp,
+                      fontSize: 9.sp,
                     ),
                   ),
                 ],
@@ -494,7 +494,7 @@ class _TripListScreenState extends State<TripListScreen> {
                     trip['arrivalTime'],
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.bold,
-                      fontSize: 15.sp,
+                      fontSize: 13.sp,
                     ),
                   ),
                   SizedBox(height: 0.3.h),
@@ -502,7 +502,7 @@ class _TripListScreenState extends State<TripListScreen> {
                     'Arrival',
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
-                      fontSize: 11.sp,
+                      fontSize: 9.sp,
                     ),
                   ),
                 ],
@@ -526,7 +526,7 @@ class _TripListScreenState extends State<TripListScreen> {
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: theme.colorScheme.primary,
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
                     ),
                   ),
                   SizedBox(height: 0.3.h),
@@ -537,7 +537,7 @@ class _TripListScreenState extends State<TripListScreen> {
                         color: trip['availableSeats'] <= 5
                             ? theme.colorScheme.error
                             : theme.colorScheme.secondary,
-                        size: 14,
+                        size: 12,
                       ),
                       SizedBox(width: 1.w),
                       Text(
@@ -547,7 +547,7 @@ class _TripListScreenState extends State<TripListScreen> {
                               ? theme.colorScheme.error
                               : theme.colorScheme.secondary,
                           fontWeight: FontWeight.w600,
-                          fontSize: 11.sp,
+                          fontSize: 9.sp,
                         ),
                       ),
                     ],
@@ -559,9 +559,9 @@ class _TripListScreenState extends State<TripListScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colorScheme.secondary,
                   foregroundColor: theme.colorScheme.onSecondary,
-                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.2.h),
+                  padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(6),
                   ),
                   elevation: 0,
                 ),
@@ -569,7 +569,7 @@ class _TripListScreenState extends State<TripListScreen> {
                   'SELECT SEATS',
                   style: theme.textTheme.labelLarge?.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontSize: 12.sp,
+                    fontSize: 11.sp,
                   ),
                 ),
               ),

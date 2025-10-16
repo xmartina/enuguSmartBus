@@ -152,10 +152,10 @@ class _TicketsListScreenState extends State<TicketsListScreen> {
 
   Widget _buildSegmentedControl(ThemeData theme) {
     return Container(
-      margin: EdgeInsets.all(3.w),
+      margin: EdgeInsets.all(2.5.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: theme.colorScheme.outline.withOpacity(0.3),
           width: 1,
@@ -205,12 +205,12 @@ class _TicketsListScreenState extends State<TicketsListScreen> {
         });
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 1.5.h),
+        padding: EdgeInsets.symmetric(vertical: 1.2.h),
         decoration: BoxDecoration(
           color: isSelected
               ? theme.colorScheme.primary
               : Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(6),
         ),
         child: Text(
           label,
@@ -219,7 +219,7 @@ class _TicketsListScreenState extends State<TicketsListScreen> {
                 ? theme.colorScheme.onPrimary
                 : theme.colorScheme.onSurfaceVariant,
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-            fontSize: 11.sp,
+            fontSize: 10.sp,
           ),
           textAlign: TextAlign.center,
         ),
@@ -233,19 +233,19 @@ class _TicketsListScreenState extends State<TicketsListScreen> {
     final ticketToken = ticket['ticketToken'] as String;
 
     return Container(
-      margin: EdgeInsets.only(bottom: 2.h),
+      margin: EdgeInsets.only(bottom: 1.5.h),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: theme.colorScheme.outline.withOpacity(0.2),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.05),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
+            color: theme.colorScheme.shadow.withOpacity(0.04),
+            blurRadius: 3,
+            offset: const Offset(0, 1),
           ),
         ],
       ),
@@ -253,12 +253,12 @@ class _TicketsListScreenState extends State<TicketsListScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.all(3.w),
+            padding: EdgeInsets.all(2.5.w),
             decoration: BoxDecoration(
               color: _getStatusColor(theme, status).withOpacity(0.1),
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8),
               ),
             ),
             child: Row(
@@ -268,14 +268,14 @@ class _TicketsListScreenState extends State<TicketsListScreen> {
                   ticketToken,
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15.sp,
+                    fontSize: 13.sp,
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
+                  padding: EdgeInsets.symmetric(horizontal: 1.5.w, vertical: 0.4.h),
                   decoration: BoxDecoration(
                     color: _getStatusColor(theme, status),
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
                     _getStatusLabel(status).toUpperCase(),
@@ -284,7 +284,7 @@ class _TicketsListScreenState extends State<TicketsListScreen> {
                           ? theme.colorScheme.onSecondary
                           : Colors.white,
                       fontWeight: FontWeight.w600,
-                      fontSize: 9.sp,
+                      fontSize: 8.sp,
                     ),
                   ),
                 ),
@@ -292,7 +292,7 @@ class _TicketsListScreenState extends State<TicketsListScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(3.w),
+            padding: EdgeInsets.all(2.5.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -301,57 +301,57 @@ class _TicketsListScreenState extends State<TicketsListScreen> {
                     CustomIconWidget(
                       iconName: 'route',
                       color: theme.colorScheme.primary,
-                      size: 18,
+                      size: 16,
                     ),
-                    SizedBox(width: 2.w),
+                    SizedBox(width: 1.5.w),
                     Expanded(
                       child: Text(
                         ticket['route'] as String,
                         style: theme.textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w600,
-                          fontSize: 14.sp,
+                          fontSize: 12.sp,
                         ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 1.h),
+                SizedBox(height: 0.8.h),
                 Row(
                   children: [
                     CustomIconWidget(
                       iconName: 'event',
                       color: theme.colorScheme.onSurfaceVariant,
-                      size: 16,
+                      size: 14,
                     ),
-                    SizedBox(width: 2.w),
+                    SizedBox(width: 1.5.w),
                     Text(
                       ticket['dateTime'] as String,
                       style: theme.textTheme.bodySmall?.copyWith(
-                        fontSize: 12.sp,
+                        fontSize: 10.sp,
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 1.h),
+                SizedBox(height: 0.8.h),
                 Row(
                   children: [
                     CustomIconWidget(
                       iconName: 'event_seat',
                       color: theme.colorScheme.onSurfaceVariant,
-                      size: 16,
+                      size: 14,
                     ),
-                    SizedBox(width: 2.w),
+                    SizedBox(width: 1.5.w),
                     Text(
                       'Seats: ${seats.length} (${seats.join(", ")})',
                       style: theme.textTheme.bodySmall?.copyWith(
-                        fontSize: 12.sp,
+                        fontSize: 10.sp,
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 1.5.h),
+                SizedBox(height: 1.2.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -359,7 +359,7 @@ class _TicketsListScreenState extends State<TicketsListScreen> {
                       'Total Fare:',
                       style: theme.textTheme.labelMedium?.copyWith(
                         fontWeight: FontWeight.w600,
-                        fontSize: 12.sp,
+                        fontSize: 11.sp,
                       ),
                     ),
                     Text(
@@ -367,15 +367,15 @@ class _TicketsListScreenState extends State<TicketsListScreen> {
                       style: theme.textTheme.titleMedium?.copyWith(
                         color: theme.colorScheme.primary,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 2.h),
+                SizedBox(height: 1.5.h),
                 SizedBox(
                   width: double.infinity,
-                  height: 5.h,
+                  height: 4.5.h,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -390,16 +390,17 @@ class _TicketsListScreenState extends State<TicketsListScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: theme.colorScheme.primary,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(6),
                       ),
                       elevation: 1,
+                      padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
                     ),
                     child: Text(
                       'VIEW TICKET',
                       style: theme.textTheme.labelLarge?.copyWith(
                         color: theme.colorScheme.onPrimary,
                         fontWeight: FontWeight.bold,
-                        fontSize: 13.sp,
+                        fontSize: 11.sp,
                       ),
                     ),
                   ),

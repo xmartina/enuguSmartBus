@@ -30,15 +30,16 @@ class OnboardingNavigationWidget extends StatelessWidget {
           // Primary Action Button
           SizedBox(
             width: double.infinity,
-            height: 6.h,
+            height: 5.h,
             child: ElevatedButton(
               onPressed: isLastPage ? onGetStarted : onNext,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppTheme.lightTheme.colorScheme.primary,
                 foregroundColor: AppTheme.lightTheme.colorScheme.onPrimary,
                 elevation: 2,
+                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(3.h),
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
               child: Row(
@@ -49,14 +50,15 @@ class OnboardingNavigationWidget extends StatelessWidget {
                     style: AppTheme.lightTheme.textTheme.titleMedium?.copyWith(
                       color: AppTheme.lightTheme.colorScheme.onPrimary,
                       fontWeight: FontWeight.w600,
+                      fontSize: 13.sp,
                     ),
                   ),
                   if (!isLastPage) ...[
-                    SizedBox(width: 2.w),
+                    SizedBox(width: 1.5.w),
                     CustomIconWidget(
                       iconName: 'arrow_forward',
                       color: AppTheme.lightTheme.colorScheme.onPrimary,
-                      size: 20,
+                      size: 18,
                     ),
                   ],
                 ],
