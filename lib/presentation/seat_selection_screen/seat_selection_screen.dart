@@ -225,18 +225,21 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 3.w),
       padding: EdgeInsets.all(2.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Wrap(
+        spacing: 3.w,
+        runSpacing: 1.h,
+        alignment: WrapAlignment.center,
         children: [
           _buildLegendItem(theme, 'Available', theme.colorScheme.surface, theme.colorScheme.outline),
           _buildLegendItem(theme, 'Selected', theme.colorScheme.secondary, null),
           _buildLegendItem(theme, 'Booked', theme.colorScheme.error.withOpacity(0.7), null),
+          _buildLegendItem(theme, 'Aisle', Colors.transparent, theme.colorScheme.outline.withOpacity(0.3), isAisle: true),
         ],
       ),
     );
   }
 
-  Widget _buildLegendItem(ThemeData theme, String label, Color color, Color? borderColor) {
+  Widget _buildLegendItem(ThemeData theme, String label, Color color, Color? borderColor, {bool isAisle = false}) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -248,6 +251,15 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
             borderRadius: BorderRadius.circular(4),
             border: borderColor != null ? Border.all(color: borderColor, width: 1) : null,
           ),
+          child: isAisle
+              ? Center(
+                  child: Container(
+                    width: 2,
+                    height: 20,
+                    color: theme.colorScheme.outline.withOpacity(0.5),
+                  ),
+                )
+              : null,
         ),
         SizedBox(width: 1.w),
         Text(
