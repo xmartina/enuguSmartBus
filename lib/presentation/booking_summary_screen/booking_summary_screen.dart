@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
@@ -30,12 +29,12 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> with Single
   final _formKey = GlobalKey<FormState>();
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-  
+
   List<Map<String, TextEditingController>> passengerControllers = [];
   final TextEditingController _luggageController = TextEditingController();
   final TextEditingController _nextOfKinController = TextEditingController();
   final double freeLuggageAllowance = 10.0;
-  
+
   @override
   void initState() {
     super.initState();
@@ -50,7 +49,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> with Single
     );
     _animationController.forward();
   }
-  
+
   void _initializePassengerForms() {
     final seats = widget.selectedSeats ?? ['A1', 'B2', 'B3'];
     for (int i = 0; i < seats.length; i++) {
@@ -61,7 +60,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> with Single
       });
     }
   }
-  
+
   @override
   void dispose() {
     for (var controllers in passengerControllers) {
@@ -74,12 +73,12 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> with Single
     _animationController.dispose();
     super.dispose();
   }
-  
+
   bool _validateForm() {
     if (!_formKey.currentState!.validate()) {
       return false;
     }
-    
+
     for (int i = 0; i < passengerControllers.length; i++) {
       if (passengerControllers[i]['fullName']!.text.trim().isEmpty ||
           passengerControllers[i]['phoneNumber']!.text.trim().isEmpty ||
@@ -99,10 +98,10 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> with Single
         return false;
       }
     }
-    
+
     return true;
   }
-  
+
   void _proceedToPayment() {
     if (_validateForm()) {
       Navigator.push(
@@ -113,7 +112,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> with Single
       );
     }
   }
-  
+
   void _navigateBackToSeatSelection() {
     Navigator.pop(context);
   }
@@ -531,6 +530,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> with Single
             onPressed: _proceedToPayment,
             style: ElevatedButton.styleFrom(
               backgroundColor: theme.colorScheme.primary,
+              foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -542,7 +542,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> with Single
                 Text(
                   'PAY NOW',
                   style: theme.textTheme.titleMedium?.copyWith(
-                    color: theme.colorScheme.onPrimary,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 11.sp,
                   ),
@@ -551,7 +551,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> with Single
                 Text(
                   '(₦${totalAmount.toStringAsFixed(0)})',
                   style: theme.textTheme.titleMedium?.copyWith(
-                    color: theme.colorScheme.onPrimary,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 11.sp,
                   ),

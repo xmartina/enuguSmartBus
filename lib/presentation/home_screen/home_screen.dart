@@ -382,6 +382,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               onPressed: _searchTrips,
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colorScheme.primary,
+                foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -390,7 +391,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               child: Text(
                 'SEARCH TRIPS',
                 style: theme.textTheme.titleMedium?.copyWith(
-                  color: theme.colorScheme.onPrimary,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 11.sp,
                 ),
@@ -765,7 +766,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             child: ElevatedButton(
               onPressed: _showAgentBenefitsDialog,
               style: ElevatedButton.styleFrom(
-                backgroundColor: theme.colorScheme.onTertiary,
+                backgroundColor: Colors.white,
                 foregroundColor: theme.colorScheme.tertiary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -775,6 +776,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               child: Text(
                 'Explore Benefits',
                 style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.tertiary,
                   fontWeight: FontWeight.bold,
                   fontSize: 11.sp,
                 ),
