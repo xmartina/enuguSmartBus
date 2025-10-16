@@ -1,0 +1,64 @@
+Trip Listing Screen TEMPLATE (trip_list_screen.dart)
+1. Core Objective and File Specification 🎯
+AI Agent, your task is to construct the complete, fully responsive UI template and structure for the Trip Listing/Search Results Screen. This screen is responsible for displaying the results of the search initiated on the Home Screen.
+
+Read the "Flutter App Development Workflow" summary first.
+
+File Path: lib/presentation/trip_list_screen/trip_list_screen.dart.
+
+Focus: Prioritize UI Layout and Styling. All data shown must be mock data/placeholders. All button actions must use the specified navigation logic.
+
+Style Mandate: Strictly adhere to the UI Style Mandate (smaller sizes/fonts, use existing theme/widgets, use contemporary, rounded design).
+
+2. Header and Search Summary
+AppBar: Use a standard AppBar with a title of "Available Trips" (or similar). The AppBar must include a functional back button.
+
+Search Summary Card: Immediately below the AppBar, include a compact, non-scrollable card summarizing the user's search:
+
+Display the Departure and Destination (e.g., "Enugu to Abuja").
+
+Display the Departure Date (e.g., "Sat, Nov 16").
+
+Include a small "Modify Search" button/icon which, when pressed, must navigate back to HomeScreen() (target path: lib/presentation/home_screen/home_screen.dart).
+
+3. Filter and Sort Bar (Interactive Template)
+Directly below the Search Summary, include a clean, horizontally scrollable filter and sort bar.
+
+Sort Button: A single button labeled "Sort" that, when tapped, triggers a placeholder Dialog/Modal showing sort options (e.g., "Lowest Price," "Earliest Departure").
+
+Filter Chips: Include at least three horizontally scrollable, visually distinct Filter Chips (small, rounded buttons) with placeholder onSelected logic that simulate filtering. Examples include:
+
+"Bus Type" (e.g., "Sprinter," "Luxury Coach").
+
+"Departure Window" (e.g., "Morning," "Afternoon," "Night").
+
+"Facilities" (e.g., "A/C," "Wi-Fi").
+
+4. Main Content: Trip Result Cards (ListView.builder)
+The main body must be a vertically scrollable ListView.builder displaying a minimum of five distinct, vertically stacked trip result cards.
+
+A. Card Structure and Data (Placeholder)
+Each card must be compact, rounded, and clearly display the following information:
+
+Route/Vehicle Identity:
+
+Vehicle Name/Type (e.g., "VIP Luxury Coach - Reg No: ABC-123").
+
+A small indicator showing the seating configuration capacity (e.g., "2x1 Layout").
+
+Timing & Duration:
+
+Departure Time (e.g., "07:00 AM") and Arrival Time (e.g., "04:30 PM").
+
+Total Duration (e.g., "9 hrs 30 mins").
+
+Pricing & Status:
+
+Base Fare: Prominently displayed (e.g., ₦18,500).
+
+Available Seats: A small label showing remaining seats (e.g., "5 Seats Left").
+
+B. Call-to-Action
+Button: A clearly visible, secondary-colored button labeled "SELECT SEATS".
+
+Action: The onPressed action for this button must navigate to the SeatSelectionScreen() (target path: lib/presentation/seat_selection_screen/seat_selection_screen.dart). This navigation must simulate passing the unique Trip ID for the selected trip card.
