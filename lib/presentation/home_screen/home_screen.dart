@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../core/app_export.dart';
@@ -15,9 +16,11 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   int _currentNavIndex = 0;
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
 
   // Trip search form controllers
   final TextEditingController _departureController = TextEditingController();
@@ -26,17 +29,31 @@ class _HomeScreenState extends State<HomeScreen> {
   int _passengerCount = 1;
 
   @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    _fadeAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+    _animationController.forward();
+  }
+
+  @override
   void dispose() {
     _scrollController.dispose();
     _departureController.dispose();
     _destinationController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
   void _onNavBarTap(int index) {
     switch (index) {
-      case 0: // Book Trip (Home)
-        // Already on home, scroll to top
+      case 0:
         if (_scrollController.hasClients) {
           _scrollController.animateTo(
             0,
@@ -48,20 +65,19 @@ class _HomeScreenState extends State<HomeScreen> {
           _currentNavIndex = 0;
         });
         break;
-      case 1: // My Tickets
+      case 1:
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => const TicketsListScreen(),
           ),
         ).then((_) {
-          // Reset index when returning
           setState(() {
             _currentNavIndex = 0;
           });
         });
         break;
-      case 2: // Luggage - placeholder for now
+      case 2:
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text('Luggage tracking feature coming soon.'),
@@ -72,14 +88,13 @@ class _HomeScreenState extends State<HomeScreen> {
           _currentNavIndex = 0;
         });
         break;
-      case 3: // Profile
+      case 3:
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => const ProfileScreen(),
           ),
         ).then((_) {
-          // Reset index when returning
           setState(() {
             _currentNavIndex = 0;
           });
@@ -139,7 +154,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _searchTrips() {
-    // Validation
     if (_departureController.text.isEmpty || _destinationController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -151,7 +165,6 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
-    // Navigate to trip list screen
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -182,13 +195,16 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context) => AlertDialog(
         title: Text(
           'Agent Benefits Coming Soon',
-          style: AppTheme.lightTheme.textTheme.titleLarge?.copyWith(
+          style: AppTheme.lightTheme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
+            fontSize: 13.sp,
           ),
         ),
         content: Text(
           'We are preparing an exclusive agent program with amazing benefits. Stay tuned!',
-          style: AppTheme.lightTheme.textTheme.bodyMedium,
+          style: AppTheme.lightTheme.textTheme.bodyMedium?.copyWith(
+            fontSize: 11.sp,
+          ),
         ),
         actions: [
           TextButton(
@@ -198,12 +214,13 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(
                 color: AppTheme.lightTheme.colorScheme.primary,
                 fontWeight: FontWeight.w600,
+                fontSize: 11.sp,
               ),
             ),
           ),
         ],
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
     );
@@ -217,14 +234,14 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: theme.colorScheme.primary,
-        elevation: 2,
+        elevation: 1,
         leading: Builder(
           builder: (context) => IconButton(
             onPressed: () => Scaffold.of(context).openDrawer(),
             icon: CustomIconWidget(
               iconName: 'menu',
               color: theme.colorScheme.onPrimary,
-              size: 24,
+              size: 22,
             ),
           ),
         ),
@@ -233,6 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: theme.textTheme.titleLarge?.copyWith(
             color: theme.colorScheme.onPrimary,
             fontWeight: FontWeight.w600,
+            fontSize: 14.sp,
           ),
         ),
         centerTitle: true,
@@ -242,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: CustomIconWidget(
               iconName: 'notifications',
               color: theme.colorScheme.onPrimary,
-              size: 24,
+              size: 22,
             ),
           ),
         ],
@@ -258,59 +276,58 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildBody(ThemeData theme) {
-    return ListView(
-      controller: _scrollController,
-      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-      children: [
-        _buildTripSearchCard(theme),
-        SizedBox(height: 3.h),
-        _buildPopularRoutesSection(theme),
-        SizedBox(height: 3.h),
-        _buildAgentPromotionCard(theme),
-        SizedBox(height: 12.h), // Extra padding for bottom nav
-      ],
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: ListView(
+        controller: _scrollController,
+        padding: EdgeInsets.symmetric(horizontal: 3.5.w, vertical: 1.5.h),
+        children: [
+          _buildTripSearchCard(theme),
+          SizedBox(height: 2.h),
+          _buildPopularRoutesSection(theme),
+          SizedBox(height: 2.h),
+          _buildAgentPromotionCard(theme),
+          SizedBox(height: 12.h),
+        ],
+      ),
     );
   }
 
-  // 1. Enhanced Trip Search Card
   Widget _buildTripSearchCard(ThemeData theme) {
     return Container(
-      padding: EdgeInsets.all(4.w),
+      padding: EdgeInsets.all(3.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.1),
-            blurRadius: 16,
-            offset: const Offset(0, 4),
+            color: theme.colorScheme.shadow.withOpacity(0.08),
+            blurRadius: 12,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header
           Row(
             children: [
               CustomIconWidget(
                 iconName: 'search',
                 color: theme.colorScheme.primary,
-                size: 24,
+                size: 20,
               ),
               SizedBox(width: 2.w),
               Text(
                 'Book Your Trip',
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18.sp,
+                  fontSize: 13.sp,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 2.5.h),
-
-          // Departure Location
+          SizedBox(height: 2.h),
           _buildLocationInput(
             theme: theme,
             controller: _departureController,
@@ -318,9 +335,7 @@ class _HomeScreenState extends State<HomeScreen> {
             hint: 'Select departure city',
             icon: 'location_on',
           ),
-          SizedBox(height: 1.5.h),
-
-          // Swap Button
+          SizedBox(height: 1.2.h),
           Center(
             child: InkWell(
               onTap: _swapLocations,
@@ -334,14 +349,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: CustomIconWidget(
                   iconName: 'swap_vert',
                   color: theme.colorScheme.primary,
-                  size: 20,
+                  size: 18,
                 ),
               ),
             ),
           ),
-          SizedBox(height: 1.5.h),
-
-          // Destination Location
+          SizedBox(height: 1.2.h),
           _buildLocationInput(
             theme: theme,
             controller: _destinationController,
@@ -349,41 +362,37 @@ class _HomeScreenState extends State<HomeScreen> {
             hint: 'Select destination city',
             icon: 'location_on',
           ),
-          SizedBox(height: 2.h),
-
-          // Date Picker and Passenger Counter Row
+          SizedBox(height: 1.5.h),
           Row(
             children: [
               Expanded(
                 child: _buildDatePicker(theme),
               ),
-              SizedBox(width: 3.w),
+              SizedBox(width: 2.5.w),
               Expanded(
                 child: _buildPassengerCounter(theme),
               ),
             ],
           ),
-          SizedBox(height: 3.h),
-
-          // Search Button
+          SizedBox(height: 2.h),
           SizedBox(
             width: double.infinity,
-            height: 6.h,
+            height: 5.h,
             child: ElevatedButton(
               onPressed: _searchTrips,
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colorScheme.primary,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                elevation: 2,
+                elevation: 1,
               ),
               child: Text(
                 'SEARCH TRIPS',
                 style: theme.textTheme.titleMedium?.copyWith(
                   color: theme.colorScheme.onPrimary,
                   fontWeight: FontWeight.bold,
-                  fontSize: 15.sp,
+                  fontSize: 11.sp,
                 ),
               ),
             ),
@@ -407,40 +416,40 @@ class _HomeScreenState extends State<HomeScreen> {
           label,
           style: theme.textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.w600,
-            fontSize: 13.sp,
+            fontSize: 11.sp,
             color: theme.colorScheme.onSurfaceVariant,
           ),
         ),
-        SizedBox(height: 0.8.h),
+        SizedBox(height: 0.6.h),
         TextField(
           controller: controller,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant.withOpacity(0.5),
-              fontSize: 13.sp,
+              fontSize: 11.sp,
             ),
             prefixIcon: Padding(
-              padding: EdgeInsets.all(3.w),
+              padding: EdgeInsets.all(2.5.w),
               child: CustomIconWidget(
                 iconName: icon,
                 color: theme.colorScheme.primary,
-                size: 20,
+                size: 18,
               ),
             ),
             filled: true,
             fillColor: theme.colorScheme.surfaceVariant.withOpacity(0.3),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide.none,
             ),
             contentPadding: EdgeInsets.symmetric(
-              horizontal: 4.w,
-              vertical: 1.5.h,
+              horizontal: 3.w,
+              vertical: 1.2.h,
             ),
           ),
           style: theme.textTheme.bodyMedium?.copyWith(
-            fontSize: 14.sp,
+            fontSize: 11.sp,
           ),
         ),
       ],
@@ -455,33 +464,33 @@ class _HomeScreenState extends State<HomeScreen> {
           'Date',
           style: theme.textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.w600,
-            fontSize: 13.sp,
+            fontSize: 11.sp,
             color: theme.colorScheme.onSurfaceVariant,
           ),
         ),
-        SizedBox(height: 0.8.h),
+        SizedBox(height: 0.6.h),
         InkWell(
           onTap: () => _selectDate(context),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(8),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.5.h),
+            padding: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 1.2.h),
             decoration: BoxDecoration(
               color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
               children: [
                 CustomIconWidget(
                   iconName: 'calendar_today',
                   color: theme.colorScheme.primary,
-                  size: 18,
+                  size: 16,
                 ),
-                SizedBox(width: 2.w),
+                SizedBox(width: 1.5.w),
                 Expanded(
                   child: Text(
                     '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      fontSize: 13.sp,
+                      fontSize: 11.sp,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -502,16 +511,16 @@ class _HomeScreenState extends State<HomeScreen> {
           'Passengers',
           style: theme.textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.w600,
-            fontSize: 13.sp,
+            fontSize: 11.sp,
             color: theme.colorScheme.onSurfaceVariant,
           ),
         ),
-        SizedBox(height: 0.8.h),
+        SizedBox(height: 0.6.h),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
+          padding: EdgeInsets.symmetric(horizontal: 1.5.w, vertical: 0.3.h),
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -523,7 +532,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: _passengerCount > 1
                       ? theme.colorScheme.primary
                       : theme.colorScheme.onSurfaceVariant.withOpacity(0.3),
-                  size: 24,
+                  size: 20,
                 ),
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
@@ -532,7 +541,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 '$_passengerCount',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontSize: 15.sp,
+                  fontSize: 12.sp,
                 ),
               ),
               IconButton(
@@ -540,7 +549,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: CustomIconWidget(
                   iconName: 'add_circle',
                   color: theme.colorScheme.primary,
-                  size: 24,
+                  size: 20,
                 ),
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
@@ -552,7 +561,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // 2. Popular Routes Section
   Widget _buildPopularRoutesSection(ThemeData theme) {
     final List<Map<String, String>> routes = [
       {'route': 'Enugu ↔ Abuja', 'price': 'From NGN 18,500'},
@@ -571,13 +579,13 @@ class _HomeScreenState extends State<HomeScreen> {
             'Popular Routes',
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
-              fontSize: 17.sp,
+              fontSize: 13.sp,
             ),
           ),
         ),
-        SizedBox(height: 1.5.h),
+        SizedBox(height: 1.2.h),
         SizedBox(
-          height: 20.h,
+          height: 18.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: routes.length,
@@ -585,7 +593,7 @@ class _HomeScreenState extends State<HomeScreen> {
               return Padding(
                 padding: EdgeInsets.only(
                   left: index == 0 ? 0 : 0,
-                  right: 3.w,
+                  right: 2.5.w,
                 ),
                 child: _buildPopularRouteCard(
                   theme: theme,
@@ -606,8 +614,8 @@ class _HomeScreenState extends State<HomeScreen> {
     required String price,
   }) {
     return Container(
-      width: 65.w,
-      padding: EdgeInsets.all(3.5.w),
+      width: 60.w,
+      padding: EdgeInsets.all(3.w),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -617,12 +625,12 @@ class _HomeScreenState extends State<HomeScreen> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.primary.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+            color: theme.colorScheme.primary.withOpacity(0.25),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -635,7 +643,7 @@ class _HomeScreenState extends State<HomeScreen> {
               CustomIconWidget(
                 iconName: 'directions_bus',
                 color: theme.colorScheme.onPrimary,
-                size: 28,
+                size: 24,
               ),
               SizedBox(width: 2.w),
               Expanded(
@@ -644,7 +652,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: theme.textTheme.titleMedium?.copyWith(
                     color: theme.colorScheme.onPrimary,
                     fontWeight: FontWeight.bold,
-                    fontSize: 15.sp,
+                    fontSize: 12.sp,
                   ),
                 ),
               ),
@@ -658,10 +666,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: theme.textTheme.bodyLarge?.copyWith(
                   color: theme.colorScheme.onPrimary,
                   fontWeight: FontWeight.w600,
-                  fontSize: 14.sp,
+                  fontSize: 11.sp,
                 ),
               ),
-              SizedBox(height: 1.h),
+              SizedBox(height: 0.8.h),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -670,15 +678,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     backgroundColor: theme.colorScheme.onPrimary,
                     foregroundColor: theme.colorScheme.primary,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 1.2.h),
+                    padding: EdgeInsets.symmetric(vertical: 1.h),
                   ),
                   child: Text(
                     'VIEW TRIPS',
                     style: theme.textTheme.labelLarge?.copyWith(
                       fontWeight: FontWeight.bold,
-                      fontSize: 12.sp,
+                      fontSize: 10.sp,
                     ),
                   ),
                 ),
@@ -690,10 +698,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // 3. Agent/Loyalty Promotion Card
   Widget _buildAgentPromotionCard(ThemeData theme) {
     return Container(
-      padding: EdgeInsets.all(4.w),
+      padding: EdgeInsets.all(3.w),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -703,12 +710,12 @@ class _HomeScreenState extends State<HomeScreen> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.15),
-            blurRadius: 16,
-            offset: const Offset(0, 4),
+            color: theme.colorScheme.shadow.withOpacity(0.12),
+            blurRadius: 12,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -718,50 +725,50 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             children: [
               Container(
-                padding: EdgeInsets.all(2.w),
+                padding: EdgeInsets.all(1.5.w),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.onTertiary.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: CustomIconWidget(
                   iconName: 'groups',
                   color: theme.colorScheme.onTertiary,
-                  size: 28,
+                  size: 24,
                 ),
               ),
-              SizedBox(width: 3.w),
+              SizedBox(width: 2.5.w),
               Expanded(
                 child: Text(
                   'Join Our Agent Network',
                   style: theme.textTheme.titleLarge?.copyWith(
                     color: theme.colorScheme.onTertiary,
                     fontWeight: FontWeight.bold,
-                    fontSize: 17.sp,
+                    fontSize: 13.sp,
                   ),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 2.h),
+          SizedBox(height: 1.5.h),
           Text(
             'Become a partner agent and enjoy exclusive benefits, higher commissions, and priority support.',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onTertiary.withOpacity(0.9),
-              fontSize: 13.sp,
+              fontSize: 11.sp,
               height: 1.4,
             ),
           ),
-          SizedBox(height: 2.5.h),
+          SizedBox(height: 2.h),
           SizedBox(
             width: double.infinity,
-            height: 5.5.h,
+            height: 4.8.h,
             child: ElevatedButton(
               onPressed: _showAgentBenefitsDialog,
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colorScheme.onTertiary,
                 foregroundColor: theme.colorScheme.tertiary,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 elevation: 0,
               ),
@@ -769,7 +776,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 'Explore Benefits',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14.sp,
+                  fontSize: 11.sp,
                 ),
               ),
             ),

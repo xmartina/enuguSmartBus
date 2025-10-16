@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
@@ -25,23 +26,29 @@ class BookingSummaryScreen extends StatefulWidget {
   State<BookingSummaryScreen> createState() => _BookingSummaryScreenState();
 }
 
-class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
+class _BookingSummaryScreenState extends State<BookingSummaryScreen> with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
   
-  // Mock data - 3 passengers for 3 selected seats
   List<Map<String, TextEditingController>> passengerControllers = [];
-  
-  // Optional fields
   final TextEditingController _luggageController = TextEditingController();
   final TextEditingController _nextOfKinController = TextEditingController();
-  
-  // Mock luggage settings
-  final double freeLuggageAllowance = 10.0; // 10KG free allowance
+  final double freeLuggageAllowance = 10.0;
   
   @override
   void initState() {
     super.initState();
     _initializePassengerForms();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+    _fadeAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+    _animationController.forward();
   }
   
   void _initializePassengerForms() {
@@ -64,6 +71,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
     }
     _luggageController.dispose();
     _nextOfKinController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
   
@@ -72,7 +80,6 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
       return false;
     }
     
-    // Check if all required fields are filled
     for (int i = 0; i < passengerControllers.length; i++) {
       if (passengerControllers[i]['fullName']!.text.trim().isEmpty ||
           passengerControllers[i]['phoneNumber']!.text.trim().isEmpty ||
@@ -83,6 +90,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
               'Please fill all required fields for Passenger ${i + 1}',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onError,
+                fontSize: 11.sp,
               ),
             ),
             backgroundColor: Theme.of(context).colorScheme.error,
@@ -120,13 +128,13 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: theme.colorScheme.primary,
-        elevation: 2,
+        elevation: 1,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
           icon: CustomIconWidget(
             iconName: 'arrow_back',
             color: theme.colorScheme.onPrimary,
-            size: 24,
+            size: 22,
           ),
         ),
         title: Text(
@@ -134,28 +142,32 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
           style: theme.textTheme.titleLarge?.copyWith(
             color: theme.colorScheme.onPrimary,
             fontWeight: FontWeight.w600,
+            fontSize: 13.sp,
           ),
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          _buildBookingSummaryCard(theme, seats, totalAmount),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    _buildPassengerDetailsSection(theme, seats),
-                    _buildOptionalFieldsSection(theme),
-                    SizedBox(height: 10.h),
-                  ],
+      body: FadeTransition(
+        opacity: _fadeAnimation,
+        child: Column(
+          children: [
+            _buildBookingSummaryCard(theme, seats, totalAmount),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      _buildPassengerDetailsSection(theme, seats),
+                      _buildOptionalFieldsSection(theme),
+                      SizedBox(height: 10.h),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: _buildPaymentButton(theme, totalAmount),
     );
@@ -163,16 +175,16 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
 
   Widget _buildBookingSummaryCard(ThemeData theme, List<String> seats, double totalAmount) {
     return Container(
-      margin: EdgeInsets.all(3.w),
-      padding: EdgeInsets.all(3.w),
+      margin: EdgeInsets.all(2.5.w),
+      padding: EdgeInsets.all(2.5.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: theme.colorScheme.shadow.withOpacity(0.08),
+            blurRadius: 6,
+            offset: const Offset(0, 1),
           ),
         ],
       ),
@@ -186,7 +198,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
                 'Booking Details',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontSize: 15.sp,
+                  fontSize: 12.sp,
                 ),
               ),
               IconButton(
@@ -194,7 +206,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
                 icon: CustomIconWidget(
                   iconName: 'edit',
                   color: theme.colorScheme.primary,
-                  size: 20,
+                  size: 18,
                 ),
                 tooltip: 'Modify Seats',
                 padding: EdgeInsets.zero,
@@ -202,67 +214,67 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
               ),
             ],
           ),
-          SizedBox(height: 1.5.h),
+          SizedBox(height: 1.2.h),
           Row(
             children: [
               CustomIconWidget(
                 iconName: 'route',
                 color: theme.colorScheme.primary,
-                size: 18,
+                size: 16,
               ),
-              SizedBox(width: 2.w),
+              SizedBox(width: 1.5.w),
               Expanded(
                 child: Text(
                   widget.route ?? 'Abuja to Lagos',
                   style: theme.textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w600,
-                    fontSize: 13.sp,
+                    fontSize: 11.sp,
                   ),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 1.h),
+          SizedBox(height: 0.8.h),
           Row(
             children: [
               CustomIconWidget(
                 iconName: 'event',
                 color: theme.colorScheme.onSurfaceVariant,
-                size: 16,
+                size: 14,
               ),
-              SizedBox(width: 2.w),
+              SizedBox(width: 1.5.w),
               Text(
                 widget.dateTime ?? 'Sat, Nov 16 @ 07:00 AM',
                 style: theme.textTheme.bodySmall?.copyWith(
-                  fontSize: 12.sp,
+                  fontSize: 10.sp,
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 1.h),
+          SizedBox(height: 0.8.h),
           Row(
             children: [
               CustomIconWidget(
                 iconName: 'event_seat',
                 color: theme.colorScheme.onSurfaceVariant,
-                size: 16,
+                size: 14,
               ),
-              SizedBox(width: 2.w),
+              SizedBox(width: 1.5.w),
               Expanded(
                 child: Text(
                   'Selected Seats: ${seats.join(", ")}',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    fontSize: 12.sp,
+                    fontSize: 10.sp,
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 1.5.h),
+          SizedBox(height: 1.2.h),
           Divider(color: theme.colorScheme.outline.withOpacity(0.3)),
-          SizedBox(height: 1.h),
+          SizedBox(height: 0.8.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -270,7 +282,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
                 'Grand Total:',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontSize: 15.sp,
+                  fontSize: 12.sp,
                 ),
               ),
               Text(
@@ -278,7 +290,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
                 style: theme.textTheme.titleLarge?.copyWith(
                   color: theme.colorScheme.primary,
                   fontWeight: FontWeight.bold,
-                  fontSize: 18.sp,
+                  fontSize: 14.sp,
                 ),
               ),
             ],
@@ -293,12 +305,12 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
+          padding: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 0.8.h),
           child: Text(
             'Passenger Details',
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              fontSize: 15.sp,
+              fontSize: 12.sp,
             ),
           ),
         ),
@@ -312,11 +324,11 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
 
   Widget _buildPassengerCard(ThemeData theme, String seat, int index) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
-      padding: EdgeInsets.all(3.w),
+      margin: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 0.8.h),
+      padding: EdgeInsets.all(2.5.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: theme.colorScheme.outline.withOpacity(0.3),
           width: 1,
@@ -328,7 +340,7 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
           Row(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
+                padding: EdgeInsets.symmetric(horizontal: 1.5.w, vertical: 0.4.h),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.primaryContainer.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(6),
@@ -338,32 +350,34 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
                   style: theme.textTheme.labelMedium?.copyWith(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.w600,
-                    fontSize: 11.sp,
+                    fontSize: 9.sp,
                   ),
                 ),
               ),
-              SizedBox(width: 2.w),
+              SizedBox(width: 1.5.w),
               Text(
                 'Passenger ${index + 1}',
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontSize: 13.sp,
+                  fontSize: 11.sp,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 2.h),
+          SizedBox(height: 1.5.h),
           TextFormField(
             controller: passengerControllers[index]['fullName'],
             decoration: InputDecoration(
               labelText: 'Full Name *',
+              labelStyle: TextStyle(fontSize: 11.sp),
               prefixIcon: Icon(
                 Icons.person_outline,
-                size: 20,
+                size: 18,
                 color: theme.colorScheme.onSurfaceVariant,
               ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.5.h),
+              contentPadding: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 1.2.h),
             ),
+            style: TextStyle(fontSize: 11.sp),
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
                 return 'Full name is required';
@@ -371,18 +385,20 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
               return null;
             },
           ),
-          SizedBox(height: 1.5.h),
+          SizedBox(height: 1.2.h),
           TextFormField(
             controller: passengerControllers[index]['phoneNumber'],
             decoration: InputDecoration(
               labelText: 'Phone Number *',
+              labelStyle: TextStyle(fontSize: 11.sp),
               prefixIcon: Icon(
                 Icons.phone_outlined,
-                size: 20,
+                size: 18,
                 color: theme.colorScheme.onSurfaceVariant,
               ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.5.h),
+              contentPadding: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 1.2.h),
             ),
+            style: TextStyle(fontSize: 11.sp),
             keyboardType: TextInputType.phone,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
@@ -394,18 +410,20 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
               return null;
             },
           ),
-          SizedBox(height: 1.5.h),
+          SizedBox(height: 1.2.h),
           TextFormField(
             controller: passengerControllers[index]['email'],
             decoration: InputDecoration(
               labelText: 'Email Address *',
+              labelStyle: TextStyle(fontSize: 11.sp),
               prefixIcon: Icon(
                 Icons.email_outlined,
-                size: 20,
+                size: 18,
                 color: theme.colorScheme.onSurfaceVariant,
               ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.5.h),
+              contentPadding: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 1.2.h),
             ),
+            style: TextStyle(fontSize: 11.sp),
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
@@ -424,11 +442,11 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
 
   Widget _buildOptionalFieldsSection(ThemeData theme) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
-      padding: EdgeInsets.all(3.w),
+      margin: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 0.8.h),
+      padding: EdgeInsets.all(2.5.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: theme.colorScheme.outline.withOpacity(0.3),
           width: 1,
@@ -441,45 +459,51 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
             'Additional Information (Optional)',
             style: theme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.bold,
-              fontSize: 13.sp,
+              fontSize: 11.sp,
             ),
           ),
-          SizedBox(height: 2.h),
+          SizedBox(height: 1.5.h),
           TextFormField(
             controller: _luggageController,
             decoration: InputDecoration(
               labelText: 'Luggage Weight (KG)',
+              labelStyle: TextStyle(fontSize: 11.sp),
               hintText: 'Enter total luggage weight',
+              hintStyle: TextStyle(fontSize: 10.sp),
               prefixIcon: Icon(
                 Icons.luggage_outlined,
-                size: 20,
+                size: 18,
                 color: theme.colorScheme.onSurfaceVariant,
               ),
               helperText: '${freeLuggageAllowance}KG free allowance per ticket',
               helperStyle: theme.textTheme.bodySmall?.copyWith(
-                fontSize: 10.sp,
+                fontSize: 9.sp,
                 color: theme.colorScheme.secondary,
               ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.5.h),
+              contentPadding: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 1.2.h),
             ),
+            style: TextStyle(fontSize: 11.sp),
             keyboardType: TextInputType.number,
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
             ],
           ),
-          SizedBox(height: 1.5.h),
+          SizedBox(height: 1.2.h),
           TextFormField(
             controller: _nextOfKinController,
             decoration: InputDecoration(
               labelText: 'Emergency Contact / Next of Kin',
+              labelStyle: TextStyle(fontSize: 11.sp),
               hintText: 'Name and phone number',
+              hintStyle: TextStyle(fontSize: 10.sp),
               prefixIcon: Icon(
                 Icons.contact_emergency_outlined,
-                size: 20,
+                size: 18,
                 color: theme.colorScheme.onSurfaceVariant,
               ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.5.h),
+              contentPadding: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 1.2.h),
             ),
+            style: TextStyle(fontSize: 11.sp),
           ),
         ],
       ),
@@ -488,29 +512,29 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
 
   Widget _buildPaymentButton(ThemeData theme, double totalAmount) {
     return Container(
-      padding: EdgeInsets.all(3.w),
+      padding: EdgeInsets.all(2.5.w),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, -2),
+            color: theme.colorScheme.shadow.withOpacity(0.08),
+            blurRadius: 6,
+            offset: const Offset(0, -1),
           ),
         ],
       ),
       child: SafeArea(
         child: SizedBox(
           width: double.infinity,
-          height: 6.h,
+          height: 5.h,
           child: ElevatedButton(
             onPressed: _proceedToPayment,
             style: ElevatedButton.styleFrom(
               backgroundColor: theme.colorScheme.primary,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(8),
               ),
-              elevation: 2,
+              elevation: 1,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -520,16 +544,16 @@ class _BookingSummaryScreenState extends State<BookingSummaryScreen> {
                   style: theme.textTheme.titleMedium?.copyWith(
                     color: theme.colorScheme.onPrimary,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14.sp,
+                    fontSize: 11.sp,
                   ),
                 ),
-                SizedBox(width: 2.w),
+                SizedBox(width: 1.5.w),
                 Text(
                   '(₦${totalAmount.toStringAsFixed(0)})',
                   style: theme.textTheme.titleMedium?.copyWith(
                     color: theme.colorScheme.onPrimary,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14.sp,
+                    fontSize: 11.sp,
                   ),
                 ),
               ],
