@@ -1,0 +1,55 @@
+Seat Selection Screen TEMPLATE (seat_selection_screen.dart)
+1. Core Objective and File Specification 🎯
+AI Agent, your task is to construct the complete, fully responsive UI template and structure for the Seat Selection Screen. This screen is where the user interacts with the bus's seating arrangement (informed by the conceptual layout table).
+
+Read the "Flutter App Development Workflow" summary first.
+
+File Path: lib/presentation/seat_selection_screen/seat_selection_screen.dart.
+
+Focus: Prioritize visualization and interaction. All data (seats, prices) must be mock data/placeholders.
+
+Style Mandate: Strictly adhere to the UI Style Mandate (smaller sizes/fonts, use existing theme/widgets, use contemporary, rounded design).
+
+2. Header and Trip Information
+AppBar: Use a standard AppBar with the title "Select Your Seats."
+
+Trip Summary: Immediately below the AppBar, display a compact, fixed card summarizing the trip the user is currently booking (as if passed from the TripListScreen):
+
+Route: (e.g., "Abuja to Lagos").
+
+Date & Time: (e.g., "Sat, Nov 16 @ 07:00 AM").
+
+Bus Type: (e.g., "VIP Luxury Coach, 2x1 Layout").
+
+3. Seat Visual Representation (The Layout Grid)
+The core of the screen must display a clear, compact, grid-based visual representation of the bus seats, centered in the screen area.
+
+Layout Structure: Simulate a standard 2x1 coach layout with a central aisle. Include at least 10 rows of seats.
+
+Driver Position: Clearly indicate the driver's position at the front (using a distinct icon/color).
+
+Color Legend: Provide a visually distinct legend (key) explaining the state of the seats. Use three or four distinct colors/styles for the following placeholder states:
+
+Available: (Tap to select)
+
+Selected: (By current user)
+
+Booked/Occupied: (Simulating seats already taken, based on the tickets table data).
+
+Aisle/Empty Space.
+
+Interaction: Each seat unit must be a tappable widget. The onTap function must contain placeholder logic to toggle the seat state between Available and Selected and update the total cost in real-time.
+
+4. Real-Time Booking Summary (Fixed Bottom Section)
+A dedicated, persistent card or section must be fixed to the bottom of the screen (above the main action button) to show the running total, reflecting the grandtotal concept from the database.
+
+Selected Seats List: Display a list of currently Selected Seats (e.g., "A1, B2, B3").
+
+Total Fare: Dynamically display the Total Cost calculation (e.g., "Total: ₦55,500"). This total should update immediately when a seat is selected or deselected.
+
+Fare Breakdown Hint: Include a small informational link or label that simulates showing a fare breakdown (e.g., Base Fare + Insurance/Taxes). This link should trigger a placeholder SnackBar or a tiny information pop-up.
+
+5. Primary Call-to-Action (Fixed Button)
+Button: A full-width, visually dominant button fixed at the very bottom, labeled "PROCEED TO BOOKING (3 Seats)". The button label should dynamically reflect the number of selected seats (using placeholder logic).
+
+Action: The onPressed action must navigate to the BookingSummaryScreen() (target path: lib/presentation/booking_summary_screen/booking_summary_screen.dart). This navigation must simulate passing the list of selected seats and the final total fare as arguments.
