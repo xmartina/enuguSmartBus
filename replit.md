@@ -26,6 +26,8 @@ The core application is built with Flutter. It includes comprehensive authentica
 - **Home Screen:** Enhanced trip search card with departure/destination inputs, date picker, passenger counter, popular routes section, and agent/loyalty promotion card.
 - **Trip List Screen:** Displays search summaries, filter/sort options (price, departure time, bus type, facilities), and detailed trip result cards.
 - **Seat Selection Screen:** Interactive seat layout with real-time selection, dynamic booking summary, and fare breakdown.
+- **Booking Summary Screen:** Fixed booking summary card at top showing route, date/time, selected seats, and total with edit button. Scrollable passenger details form (name, phone, email) for each seat with validation. Optional fields for luggage weight and emergency contact. PAY NOW button with full form validation.
+- **Payment Success Screen:** Simple placeholder screen showing payment simulation confirmation with success icon and back-to-home navigation.
 - **Theming:** Light/dark mode support with easily customizable primary color.
 
 ### System Design Choices
