@@ -1,0 +1,74 @@
+@import 'tailwindcss';
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary: #1f2b6c;
+  --primary-hover: #1f2b6c90;
+  --primary-light: #1f2b6c80;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-primary {
+    color: #1f2b6c;
+  }
+
+  .bg-primary {
+    background-color: #1f2b6c;
+  }
+
+  .bg-primary-90 {
+    background-color: #1f2b6c90;
+  }
+
+  .text-primary-80 {
+    color: #1f2b6c80;
+  }
+
+  .hover\:bg-primary-90:hover {
+    background-color: #1f2b6c90;
+  }
+
+  .hover\:text-primary-80:hover {
+    color: #1f2b6c80;
+  }
+
+  .font-inter {
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .font-poppins {
+    font-family: var(--font-poppins), sans-serif;
+  }
+
+  /* Footer responsive grid */
+  @media (min-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+  }
+}
