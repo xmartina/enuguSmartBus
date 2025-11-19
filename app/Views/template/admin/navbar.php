@@ -7,8 +7,8 @@ if (empty($roleLabel)) {
 }
 ?>
 
-<header class="bg-white shadow-sm px-4 py-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between border-b border-gray-100">
-    <div class="flex items-center gap-3 w-full">
+<header class="sticky top-0 z-30 bg-white shadow-sm px-4 py-3 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between border-b border-gray-100">
+    <div class="flex items-center gap-3 w-full lg:w-auto">
         <button id="menuButton" class="lg:hidden p-2 rounded-lg bg-primary-blue text-white" aria-label="Open sidebar">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
         </button>
@@ -20,21 +20,21 @@ if (empty($roleLabel)) {
         </div>
     </div>
 
-    <div class="flex items-center gap-4 justify-end w-full">
+    <div class="flex items-center gap-3 justify-end w-full lg:w-auto lg:gap-4">
         <div class="hidden lg:block">
             <?= view_cell('\\App\\Libraries\\Language::getAllLanguage') ?>
         </div>
         <button class="p-2 rounded-full bg-background" aria-label="Notifications">
             <img src="<?= base_url('public/newadmin/assets/bell.png') ?>" alt="Bell" class="w-6 h-6">
         </button>
-        <div class="flex items-center bg-background rounded-full px-3 py-2 gap-3">
-            <img src="<?= esc($sessiondata->get('profile_pic')) ?>" alt="Profile" class="w-10 h-10 rounded-full object-cover">
-            <div>
+        <div class="flex items-center bg-background rounded-full px-3 py-2 gap-2 lg:gap-3">
+            <img src="<?= esc($sessiondata->get('profile_pic')) ?>" alt="Profile" class="w-8 h-8 lg:w-10 lg:h-10 rounded-full object-cover">
+            <div class="hidden sm:block">
                 <p class="text-sm font-semibold text-dark-blue"><?= esc($sessiondata->get('first_name') . ' ' . $sessiondata->get('last_name')) ?></p>
                 <span class="text-xs text-gray-500"><?= esc($roleLabel) ?></span>
             </div>
         </div>
-        <a href="<?= base_url(route_to('auth-logout')) ?>" class="px-4 py-2 text-sm font-semibold text-white bg-primary-green rounded-lg"><?= lang('Localize.sign_out') ?></a>
+        <a href="<?= base_url(route_to('auth-logout')) ?>" class="px-3 py-2 lg:px-4 text-xs lg:text-sm font-semibold text-white bg-primary-green rounded-lg hover:bg-dark-green transition-colors"><?= lang('Localize.sign_out') ?></a>
     </div>
 </header>
 

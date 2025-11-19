@@ -13,7 +13,7 @@ $rolepermissionLibrary = new Rolepermission();
 $sessiondata = \Config\Services::session();
 ?>
 
-<aside id="sidebar" class="fixed left-0 top-0 h-full w-full lg:w-64 bg-white shadow-xl transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 lg:z-auto overflow-y-auto">
+<aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-white shadow-xl transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 overflow-y-auto">
     <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
         <a href="<?= base_url(route_to('admin-home')) ?>" class="flex items-center gap-3">
             <img src="<?= esc($sessiondata->get('logo')) ?>" alt="Admin Logo" class="h-12 w-12 object-contain rounded-full">
@@ -40,8 +40,8 @@ $sessiondata = \Config\Services::session();
     <nav class="px-4 py-6">
         <ul class="metismenu text-sm font-semibold text-gray-600 space-y-1">
             <?php if ($rolepermissionLibrary->read("dashboard")) : ?>
-                <li class="<?= ($menuname == 'admin') ? 'mm-active bg-primary-blue text-white rounded-lg' : 'rounded-lg' ?>">
-                    <a href="<?= base_url(route_to('admin-home')) ?>" class="flex items-center gap-3 px-3 py-2 rounded-lg <?= ($menuname == 'admin') ? 'text-white' : 'hover:bg-gray-100' ?>">
+                <li class="<?= ($menuname == 'admin') ? 'mm-active' : '' ?>">
+                    <a href="<?= base_url(route_to('admin-home')) ?>" class="flex items-center gap-3 px-3 py-2 rounded-lg <?= ($menuname == 'admin') ? 'bg-primary-blue text-white' : 'hover:bg-gray-100' ?>">
                         <img src="<?= base_url('public/newadmin/assets/dashboard.png') ?>" class="w-5 h-5" alt="Dashboard" />
                         <span><?= lang('Localize.dashboard') ?></span>
                     </a>
@@ -58,7 +58,7 @@ $sessiondata = \Config\Services::session();
             <?php endif; ?>
 
             <li class="<?= $manageMapActive ? 'mm-active' : '' ?>">
-                <a href="<?= base_url('admin/driver-locations') ?>" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100">
+                <a href="<?= base_url('admin/driver-locations') ?>" class="flex items-center gap-3 px-3 py-2 rounded-lg <?= $manageMapActive ? 'bg-primary-blue text-white' : 'hover:bg-gray-100' ?>">
                     <img src="<?= base_url('public/newadmin/assets/map-icon.png') ?>" class="w-5 h-5" alt="Map" />
                     <span>Manage Map</span>
                 </a>
