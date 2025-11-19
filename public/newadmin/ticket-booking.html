@@ -1,0 +1,579 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticket Booking - Enugu Smart Bus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-blue": "#1f2b6c",
+                        "primary-green": "#27c840",
+                        "dark-green": "#22b038",
+                        "light-green": "#0f9918",
+                        "dark-blue": "#001447",
+                        background: "#F1F8FF",
+                        overlay: "#00131ac4",
+                    },
+                    fontFamily: {
+                        inter: ["Inter", "sans-serif"],
+                        poppins: ["Poppins", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-background">
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-full lg:w-64 bg-white shadow-lg transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 lg:z-auto overflow-y-scroll">
+        <div class="relative flex justify-between lg:justify-center my-5 px-5">
+            <div class="flex items-center justify-center w-32 h-32 rounded-full">
+                <img src="assets/top-bar-logo.png" alt="Logo" class="w-full rounded-full">
+            </div>
+            <button id="closeButton" class="absolute right-5 lg:hidden p-2 hover:bg-gray-100 rounded-md">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <ul class="flex flex-col gap-2 p-5">
+            <li>
+                <a href="index.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/dashboard.png" class="w-5 h-5" /> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="driver-dashboard.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/user-icon.png" /> Driver Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="payment-system.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/cards.png" /> Payment System
+                </a>
+            </li>
+            <li>
+                <a href="manage-map.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/map-icon.png" /> Manage Map
+                </a>
+            </li>
+            <li>
+                <a href="ticket-booking.html" class="flex p-2 rounded-lg gap-2 items-center bg-primary-blue text-white">
+                    <img src="assets/ticket-icon.png" /> Ticket Booking
+                </a>
+            </li>
+            <li>
+                <a href="agent.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/agent.png" /> Agent
+                </a>
+            </li>
+            <li>
+                <a href="account.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/account-icon.png" /> Account
+                </a>
+            </li>
+            <li>
+                <a href="passenger.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/passenger-icon.png" /> Passenger
+                </a>
+            </li>
+            <li>
+                <a href="hr-management.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/hr-icon.png" /> HR Management
+                </a>
+            </li>
+            <li>
+                <a href="report.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/report-icon.png" /> Report
+                </a>
+            </li>
+            <li>
+                <a href="inquiry.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/inquiry-icon.png" /> Inquiry
+                </a>
+            </li>
+        </ul>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="software-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/password.png" class="w-5 h-5" /> Software Setting
+                </a>
+            </li>
+            <li>
+                <a href="website-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/equalizer.png" /> Website Setting
+                </a>
+            </li>
+            <li>
+                <a href="user.html" class="flex p-2 hover:bg-background text-red-500 transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/logout.png" class="w-5 h-5" /> Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="lg:ml-72 flex flex-col gap-5 min-h-screen overflow-y-scroll pb-10">
+        <header class="relative">
+            <div class="bg-white flex items-center justify-between p-5 rounded-b-lg px-5">
+                <div class="max-w-xl flex gap-2 border rounded-full p-2 bg-background">
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <input class="w-full focus:outline-none bg-transparent" placeholder="Search bookings and tickets" />
+                </div>
+                <div class="flex items-center gap-5">
+                    <img src="assets/bell.png" alt="" class="w-8 h-8" />
+                    <div class="hidden md:flex lg:flex bg-background rounded-full px-2 items-center gap-4">
+                        <img src="assets/profile-pic.png" alt="profile-img" class="rounded-full w-8 h-8" />
+                        <div>
+                            <p class="font-semibold">Praise Adefemi</p>
+                            <span class="text-xs">Admin</span>
+                        </div>
+                    </div>
+                    <button id="menuButton" class="lg:hidden p-2 rounded-md bg-primary-blue">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <section class="px-5">
+            <div class="flex justify-between items-center flex-wrap gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold">Ticket Booking Management</h1>
+                    <p class="text-sm text-gray-600">Manage all ticket bookings and reservations</p>
+                </div>
+                <button class="bg-primary-blue text-white px-6 py-2 rounded-lg hover:bg-dark-blue transition-all">
+                    <i class="ri-add-line"></i> New Booking
+                </button>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 px-5">
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-600 text-sm">Total Bookings Today</p>
+                        <p class="text-2xl font-bold mt-2">456</p>
+                        <p class="text-xs text-green-600 mt-1">↑ 12% from yesterday</p>
+                    </div>
+                    <div class="bg-blue-100 p-3 rounded-lg">
+                        <i class="ri-ticket-line text-xl text-blue-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-600 text-sm">Confirmed Bookings</p>
+                        <p class="text-2xl font-bold mt-2">398</p>
+                        <p class="text-xs text-gray-600 mt-1">87.2% confirmation rate</p>
+                    </div>
+                    <div class="bg-green-100 p-3 rounded-lg">
+                        <i class="ri-checkbox-circle-line text-xl text-green-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-600 text-sm">Pending Bookings</p>
+                        <p class="text-2xl font-bold mt-2">43</p>
+                        <p class="text-xs text-orange-600 mt-1">Awaiting confirmation</p>
+                    </div>
+                    <div class="bg-orange-100 p-3 rounded-lg">
+                        <i class="ri-time-line text-xl text-orange-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-600 text-sm">Cancelled Bookings</p>
+                        <p class="text-2xl font-bold mt-2">15</p>
+                        <p class="text-xs text-red-600 mt-1">3.3% cancellation rate</p>
+                    </div>
+                    <div class="bg-red-100 p-3 rounded-lg">
+                        <i class="ri-close-circle-line text-xl text-red-600"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5 grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <div class="lg:col-span-2 bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Booking Trends</h2>
+                </div>
+                <div class="p-5">
+                    <canvas id="bookingTrendsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Booking Status</h2>
+                </div>
+                <div class="p-5">
+                    <canvas id="bookingStatusChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b flex justify-between items-center flex-wrap gap-3">
+                    <h2 class="font-bold text-lg">Recent Bookings</h2>
+                    <div class="flex gap-3">
+                        <select class="border rounded-lg px-3 py-1 text-sm">
+                            <option>All Status</option>
+                            <option>Confirmed</option>
+                            <option>Pending</option>
+                            <option>Cancelled</option>
+                        </select>
+                        <select class="border rounded-lg px-3 py-1 text-sm">
+                            <option>Today</option>
+                            <option>This Week</option>
+                            <option>This Month</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Booking ID</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Passenger</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Route</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date & Time</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Seats</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="px-4 py-3 text-sm font-mono">#BK20241201</td>
+                                <td class="px-4 py-3">
+                                    <div>
+                                        <p class="font-medium">David Ifeanyi</p>
+                                        <p class="text-xs text-gray-500">david@example.com</p>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-sm">Enugu - Nsukka</td>
+                                <td class="px-4 py-3 text-sm">Dec 15, 2025 08:30 AM</td>
+                                <td class="px-4 py-3 text-sm">2</td>
+                                <td class="px-4 py-3 font-bold">₦5k</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">Confirmed</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-primary-blue hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-sm font-mono">#BK20241202</td>
+                                <td class="px-4 py-3">
+                                    <div>
+                                        <p class="font-medium">Sarah Williams</p>
+                                        <p class="text-xs text-gray-500">sarah@example.com</p>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-sm">Enugu - Onitsha</td>
+                                <td class="px-4 py-3 text-sm">Dec 15, 2025 10:00 AM</td>
+                                <td class="px-4 py-3 text-sm">1</td>
+                                <td class="px-4 py-3 font-bold">₦3.5k</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 bg-orange-100 text-orange-600 rounded-full text-xs">Pending</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-primary-blue hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-sm font-mono">#BK20241203</td>
+                                <td class="px-4 py-3">
+                                    <div>
+                                        <p class="font-medium">Michael Johnson</p>
+                                        <p class="text-xs text-gray-500">michael@example.com</p>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-sm">Enugu - Abuja</td>
+                                <td class="px-4 py-3 text-sm">Dec 16, 2025 06:00 AM</td>
+                                <td class="px-4 py-3 text-sm">3</td>
+                                <td class="px-4 py-3 font-bold">₦24k</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">Confirmed</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-primary-blue hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5 grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Top Routes by Bookings</h2>
+                </div>
+                <div class="p-5 space-y-4">
+                    <div class="flex items-center justify-between p-3 border rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="font-bold text-blue-600">1</span>
+                            </div>
+                            <div>
+                                <p class="font-medium">Enugu - Nsukka</p>
+                                <p class="text-xs text-gray-600">423 bookings this month</p>
+                            </div>
+                        </div>
+                        <span class="font-bold text-green-600">₦1.05m</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 border rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                <span class="font-bold text-green-600">2</span>
+                            </div>
+                            <div>
+                                <p class="font-medium">Enugu - Onitsha</p>
+                                <p class="text-xs text-gray-600">312 bookings this month</p>
+                            </div>
+                        </div>
+                        <span class="font-bold text-green-600">₦780k</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 border rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                                <span class="font-bold text-orange-600">3</span>
+                            </div>
+                            <div>
+                                <p class="font-medium">Enugu - Abuja</p>
+                                <p class="text-xs text-gray-600">187 bookings this month</p>
+                            </div>
+                        </div>
+                        <span class="font-bold text-green-600">₦935k</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Booking Revenue</h2>
+                </div>
+                <div class="p-5 space-y-3">
+                    <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                        <span class="text-sm text-gray-600">Today's Revenue</span>
+                        <span class="font-bold text-lg">₦560k</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                        <span class="text-sm text-gray-600">This Week</span>
+                        <span class="font-bold text-lg">₦3.2m</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
+                        <span class="text-sm text-gray-600">This Month</span>
+                        <span class="font-bold text-lg">₦12.5m</span>
+                    </div>
+                    <hr />
+                    <div class="flex justify-between items-center pt-2">
+                        <span class="text-sm font-medium">Total Revenue</span>
+                        <span class="font-bold text-xl text-primary-green">₦48.2m</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5 grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Peak Booking Hours</h2>
+                </div>
+                <div class="p-5 space-y-3">
+                    <div class="flex justify-between items-center p-2 border-b">
+                        <span class="text-sm">6:00 AM - 9:00 AM</span>
+                        <span class="font-bold text-blue-600">156 bookings</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 border-b">
+                        <span class="text-sm">12:00 PM - 3:00 PM</span>
+                        <span class="font-bold text-green-600">98 bookings</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 border-b">
+                        <span class="text-sm">5:00 PM - 8:00 PM</span>
+                        <span class="font-bold text-orange-600">142 bookings</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Seat Occupancy</h2>
+                </div>
+                <div class="p-5 space-y-3">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">Average Occupancy</span>
+                            <span class="font-bold">87%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-primary-green h-2 rounded-full" style="width: 87%"></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mt-4">
+                        <div class="text-center p-3 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-gray-600">Total Seats</p>
+                            <p class="text-xl font-bold">1,250</p>
+                        </div>
+                        <div class="text-center p-3 bg-green-50 rounded-lg">
+                            <p class="text-sm text-gray-600">Booked</p>
+                            <p class="text-xl font-bold">1,087</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Booking Methods</h2>
+                </div>
+                <div class="p-5 space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                        <div class="flex items-center gap-2">
+                            <i class="ri-smartphone-line text-blue-600"></i>
+                            <span class="text-sm">Mobile App</span>
+                        </div>
+                        <span class="font-bold">65%</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div class="flex items-center gap-2">
+                            <i class="ri-computer-line text-green-600"></i>
+                            <span class="text-sm">Website</span>
+                        </div>
+                        <span class="font-bold">25%</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                        <div class="flex items-center gap-2">
+                            <i class="ri-store-line text-orange-600"></i>
+                            <span class="text-sm">Booking Office</span>
+                        </div>
+                        <span class="font-bold">10%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Cancellation Requests</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Booking ID</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Passenger</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Route</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Refund Amount</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Reason</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="px-4 py-3 text-sm font-mono">#BK20241180</td>
+                                <td class="px-4 py-3 text-sm">Peter Okafor</td>
+                                <td class="px-4 py-3 text-sm">Enugu - Nsukka</td>
+                                <td class="px-4 py-3 font-bold">₦2.5k</td>
+                                <td class="px-4 py-3 text-sm">Personal Emergency</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 bg-orange-100 text-orange-600 rounded-full text-xs">Pending</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-green-600 hover:underline text-sm mr-2">Approve</button>
+                                    <button class="text-red-600 hover:underline text-sm">Reject</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-sm font-mono">#BK20241175</td>
+                                <td class="px-4 py-3 text-sm">Grace Eze</td>
+                                <td class="px-4 py-3 text-sm">Enugu - Onitsha</td>
+                                <td class="px-4 py-3 font-bold">₦3.5k</td>
+                                <td class="px-4 py-3 text-sm">Change of Plans</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">Approved</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-primary-blue hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const bookingTrendsCtx = document.getElementById('bookingTrendsChart').getContext('2d');
+        new Chart(bookingTrendsCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Bookings',
+                    data: [320, 385, 410, 390, 450, 520, 480],
+                    borderColor: '#1f2b6c',
+                    backgroundColor: 'rgba(31, 43, 108, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        const bookingStatusCtx = document.getElementById('bookingStatusChart').getContext('2d');
+        new Chart(bookingStatusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Confirmed', 'Pending', 'Cancelled'],
+                datasets: [{
+                    data: [398, 43, 15],
+                    backgroundColor: ['#27c840', '#ff9800', '#f44336']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

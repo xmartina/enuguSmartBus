@@ -1,0 +1,111 @@
+body {
+  font-family: "Inter", "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #0f172a;
+  background-color: #F1F8FF;
+}
+
+canvas {
+  width: 100%;
+  max-height: 600px;
+}
+
+.sidebar-active {
+  transform: translateX(0) !important;
+}
+
+.overlay-active {
+  display: block;
+}
+
+.metismenu,
+.metismenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.metismenu > li {
+  margin-bottom: 0.35rem;
+}
+
+.metismenu > li > a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.9rem;
+  color: #475467;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.metismenu > li > a img {
+  flex-shrink: 0;
+}
+
+.metismenu > li > a:hover {
+  background-color: #F1F5F9;
+  color: #0f172a;
+}
+
+.metismenu li.mm-active > a {
+  background-color: #1f2b6c;
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(31, 43, 108, 0.18);
+}
+
+.metismenu .nav-second-level,
+.metismenu .nav-third-level,
+.metismenu .nav-fourth-level {
+  margin-top: 0.35rem;
+  margin-left: 0.45rem;
+  padding-left: 0.85rem;
+  border-left: 1px solid #E4E7EC;
+}
+
+.metismenu .nav-second-level li,
+.metismenu .nav-third-level li,
+.metismenu .nav-fourth-level li {
+  margin-bottom: 0.15rem;
+}
+
+.metismenu .nav-second-level li a,
+.metismenu .nav-third-level li a,
+.metismenu .nav-fourth-level li a {
+  display: flex;
+  align-items: center;
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.65rem;
+  color: #475467;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.metismenu .nav-second-level li a:hover,
+.metismenu .nav-third-level li a:hover,
+.metismenu .nav-fourth-level li a:hover {
+  background-color: #F8FAFC;
+  color: #1f2b6c;
+}
+
+.metismenu .has-arrow::after {
+  border-color: #94A3B8;
+}
+
+.metismenu li.mm-active > a.has-arrow::after {
+  border-color: #ffffff;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+}

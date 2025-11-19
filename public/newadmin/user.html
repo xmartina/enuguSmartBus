@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enugu Smart Bus System - Customer Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .sidebar-active {
+            transform: translateX(0) !important;
+        }
+        .overlay-active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-[#F1F8FF]">
+    <!-- Mobile Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-full lg:w-64 bg-white shadow-lg transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 lg:z-auto">
+        <div class="p-6">
+            <div class="flex items-center justify-between lg:justify-center">
+                <div class="flex items-center justify-center w-32 h-32 rounded-full">
+                    <img src="assets/top-bar-logo.png" alt="User Avatar" class="w-full rounded-full">
+                </div>
+                <button id="closeButton" class="lg:hidden p-2 hover:bg-gray-100 rounded-md">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <nav class="mt-6">
+            <a href="#" class="flex items-center mx-3 rounded-md px-6 py-3 bg-indigo-900 text-white">
+                <div class="w-6 h-6 mr-3 rounded-full">
+                    <img src="assets/dashboard.png" alt="User Avatar" class="w-full rounded-full">
+                </div>
+                Dashboard
+            </a>
+            
+            <a href="#" class="flex items-center mx-3 rounded-md px-6 py-3 text-gray-700 hover:bg-[#F1F8FF]">
+                <div class="w-6 h-6 mr-3 rounded-full">
+                    <img src="assets/tickets.png" alt="User Avatar" class="w-full rounded-full">
+                </div>
+                Tickets
+            </a>
+            
+            <a href="#" class="flex items-center mx-3 rounded-md px-6 py-3 text-gray-700 hover:bg-[#F1F8FF]">
+                <div class="w-6 h-6 mr-3 rounded-full">
+                    <img src="assets/profile.png" alt="User Avatar" class="w-full rounded-full">
+                </div>
+                Profile
+            </a>
+            
+            <a href="#" class="flex items-center mx-3 rounded-md px-6 py-3 text-gray-700 hover:bg-[#F1F8FF]">
+                <div class="w-6 h-6 mr-3 rounded-full">
+                    <img src="assets/tickets.png" alt="User Avatar" class="w-full rounded-full">
+                </div>
+                History
+            </a>
+            
+            <a href="#" class="flex items-center mx-3 rounded-md px-6 py-3 text-red-600 hover:bg-red-50">
+                <div class="w-6 h-6 mr-3 rounded-full">
+                    <img src="assets/logout.png" alt="User Avatar" class="w-full rounded-full">
+                </div>
+                Logout
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="lg:ml-64 min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm fixed top-0 w-full z-30">
+            <!-- Hero Section with Background -->
+            <div class="relative bg-gradient-to-r from-indigo-900 via-blue-800 to-indigo-900 px-4 py-12 overflow-hidden">
+                <!-- Background Image Overlay -->
+                <div class="absolute inset-0 opacity-30">
+                    <img src="assets/hero-banner.png" alt="Bus Background" class="w-full h-full object-cover">
+                </div>
+                
+                <!-- Content -->
+                <div class="relative z-10 flex items-center justify-between">
+                    <div class="w-full lg:w-[80vw]">
+                        <h1 class="text-white text-3xl lg:text-4xl font-semibold text-start lg:text-center">Enugu Smart Bus</h1>
+                        <h1 class="text-white text-3xl lg:text-4xl font-light text-start lg:text-center">Passenger's Dashboard</h1>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="menuButton" class="lg:hidden p-2 rounded-md bg-white/20 backdrop-blur-sm">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-between px-4 pb-4 mt-5 lg:w-[85vw] overflow-x-scroll lg:overflow-x-hidden gap-10">
+                <button class="bg-green-600 text-white min-w-44 lg:min-w-64 py-2 rounded-lg font-semibold hover:bg-green-500">
+                    Top up Wallet
+                </button>
+                <button class="text-indigo-900 min-w-44 lg:min-w-64 py-2 border rounded-lg font-semibold hover:bg-gray-100 shadow-sm">
+                    Smart Card
+                </button>
+                <button class="text-indigo-900 min-w-44 lg:min-w-64 py-2 border rounded-lg font-semibold hover:bg-gray-100 shadow-sm">
+                    QR Code
+                </button>
+                <button class="text-indigo-900 min-w-44 lg:min-w-64 py-2 border rounded-lg font-semibold hover:bg-gray-100 shadow-sm">
+                    Transfer Fund
+                </button>
+                <button class="text-indigo-900 min-w-44 lg:min-w-64 py-2 border rounded-lg font-semibold hover:bg-gray-100 shadow-sm">
+                    Book Trips
+                </button>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="p-4 lg:p-12 pt-[320px] lg:pt-[280px]">
+            <!-- Profile Card and Stats -->
+            <div class="flex flex-col lg:flex-row gap-4 mb-6 justify-start items-center">
+                <div class="flex flex-col items-center ">
+                    <div class="relative">
+                        <img src="assets/person.png" alt="David Ifeanyi" class="w-48 h-48 lg:w-32 lg:h-32 rounded-full">
+                        <button class="absolute bottom-0 right-0 bg-white rounded-full p-1.5 shadow-lg">
+                            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mt-3">
+                        <h3 class="text-lg text-center font-semibold text-indigo-900">David Ifeanyi</h3>
+                        <p class="text-sm text-center font-semibold text-green-600">ESB NO: 201982737</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-6 flex-1 flex flex-col justify-between w-full md:h-64">
+                    <div class="flex flex-col items-start text-sm">
+                        <p class="text-sm text-gray-600 mb-2">Wallet Balance</p>
+                        <p class="text-4xl font-bold mb-4">N9,000.<span class="font-normal">00</span></p>
+                    </div>
+                    <div class="flex items-center justify-between text-sm">
+                        <div>
+                            <span class="font-semibold text-green-600">+10%</span>
+                            <span class="ml-2 text-gray-500">From last month</span>
+                        </div>
+                        <a href="" class="ml-2 text-gray-500 underline">View Details</a>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 flex-1 flex flex-col justify-between w-full md:h-64">
+                    <div class="flex flex-col items-start text-sm">
+                        <p class="text-sm text-gray-600 mb-2">Amount Spent</p>
+                        <p class="text-4xl font-bold mb-4">N3,000.<span class="font-normal">00</span></p>
+                    </div>
+                    <div class="flex items-center justify-between text-sm">
+                        <div>
+                            <span class="font-semibold text-green-600">+15%</span>
+                            <span class="ml-2 text-gray-500">From last month</span>
+                        </div>
+                        <a href="" class="ml-2 text-gray-500 underline">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Routes -->
+            <div class=" p-4">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold">Recent Routes</h2>
+                    <a href="#" class="text-purple-600 text-sm font-semibold flex items-center hover:text-purple-700">
+                        See More
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Routes List -->
+                <div class="space-y-2">
+                    <!-- Route 1 -->
+                    <div class="bg-white shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-lg transition gap-10 lg:gap-3">
+                        <div class="flex items-center gap-4 w-full sm:w-auto">
+                            <div class="w-10 h-10 bg-teal-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <img src="assets/route-1.png" alt="User Avatar" class="w-full">
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Enugu - Nsukka</h3>
+                                <p class="text-sm text-gray-500">3 March 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 flex-wrap w-full sm:w-auto">
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">Invoice</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Review</span>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold hover:bg-blue-200">View</button>
+                        </div>
+                    </div>
+
+                    <!-- Route 2 -->
+                    <div class="bg-white shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-lg transition gap-10 lg:gap-3">
+                        <div class="flex items-center gap-4 w-full sm:w-auto">
+                            <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <img src="assets/route-2.png" alt="User Avatar" class="w-full">
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Enugu - Abakpa</h3>
+                                <p class="text-sm text-gray-500">2 March 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 flex-wrap w-full sm:w-auto">
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">Invoice</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Review</span>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold hover:bg-blue-200">View</button>
+                        </div>
+                    </div>
+
+                    <!-- Route 3 -->
+                    <div class="bg-white shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-lg transition gap-10 lg:gap-3">
+                        <div class="flex items-center gap-4 w-full sm:w-auto">
+                            <div class="w-10 h-10 bg-teal-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <img src="assets/route-3.png" alt="User Avatar" class="w-full">
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Federal Housing - Nsukka</h3>
+                                <p class="text-sm text-gray-500">4 March 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 flex-wrap w-full sm:w-auto">
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">Invoice</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Review</span>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold hover:bg-blue-200">View</button>
+                        </div>
+                    </div>
+
+                    <!-- Route 4 -->
+                    <div class="bg-white shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-lg transition gap-10 lg:gap-3">
+                        <div class="flex items-center gap-4 w-full sm:w-auto">
+                            <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <img src="assets/route-2.png" alt="User Avatar" class="w-full">
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Enugu - Abakpa</h3>
+                                <p class="text-sm text-gray-500">4 March 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 flex-wrap w-full sm:w-auto">
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">Invoice</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Review</span>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold hover:bg-blue-200">View</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const menuButton = document.getElementById('menuButton');
+        const closeButton = document.getElementById('closeButton');
+
+        function openSidebar() {
+            sidebar.classList.add('sidebar-active');
+            overlay.classList.remove('hidden');
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('sidebar-active');
+            overlay.classList.add('hidden');
+        }
+
+        menuButton.addEventListener('click', openSidebar);
+        closeButton.addEventListener('click', closeSidebar);
+        overlay.addEventListener('click', closeSidebar);
+    </script>
+</body>
+</html>

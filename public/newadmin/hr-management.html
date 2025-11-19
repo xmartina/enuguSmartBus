@@ -1,0 +1,654 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Management - ESB Smart Bus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            blue: '#0066FF',
+                            orange: '#FF6B00'
+                        },
+                        background: '#F5F7FA'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background">
+    <aside class="bg-white w-72 fixed h-full overflow-y-scroll z-20 hidden lg:block">
+        <div class="p-5 flex flex-col gap-5">
+            <img src="assets/top-bar-logo.png" class="w-40" />
+            <div class="flex gap-2 items-center">
+                <img src="assets/profile-pic.png" class="w-10 h-10 rounded-full" />
+                <div>
+                    <h3 class="font-semibold text-sm">Admin User</h3>
+                    <p class="text-xs text-gray-500">Administrator</p>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="index.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/dashboard.png" /> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="ticket-booking.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/ticket-icon.png" /> Ticket Booking
+                </a>
+            </li>
+            <li>
+                <a href="manage-map.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/map-icon.png" /> Manage Map
+                </a>
+            </li>
+            <li>
+                <a href="driver-dashboard.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/cards.png" /> Driver Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="payment-system.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/tickets.png" /> Payment System
+                </a>
+            </li>
+            <li>
+                <a href="agent.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/agent.png" /> Agent
+                </a>
+            </li>
+            <li>
+                <a href="account.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/account-icon.png" /> Account
+                </a>
+            </li>
+            <li>
+                <a href="passenger.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/passenger-icon.png" /> Passenger
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex p-2 rounded-lg gap-2 items-center bg-primary-blue text-white">
+                    <img src="assets/hr-icon.png" /> HR Management
+                </a>
+            </li>
+            <li>
+                <a href="report.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/report-icon.png" /> Report
+                </a>
+            </li>
+            <li>
+                <a href="inquiry.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/inquiry-icon.png" /> Inquiry
+                </a>
+            </li>
+        </ul>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="software-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/password.png" class="w-5 h-5" /> Software Setting
+                </a>
+            </li>
+            <li>
+                <a href="website-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/equalizer.png" /> Website Setting
+                </a>
+            </li>
+            <li>
+                <a href="user.html" class="flex p-2 hover:bg-background text-red-500 transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/logout.png" class="w-5 h-5" /> Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="lg:ml-72 flex flex-col gap-5 min-h-screen overflow-y-scroll pb-10">
+        <header class="relative">
+            <img src="assets/hero-banner.png" class="w-full h-52 object-cover" />
+            <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-between px-10">
+                <div class="text-white">
+                    <h1 class="text-4xl font-bold">HR Management</h1>
+                    <p class="text-lg">Manage Staff, Payroll, and Human Resources</p>
+                </div>
+                <div class="flex gap-3 items-center">
+                    <img src="assets/bell.png" class="w-6 h-6 cursor-pointer" />
+                    <img src="assets/profile-pic.png" class="w-10 h-10 rounded-full cursor-pointer" />
+                </div>
+            </div>
+        </header>
+
+        <!-- Staff Overview Section -->
+        <section class="px-10">
+            <h2 class="text-2xl font-bold mb-5">Staff Overview</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="bg-white p-5 rounded-lg shadow-md flex items-center gap-3">
+                    <img src="assets/total-staff.png" class="w-12 h-12" />
+                    <div>
+                        <h3 class="text-gray-500 text-sm">Total Staff</h3>
+                        <p class="text-2xl font-bold text-primary-blue">248</p>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-md flex items-center gap-3">
+                    <img src="assets/user-icon.png" class="w-12 h-12" />
+                    <div>
+                        <h3 class="text-gray-500 text-sm">Active Staff</h3>
+                        <p class="text-2xl font-bold text-green-600">232</p>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-md flex items-center gap-3">
+                    <img src="assets/cards.png" class="w-12 h-12" />
+                    <div>
+                        <h3 class="text-gray-500 text-sm">On Leave</h3>
+                        <p class="text-2xl font-bold text-orange-500">16</p>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-md flex items-center gap-3">
+                    <img src="assets/agent.png" class="w-12 h-12" />
+                    <div>
+                        <h3 class="text-gray-500 text-sm">New Hires (This Month)</h3>
+                        <p class="text-2xl font-bold text-primary-orange">12</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Employee Management Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <div class="flex justify-between items-center mb-5">
+                    <h2 class="text-2xl font-bold">Employee Management</h2>
+                    <button class="bg-primary-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                        + Add New Employee
+                    </button>
+                </div>
+                <div class="mb-4 flex gap-3">
+                    <input type="text" placeholder="Search by name, ID, or department..." class="flex-1 border border-gray-300 rounded-lg px-4 py-2">
+                    <select class="border border-gray-300 rounded-lg px-4 py-2">
+                        <option>All Departments</option>
+                        <option>Drivers</option>
+                        <option>Ticketing</option>
+                        <option>Maintenance</option>
+                        <option>Administration</option>
+                        <option>Finance</option>
+                    </select>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Employee ID</th>
+                                <th class="px-4 py-3 text-left">Name</th>
+                                <th class="px-4 py-3 text-left">Department</th>
+                                <th class="px-4 py-3 text-left">Position</th>
+                                <th class="px-4 py-3 text-left">Join Date</th>
+                                <th class="px-4 py-3 text-left">Status</th>
+                                <th class="px-4 py-3 text-left">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">EMP001</td>
+                                <td class="px-4 py-3">John Okafor</td>
+                                <td class="px-4 py-3">Drivers</td>
+                                <td class="px-4 py-3">Senior Driver</td>
+                                <td class="px-4 py-3">Jan 15, 2020</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Active</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">EMP002</td>
+                                <td class="px-4 py-3">Mary Eze</td>
+                                <td class="px-4 py-3">Ticketing</td>
+                                <td class="px-4 py-3">Ticket Agent</td>
+                                <td class="px-4 py-3">Mar 22, 2021</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Active</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">EMP003</td>
+                                <td class="px-4 py-3">Chidi Nwankwo</td>
+                                <td class="px-4 py-3">Maintenance</td>
+                                <td class="px-4 py-3">Mechanic</td>
+                                <td class="px-4 py-3">Jul 08, 2019</td>
+                                <td class="px-4 py-3"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">On Leave</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">EMP004</td>
+                                <td class="px-4 py-3">Grace Adeyemi</td>
+                                <td class="px-4 py-3">Finance</td>
+                                <td class="px-4 py-3">Accountant</td>
+                                <td class="px-4 py-3">Nov 12, 2020</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Active</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">EMP005</td>
+                                <td class="px-4 py-3">David Obi</td>
+                                <td class="px-4 py-3">Drivers</td>
+                                <td class="px-4 py-3">Driver</td>
+                                <td class="px-4 py-3">Feb 05, 2022</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Active</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payroll Management Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <div class="flex justify-between items-center mb-5">
+                    <h2 class="text-2xl font-bold">Payroll Management</h2>
+                    <button class="bg-primary-orange text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition">
+                        Process Payroll
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Total Payroll (This Month)</h3>
+                        <p class="text-2xl font-bold text-primary-blue">₦8.5M</p>
+                        <p class="text-xs text-gray-500 mt-1">248 employees</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Paid Out</h3>
+                        <p class="text-2xl font-bold text-green-600">₦8.2M</p>
+                        <p class="text-xs text-gray-500 mt-1">232 employees</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Pending Payment</h3>
+                        <p class="text-2xl font-bold text-orange-500">₦300K</p>
+                        <p class="text-xs text-gray-500 mt-1">16 employees</p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Employee</th>
+                                <th class="px-4 py-3 text-left">Department</th>
+                                <th class="px-4 py-3 text-left">Base Salary</th>
+                                <th class="px-4 py-3 text-left">Allowances</th>
+                                <th class="px-4 py-3 text-left">Deductions</th>
+                                <th class="px-4 py-3 text-left">Net Pay</th>
+                                <th class="px-4 py-3 text-left">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">John Okafor</td>
+                                <td class="px-4 py-3">Drivers</td>
+                                <td class="px-4 py-3">₦45K</td>
+                                <td class="px-4 py-3">₦10K</td>
+                                <td class="px-4 py-3">₦5K</td>
+                                <td class="px-4 py-3 font-bold">₦50K</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Paid</span></td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">Mary Eze</td>
+                                <td class="px-4 py-3">Ticketing</td>
+                                <td class="px-4 py-3">₦35K</td>
+                                <td class="px-4 py-3">₦8K</td>
+                                <td class="px-4 py-3">₦3K</td>
+                                <td class="px-4 py-3 font-bold">₦40K</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Paid</span></td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">Chidi Nwankwo</td>
+                                <td class="px-4 py-3">Maintenance</td>
+                                <td class="px-4 py-3">₦40K</td>
+                                <td class="px-4 py-3">₦12K</td>
+                                <td class="px-4 py-3">₦4K</td>
+                                <td class="px-4 py-3 font-bold">₦48K</td>
+                                <td class="px-4 py-3"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Attendance & Leave Management Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Attendance & Leave Management</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">Today's Attendance</h3>
+                        <div class="border border-gray-200 rounded-lg p-4 mb-3">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-600">Present</span>
+                                <span class="font-bold text-green-600">218/248</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4 mb-3">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-600">Absent</span>
+                                <span class="font-bold text-red-600">14/248</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-red-600 h-2 rounded-full" style="width: 6%"></div>
+                            </div>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-600">On Leave</span>
+                                <span class="font-bold text-orange-600">16/248</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-orange-600 h-2 rounded-full" style="width: 6%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">Pending Leave Requests</h3>
+                        <div class="space-y-3">
+                            <div class="border border-gray-200 rounded-lg p-3">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h4 class="font-semibold">Samuel Uche</h4>
+                                        <p class="text-sm text-gray-600">Annual Leave - 5 days</p>
+                                        <p class="text-xs text-gray-500">Dec 20 - Dec 24, 2024</p>
+                                    </div>
+                                    <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Pending</span>
+                                </div>
+                                <div class="flex gap-2 mt-2">
+                                    <button class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">Approve</button>
+                                    <button class="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700">Reject</button>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-3">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h4 class="font-semibold">Angela Chioma</h4>
+                                        <p class="text-sm text-gray-600">Sick Leave - 2 days</p>
+                                        <p class="text-xs text-gray-500">Dec 15 - Dec 16, 2024</p>
+                                    </div>
+                                    <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Pending</span>
+                                </div>
+                                <div class="flex gap-2 mt-2">
+                                    <button class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">Approve</button>
+                                    <button class="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700">Reject</button>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-3">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h4 class="font-semibold">Patrick Nnaji</h4>
+                                        <p class="text-sm text-gray-600">Casual Leave - 1 day</p>
+                                        <p class="text-xs text-gray-500">Dec 18, 2024</p>
+                                    </div>
+                                    <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Pending</span>
+                                </div>
+                                <div class="flex gap-2 mt-2">
+                                    <button class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">Approve</button>
+                                    <button class="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700">Reject</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Performance & Training Section -->
+        <section class="px-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="bg-white rounded-lg shadow-md p-5">
+                    <h2 class="text-2xl font-bold mb-5">Performance Reviews</h2>
+                    <div class="space-y-3">
+                        <div class="border border-gray-200 rounded-lg p-3">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-semibold">John Okafor</h4>
+                                    <p class="text-sm text-gray-600">Senior Driver - Q4 2024</p>
+                                </div>
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-bold">4.5/5.0</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Next review: Mar 2025</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-3">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-semibold">Mary Eze</h4>
+                                    <p class="text-sm text-gray-600">Ticket Agent - Q4 2024</p>
+                                </div>
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-bold">4.8/5.0</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Next review: Mar 2025</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-3">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-semibold">Chidi Nwankwo</h4>
+                                    <p class="text-sm text-gray-600">Mechanic - Q4 2024</p>
+                                </div>
+                                <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-bold">3.8/5.0</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Next review: Mar 2025</p>
+                        </div>
+                    </div>
+                    <button class="w-full mt-4 bg-primary-blue text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                        View All Reviews
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-5">
+                    <h2 class="text-2xl font-bold mb-5">Training Programs</h2>
+                    <div class="space-y-3">
+                        <div class="border border-gray-200 rounded-lg p-3">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-semibold">Driver Safety Training</h4>
+                                    <p class="text-sm text-gray-600">45 enrolled</p>
+                                </div>
+                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Ongoing</span>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-xs text-gray-500">Completion: 68%</span>
+                                <button class="text-blue-600 hover:underline text-sm">Details</button>
+                            </div>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-3">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-semibold">Customer Service Excellence</h4>
+                                    <p class="text-sm text-gray-600">32 enrolled</p>
+                                </div>
+                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Ongoing</span>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-xs text-gray-500">Completion: 82%</span>
+                                <button class="text-blue-600 hover:underline text-sm">Details</button>
+                            </div>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-3">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-semibold">Vehicle Maintenance Workshop</h4>
+                                    <p class="text-sm text-gray-600">18 enrolled</p>
+                                </div>
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Completed</span>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-xs text-gray-500">Completion: 100%</span>
+                                <button class="text-blue-600 hover:underline text-sm">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w-full mt-4 bg-primary-orange text-white py-2 rounded-lg hover:bg-orange-700 transition">
+                        Schedule New Training
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recruitment Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Recruitment Pipeline</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-5">
+                    <div class="border border-gray-200 rounded-lg p-4 text-center">
+                        <h3 class="text-gray-500 text-sm mb-2">Applications Received</h3>
+                        <p class="text-3xl font-bold text-primary-blue">127</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4 text-center">
+                        <h3 class="text-gray-500 text-sm mb-2">Under Review</h3>
+                        <p class="text-3xl font-bold text-orange-500">48</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4 text-center">
+                        <h3 class="text-gray-500 text-sm mb-2">Interview Scheduled</h3>
+                        <p class="text-3xl font-bold text-blue-600">23</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4 text-center">
+                        <h3 class="text-gray-500 text-sm mb-2">Offers Made</h3>
+                        <p class="text-3xl font-bold text-green-600">12</p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Candidate Name</th>
+                                <th class="px-4 py-3 text-left">Position Applied</th>
+                                <th class="px-4 py-3 text-left">Application Date</th>
+                                <th class="px-4 py-3 text-left">Status</th>
+                                <th class="px-4 py-3 text-left">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">Emmanuel Okoro</td>
+                                <td class="px-4 py-3">Driver</td>
+                                <td class="px-4 py-3">Dec 10, 2024</td>
+                                <td class="px-4 py-3"><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Interview</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">Review</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">Blessing Nduka</td>
+                                <td class="px-4 py-3">Ticket Agent</td>
+                                <td class="px-4 py-3">Dec 12, 2024</td>
+                                <td class="px-4 py-3"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Review</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">Review</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">Victor Alade</td>
+                                <td class="px-4 py-3">Mechanic</td>
+                                <td class="px-4 py-3">Dec 14, 2024</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Offer Made</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">Review</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Documents & Compliance Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Documents & Compliance</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Valid Licenses</h3>
+                        <p class="text-2xl font-bold text-green-600">186/198</p>
+                        <p class="text-xs text-gray-500 mt-1">Drivers with valid licenses</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Expiring Soon</h3>
+                        <p class="text-2xl font-bold text-orange-500">12</p>
+                        <p class="text-xs text-gray-500 mt-1">Licenses expiring in 30 days</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Medical Checkups</h3>
+                        <p class="text-2xl font-bold text-blue-600">232/248</p>
+                        <p class="text-xs text-gray-500 mt-1">Up to date</p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Employee</th>
+                                <th class="px-4 py-3 text-left">Document Type</th>
+                                <th class="px-4 py-3 text-left">Issue Date</th>
+                                <th class="px-4 py-3 text-left">Expiry Date</th>
+                                <th class="px-4 py-3 text-left">Status</th>
+                                <th class="px-4 py-3 text-left">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">John Okafor</td>
+                                <td class="px-4 py-3">Driver's License</td>
+                                <td class="px-4 py-3">Jan 15, 2023</td>
+                                <td class="px-4 py-3">Jan 15, 2026</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Valid</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">David Obi</td>
+                                <td class="px-4 py-3">Driver's License</td>
+                                <td class="px-4 py-3">Mar 20, 2022</td>
+                                <td class="px-4 py-3">Jan 20, 2025</td>
+                                <td class="px-4 py-3"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Expiring Soon</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">Renew</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">Chidi Nwankwo</td>
+                                <td class="px-4 py-3">Medical Certificate</td>
+                                <td class="px-4 py-3">Jul 08, 2024</td>
+                                <td class="px-4 py-3">Jul 08, 2025</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Valid</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

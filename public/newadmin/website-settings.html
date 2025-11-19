@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Settings - ESB Smart Bus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            blue: '#0066FF',
+                            orange: '#FF6B00'
+                        },
+                        background: '#F5F7FA'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background">
+    <aside class="bg-white w-72 fixed h-full overflow-y-scroll z-20 hidden lg:block">
+        <div class="p-5 flex flex-col gap-5">
+            <img src="assets/top-bar-logo.png" class="w-40" />
+            <div class="flex gap-2 items-center">
+                <img src="assets/profile-pic.png" class="w-10 h-10 rounded-full" />
+                <div>
+                    <h3 class="font-semibold text-sm">Admin User</h3>
+                    <p class="text-xs text-gray-500">Administrator</p>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="index.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/dashboard.png" /> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="ticket-booking.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/ticket-icon.png" /> Ticket Booking
+                </a>
+            </li>
+            <li>
+                <a href="manage-map.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/map-icon.png" /> Manage Map
+                </a>
+            </li>
+            <li>
+                <a href="driver-dashboard.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/cards.png" /> Driver Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="payment-system.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/tickets.png" /> Payment System
+                </a>
+            </li>
+            <li>
+                <a href="agent.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/agent.png" /> Agent
+                </a>
+            </li>
+            <li>
+                <a href="account.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/account-icon.png" /> Account
+                </a>
+            </li>
+            <li>
+                <a href="passenger.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/passenger-icon.png" /> Passenger
+                </a>
+            </li>
+            <li>
+                <a href="hr-management.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/hr-icon.png" /> HR Management
+                </a>
+            </li>
+            <li>
+                <a href="report.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/report-icon.png" /> Report
+                </a>
+            </li>
+            <li>
+                <a href="inquiry.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/inquiry-icon.png" /> Inquiry
+                </a>
+            </li>
+        </ul>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="software-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/password.png" class="w-5 h-5" /> Software Setting
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex p-2 rounded-lg gap-2 items-center bg-primary-blue text-white">
+                    <img src="assets/equalizer.png" /> Website Setting
+                </a>
+            </li>
+            <li>
+                <a href="user.html" class="flex p-2 hover:bg-background text-red-500 transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/logout.png" class="w-5 h-5" /> Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="lg:ml-72 flex flex-col gap-5 min-h-screen overflow-y-scroll pb-10">
+        <header class="relative">
+            <img src="assets/hero-banner.png" class="w-full h-52 object-cover" />
+            <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-between px-10">
+                <div class="text-white">
+                    <h1 class="text-4xl font-bold">Website Settings</h1>
+                    <p class="text-lg">Customize your website appearance and content</p>
+                </div>
+                <div class="flex gap-3 items-center">
+                    <img src="assets/bell.png" class="w-6 h-6 cursor-pointer" />
+                    <img src="assets/profile-pic.png" class="w-10 h-10 rounded-full cursor-pointer" />
+                </div>
+            </div>
+        </header>
+
+        <!-- General Website Settings Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">General Website Information</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Website Title</label>
+                        <input type="text" value="Enugu Smart Bus - ESB" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Tagline</label>
+                        <input type="text" value="Your Smart Transportation Solution" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-semibold mb-2">Website Description</label>
+                        <textarea rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-2">Enugu Smart Bus provides efficient and reliable public transportation services across Enugu State.</textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Contact Email</label>
+                        <input type="email" value="info@enugusmartbus.com" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Contact Phone</label>
+                        <input type="tel" value="+234 800 123 4567" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-semibold mb-2">Address</label>
+                        <input type="text" value="1 Independence Layout, Enugu, Nigeria" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-end">
+                    <button class="bg-primary-blue text-white px-6 py-2 rounded-lg">Save Changes</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Branding & Logo Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Branding & Logo</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Website Logo</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-5 text-center">
+                            <img src="assets/top-bar-logo.png" class="w-40 mx-auto mb-3" />
+                            <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm">Upload New Logo</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Favicon</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-5 text-center">
+                            <div class="w-16 h-16 bg-primary-blue mx-auto mb-3 rounded"></div>
+                            <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm">Upload Favicon</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Primary Color</label>
+                        <div class="flex gap-2">
+                            <input type="color" value="#0066FF" class="w-16 h-10 border-0" />
+                            <input type="text" value="#0066FF" class="flex-1 border border-gray-300 rounded-lg px-4 py-2" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Secondary Color</label>
+                        <div class="flex gap-2">
+                            <input type="color" value="#FF6B00" class="w-16 h-10 border-0" />
+                            <input type="text" value="#FF6B00" class="flex-1 border border-gray-300 rounded-lg px-4 py-2" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-end">
+                    <button class="bg-primary-blue text-white px-6 py-2 rounded-lg">Update Branding</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Homepage Content Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Homepage Content</h2>
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Hero Section Title</label>
+                        <input type="text" value="Smart Transportation for Everyone" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Hero Section Subtitle</label>
+                        <textarea rows="2" class="w-full border border-gray-300 rounded-lg px-4 py-2">Book your bus tickets online and travel comfortably across Enugu State with our modern fleet.</textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Hero Banner Image</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-5 text-center">
+                            <img src="assets/hero-banner.png" class="w-full max-w-md mx-auto mb-3 rounded" />
+                            <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm">Change Banner</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Call-to-Action Button Text</label>
+                        <input type="text" value="Book Now" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">About Section</label>
+                        <textarea rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-2">Enugu Smart Bus (ESB) is committed to providing safe, reliable, and affordable transportation services. With our modern fleet and professional drivers, we ensure your journey is comfortable and on time.</textarea>
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-end">
+                    <button class="bg-primary-blue text-white px-6 py-2 rounded-lg">Save Homepage Content</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Media Integration Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Social Media Integration</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Facebook Page URL</label>
+                        <input type="url" placeholder="https://facebook.com/enugusmartbus" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Twitter Handle</label>
+                        <input type="text" placeholder="@enugusmartbus" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Instagram Handle</label>
+                        <input type="text" placeholder="@enugusmartbus" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">YouTube Channel</label>
+                        <input type="url" placeholder="https://youtube.com/enugusmartbus" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">LinkedIn Page</label>
+                        <input type="url" placeholder="https://linkedin.com/company/enugusmartbus" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">WhatsApp Number</label>
+                        <input type="tel" placeholder="+234 800 123 4567" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <h3 class="font-semibold mb-3">Social Sharing Options</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" checked class="w-4 h-4" />
+                            <span>Enable social sharing on blog posts</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" checked class="w-4 h-4" />
+                            <span>Show social media icons in footer</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" class="w-4 h-4" />
+                            <span>Enable Facebook Pixel tracking</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-end">
+                    <button class="bg-primary-blue text-white px-6 py-2 rounded-lg">Save Social Media Settings</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEO Settings Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">SEO Settings</h2>
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Meta Title</label>
+                        <input type="text" value="Enugu Smart Bus - Book Your Bus Tickets Online" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                        <p class="text-xs text-gray-500 mt-1">60 characters recommended</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Meta Description</label>
+                        <textarea rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-2">Book affordable and reliable bus tickets online with Enugu Smart Bus. Safe, comfortable transportation across Enugu State with modern fleet and professional drivers.</textarea>
+                        <p class="text-xs text-gray-500 mt-1">160 characters recommended</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Keywords</label>
+                        <input type="text" value="bus booking, enugu transport, smart bus, online tickets" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Google Analytics ID</label>
+                        <input type="text" placeholder="UA-XXXXXXXXX-X" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Google Tag Manager ID</label>
+                        <input type="text" placeholder="GTM-XXXXXXX" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <h3 class="font-semibold mb-3">Search Engine Settings</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" checked class="w-4 h-4" />
+                                <span>Allow search engines to index this site</span>
+                            </label>
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" checked class="w-4 h-4" />
+                                <span>Generate sitemap automatically</span>
+                            </label>
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" checked class="w-4 h-4" />
+                                <span>Enable structured data markup</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-end">
+                    <button class="bg-primary-blue text-white px-6 py-2 rounded-lg">Update SEO Settings</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Settings Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Footer Settings</h2>
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Footer About Text</label>
+                        <textarea rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-2">Enugu Smart Bus is your trusted partner for safe and comfortable transportation across Enugu State. Book your tickets online and enjoy a hassle-free travel experience.</textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Copyright Text</label>
+                        <input type="text" value="© 2024 Enugu Smart Bus. All rights reserved." class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <h3 class="font-semibold mb-3">Quick Links (Column 1)</h3>
+                            <div class="space-y-2">
+                                <input type="text" value="About Us" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" />
+                                <input type="text" value="Our Services" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" />
+                                <input type="text" value="Routes" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" />
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-3">Quick Links (Column 2)</h3>
+                            <div class="space-y-2">
+                                <input type="text" value="Contact Us" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" />
+                                <input type="text" value="FAQs" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" />
+                                <input type="text" value="Terms & Conditions" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" />
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold mb-3">Footer Features</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" checked class="w-4 h-4" />
+                                <span>Show newsletter subscription form</span>
+                            </label>
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" checked class="w-4 h-4" />
+                                <span>Display payment method icons</span>
+                            </label>
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" checked class="w-4 h-4" />
+                                <span>Show customer support chat widget</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-end">
+                    <button class="bg-primary-blue text-white px-6 py-2 rounded-lg">Save Footer Settings</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Maintenance Mode Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Maintenance Mode</h2>
+                <div class="space-y-5">
+                    <div class="flex items-center justify-between p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <div>
+                            <h3 class="font-semibold">Enable Maintenance Mode</h3>
+                            <p class="text-sm text-gray-600">Show maintenance page to visitors while you update the site</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" />
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Maintenance Message</label>
+                        <textarea rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-2">We are currently performing scheduled maintenance. We'll be back online shortly. Thank you for your patience.</textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Estimated Completion Time</label>
+                        <input type="datetime-local" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Allowed IP Addresses (Access during maintenance)</label>
+                        <textarea rows="2" placeholder="127.0.0.1, 192.168.1.1" class="w-full border border-gray-300 rounded-lg px-4 py-2"></textarea>
+                        <p class="text-xs text-gray-500 mt-1">Comma-separated IP addresses</p>
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-end">
+                    <button class="bg-primary-blue text-white px-6 py-2 rounded-lg">Save Maintenance Settings</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

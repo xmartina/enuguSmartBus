@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquiry Management - ESB Smart Bus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            blue: '#0066FF',
+                            orange: '#FF6B00'
+                        },
+                        background: '#F5F7FA'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background">
+    <aside class="bg-white w-72 fixed h-full overflow-y-scroll z-20 hidden lg:block">
+        <div class="p-5 flex flex-col gap-5">
+            <img src="assets/top-bar-logo.png" class="w-40" />
+            <div class="flex gap-2 items-center">
+                <img src="assets/profile-pic.png" class="w-10 h-10 rounded-full" />
+                <div>
+                    <h3 class="font-semibold text-sm">Admin User</h3>
+                    <p class="text-xs text-gray-500">Administrator</p>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="index.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/dashboard.png" /> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="ticket-booking.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/ticket-icon.png" /> Ticket Booking
+                </a>
+            </li>
+            <li>
+                <a href="manage-map.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/map-icon.png" /> Manage Map
+                </a>
+            </li>
+            <li>
+                <a href="driver-dashboard.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/cards.png" /> Driver Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="payment-system.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/tickets.png" /> Payment System
+                </a>
+            </li>
+            <li>
+                <a href="agent.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/agent.png" /> Agent
+                </a>
+            </li>
+            <li>
+                <a href="account.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/account-icon.png" /> Account
+                </a>
+            </li>
+            <li>
+                <a href="passenger.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/passenger-icon.png" /> Passenger
+                </a>
+            </li>
+            <li>
+                <a href="hr-management.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/hr-icon.png" /> HR Management
+                </a>
+            </li>
+            <li>
+                <a href="report.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/report-icon.png" /> Report
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex p-2 rounded-lg gap-2 items-center bg-primary-blue text-white">
+                    <img src="assets/inquiry-icon.png" /> Inquiry
+                </a>
+            </li>
+        </ul>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="software-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/password.png" class="w-5 h-5" /> Software Setting
+                </a>
+            </li>
+            <li>
+                <a href="website-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/equalizer.png" /> Website Setting
+                </a>
+            </li>
+            <li>
+                <a href="user.html" class="flex p-2 hover:bg-background text-red-500 transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/logout.png" class="w-5 h-5" /> Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="lg:ml-72 flex flex-col gap-5 min-h-screen overflow-y-scroll pb-10">
+        <header class="relative">
+            <img src="assets/hero-banner.png" class="w-full h-52 object-cover" />
+            <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-between px-10">
+                <div class="text-white">
+                    <h1 class="text-4xl font-bold">Inquiry & Support</h1>
+                    <p class="text-lg">Manage customer inquiries, complaints, and feedback</p>
+                </div>
+                <div class="flex gap-3 items-center">
+                    <img src="assets/bell.png" class="w-6 h-6 cursor-pointer" />
+                    <img src="assets/profile-pic.png" class="w-10 h-10 rounded-full cursor-pointer" />
+                </div>
+            </div>
+        </header>
+
+        <!-- Inquiry Overview Section -->
+        <section class="px-10">
+            <h2 class="text-2xl font-bold mb-5">Inquiry Overview</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="bg-white p-5 rounded-lg shadow-md flex items-center gap-3">
+                    <img src="assets/inquiry-icon.png" class="w-12 h-12" />
+                    <div>
+                        <h3 class="text-gray-500 text-sm">Total Inquiries</h3>
+                        <p class="text-2xl font-bold text-primary-blue">1,248</p>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-md flex items-center gap-3">
+                    <img src="assets/support.png" class="w-12 h-12" />
+                    <div>
+                        <h3 class="text-gray-500 text-sm">Pending</h3>
+                        <p class="text-2xl font-bold text-orange-500">87</p>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-md flex items-center gap-3">
+                    <img src="assets/support.png" class="w-12 h-12" />
+                    <div>
+                        <h3 class="text-gray-500 text-sm">Resolved</h3>
+                        <p class="text-2xl font-bold text-green-600">1,098</p>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-md flex items-center gap-3">
+                    <img src="assets/support.png" class="w-12 h-12" />
+                    <div>
+                        <h3 class="text-gray-500 text-sm">Avg. Response Time</h3>
+                        <p class="text-2xl font-bold text-primary-orange">2.5h</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Inquiries Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <div class="flex justify-between items-center mb-5">
+                    <h2 class="text-2xl font-bold">Active Inquiries</h2>
+                    <div class="flex gap-2">
+                        <select class="border border-gray-300 rounded-lg px-4 py-2">
+                            <option>All Types</option>
+                            <option>General Inquiry</option>
+                            <option>Complaint</option>
+                            <option>Feedback</option>
+                            <option>Technical Issue</option>
+                        </select>
+                        <select class="border border-gray-300 rounded-lg px-4 py-2">
+                            <option>All Status</option>
+                            <option>Pending</option>
+                            <option>In Progress</option>
+                            <option>Resolved</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Inquiry ID</th>
+                                <th class="px-4 py-3 text-left">Customer</th>
+                                <th class="px-4 py-3 text-left">Type</th>
+                                <th class="px-4 py-3 text-left">Subject</th>
+                                <th class="px-4 py-3 text-left">Date</th>
+                                <th class="px-4 py-3 text-left">Priority</th>
+                                <th class="px-4 py-3 text-left">Status</th>
+                                <th class="px-4 py-3 text-left">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">INQ-001245</td>
+                                <td class="px-4 py-3">
+                                    <div>
+                                        <p class="font-semibold">Chinedu Okeke</p>
+                                        <p class="text-xs text-gray-500">chinedu@email.com</p>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3">Complaint</td>
+                                <td class="px-4 py-3">Delayed bus service</td>
+                                <td class="px-4 py-3">Dec 14, 2024</td>
+                                <td class="px-4 py-3"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">High</span></td>
+                                <td class="px-4 py-3"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Pending</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">INQ-001244</td>
+                                <td class="px-4 py-3">
+                                    <div>
+                                        <p class="font-semibold">Ada Nwankwo</p>
+                                        <p class="text-xs text-gray-500">ada@email.com</p>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3">General Inquiry</td>
+                                <td class="px-4 py-3">Route schedule question</td>
+                                <td class="px-4 py-3">Dec 14, 2024</td>
+                                <td class="px-4 py-3"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Medium</span></td>
+                                <td class="px-4 py-3"><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">In Progress</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">INQ-001243</td>
+                                <td class="px-4 py-3">
+                                    <div>
+                                        <p class="font-semibold">Emeka Obi</p>
+                                        <p class="text-xs text-gray-500">emeka@email.com</p>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3">Feedback</td>
+                                <td class="px-4 py-3">Excellent service</td>
+                                <td class="px-4 py-3">Dec 13, 2024</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Low</span></td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Resolved</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inquiry Categories Section -->
+        <section class="px-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="bg-white rounded-lg shadow-md p-5">
+                    <h3 class="font-semibold mb-3">Inquiry by Type</h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center p-2 border-b">
+                            <span class="text-sm">General Inquiry</span>
+                            <span class="font-bold text-blue-600">458</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 border-b">
+                            <span class="text-sm">Complaints</span>
+                            <span class="font-bold text-red-600">287</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 border-b">
+                            <span class="text-sm">Feedback</span>
+                            <span class="font-bold text-green-600">342</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 border-b">
+                            <span class="text-sm">Technical Issues</span>
+                            <span class="font-bold text-orange-600">161</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-5">
+                    <h3 class="font-semibold mb-3">Response Time Stats</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-sm text-gray-600">Average Response Time</p>
+                            <p class="text-2xl font-bold">2.5 hours</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Fastest Response</p>
+                            <p class="text-2xl font-bold">15 mins</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Resolution Rate</p>
+                            <p class="text-2xl font-bold">88%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-5">
+                    <h3 class="font-semibold mb-3">Customer Satisfaction</h3>
+                    <div class="text-center">
+                        <p class="text-5xl font-bold text-primary-blue">4.6</p>
+                        <p class="text-sm text-gray-600 mt-2">out of 5.0</p>
+                        <div class="flex justify-center gap-1 mt-3">
+                            <span class="text-yellow-500">★</span>
+                            <span class="text-yellow-500">★</span>
+                            <span class="text-yellow-500">★</span>
+                            <span class="text-yellow-500">★</span>
+                            <span class="text-gray-300">★</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Based on 856 ratings</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Common Issues Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Frequently Reported Issues</h2>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center p-3 border rounded-lg">
+                        <div>
+                            <p class="font-semibold">Delayed bus arrivals</p>
+                            <p class="text-sm text-gray-600">45 reports this week</p>
+                        </div>
+                        <button class="bg-primary-blue text-white px-4 py-2 rounded-lg text-sm">View Details</button>
+                    </div>
+                    <div class="flex justify-between items-center p-3 border rounded-lg">
+                        <div>
+                            <p class="font-semibold">Payment gateway issues</p>
+                            <p class="text-sm text-gray-600">32 reports this week</p>
+                        </div>
+                        <button class="bg-primary-blue text-white px-4 py-2 rounded-lg text-sm">View Details</button>
+                    </div>
+                    <div class="flex justify-between items-center p-3 border rounded-lg">
+                        <div>
+                            <p class="font-semibold">Mobile app not loading</p>
+                            <p class="text-sm text-gray-600">28 reports this week</p>
+                        </div>
+                        <button class="bg-primary-blue text-white px-4 py-2 rounded-lg text-sm">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Team Performance Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Support Team Performance</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Agent Name</th>
+                                <th class="px-4 py-3 text-left">Assigned Cases</th>
+                                <th class="px-4 py-3 text-left">Resolved</th>
+                                <th class="px-4 py-3 text-left">Avg. Response Time</th>
+                                <th class="px-4 py-3 text-left">Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-semibold">Jennifer Eze</td>
+                                <td class="px-4 py-3">68</td>
+                                <td class="px-4 py-3">62</td>
+                                <td class="px-4 py-3">1.8 hours</td>
+                                <td class="px-4 py-3">4.8/5.0</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-semibold">Michael Okonkwo</td>
+                                <td class="px-4 py-3">54</td>
+                                <td class="px-4 py-3">49</td>
+                                <td class="px-4 py-3">2.1 hours</td>
+                                <td class="px-4 py-3">4.7/5.0</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-semibold">Grace Okoli</td>
+                                <td class="px-4 py-3">61</td>
+                                <td class="px-4 py-3">55</td>
+                                <td class="px-4 py-3">2.4 hours</td>
+                                <td class="px-4 py-3">4.6/5.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Feedback Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Recent Customer Feedback</h2>
+                <div class="space-y-4">
+                    <div class="border-l-4 border-green-500 p-4 bg-green-50 rounded">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <p class="font-semibold">Excellent Service</p>
+                                <p class="text-sm text-gray-600">By Emmanuel Agu - Dec 14, 2024</p>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="text-yellow-500">★</span>
+                                <span class="text-yellow-500">★</span>
+                                <span class="text-yellow-500">★</span>
+                                <span class="text-yellow-500">★</span>
+                                <span class="text-yellow-500">★</span>
+                            </div>
+                        </div>
+                        <p class="text-sm">The bus was on time and the driver was very professional. Great experience overall!</p>
+                    </div>
+
+                    <div class="border-l-4 border-yellow-500 p-4 bg-yellow-50 rounded">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <p class="font-semibold">Good but could be better</p>
+                                <p class="text-sm text-gray-600">By Blessing Nwosu - Dec 13, 2024</p>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="text-yellow-500">★</span>
+                                <span class="text-yellow-500">★</span>
+                                <span class="text-yellow-500">★</span>
+                                <span class="text-yellow-500">★</span>
+                                <span class="text-gray-300">★</span>
+                            </div>
+                        </div>
+                        <p class="text-sm">Service is good but buses could be cleaner. Also, the mobile app needs improvement.</p>
+                    </div>
+
+                    <div class="border-l-4 border-red-500 p-4 bg-red-50 rounded">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <p class="font-semibold">Disappointed</p>
+                                <p class="text-sm text-gray-600">By Victor Udeh - Dec 13, 2024</p>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="text-yellow-500">★</span>
+                                <span class="text-yellow-500">★</span>
+                                <span class="text-gray-300">★</span>
+                                <span class="text-gray-300">★</span>
+                                <span class="text-gray-300">★</span>
+                            </div>
+                        </div>
+                        <p class="text-sm">Bus was 30 minutes late and no notification was sent. This needs to be addressed.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

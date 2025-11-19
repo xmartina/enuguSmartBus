@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Management - Enugu Smart Bus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-blue": "#1f2b6c",
+                        "primary-green": "#27c840",
+                        "dark-green": "#22b038",
+                        "light-green": "#0f9918",
+                        "dark-blue": "#001447",
+                        background: "#F1F8FF",
+                        overlay: "#00131ac4",
+                    },
+                    fontFamily: {
+                        inter: ["Inter", "sans-serif"],
+                        poppins: ["Poppins", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css">
+</head>
+
+<body class="bg-background">
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+
+    <aside id="sidebar"
+        class="fixed left-0 top-0 h-full w-full lg:w-64 bg-white shadow-lg transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 lg:z-auto overflow-y-scroll">
+        <div class="relative flex justify-between lg:justify-center my-5 px-5">
+            <div class="flex items-center justify-center w-32 h-32 rounded-full">
+                <img src="assets/top-bar-logo.png" alt="User Avatar" class="w-full rounded-full">
+            </div>
+            <button id="closeButton" class="absolute right-5 lg:hidden p-2 hover:bg-gray-100 rounded-md">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <ul class="flex flex-col gap-2 p-5">
+            <li>
+                <a href="index.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/dashboard.png" class="w-5 h-5" /> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="driver-dashboard.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/user-icon.png" /> Driver Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="payment-system.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/user-icon.png" /> Payment System
+                </a>
+            </li>
+            <li>
+                <a href="manage-map.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/map-icon.png" /> Manage Map
+                </a>
+            </li>
+            <li>
+                <a href="ticket-booking.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/ticket-icon.png" /> Ticket Booking
+                </a>
+            </li>
+            <li>
+                <a href="agent.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/agent.png" /> Agent
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex p-2 rounded-lg gap-2 items-center bg-primary-blue text-white">
+                    <img src="assets/account-icon.png" /> Account
+                </a>
+            </li>
+            <li>
+                <a href="passenger.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/passenger-icon.png" /> Passenger
+                </a>
+            </li>
+            <li>
+                <a href="hr-management.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/hr-icon.png" /> HR Management
+                </a>
+            </li>
+            <li>
+                <a href="report.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/report-icon.png" /> Report
+                </a>
+            </li>
+            <li>
+                <a href="inquiry.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/inquiry-icon.png" /> Inquiry
+                </a>
+            </li>
+        </ul>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="software-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/password.png" class="w-5 h-5" /> Software Setting
+                </a>
+            </li>
+            <li>
+                <a href="website-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/equalizer.png" /> Website Setting
+                </a>
+            </li>
+            <li>
+                <a href="user.html" class="flex p-2 hover:bg-background text-red-500 transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/logout.png" class="w-5 h-5" /> Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="lg:ml-72 flex flex-col gap-5 min-h-screen overflow-y-scroll">
+        <header class="relative">
+            <div class="bg-white flex items-center justify-between p-5 rounded-b-lg px-5">
+                <div class="max-w-xl flex gap-2 border rounded-full p-2 bg-background">
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <input class="w-full focus:outline-none bg-transparent" placeholder="Search accounts" />
+                </div>
+                <div class="flex items-center gap-5">
+                    <img src="assets/bell.png" alt="" class="w-8 h-8" />
+                    <div class="hidden md:flex lg:flex bg-background rounded-full px-2 items-center gap-4">
+                        <img src="assets/profile-pic.png" alt="profile-img" class="rounded-full w-8 h-8" />
+                        <div class="">
+                            <p class="font-semibold">Praise Adefemi</p>
+                            <span class="text-xs">Admin</span>
+                        </div>
+                    </div>
+                    <button id="menuButton" class="lg:hidden p-2 rounded-md bg-primary-blue">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <section class="flex flex-col gap-5 px-5">
+            <div class="">
+                <p class="text-2xl font-bold">Account Management</p>
+                <span class="text-sm">Manage financial accounts and transactions</span>
+            </div>
+        </section>
+
+        <!-- Section 1: Account Overview -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 px-5">
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Total Balance</p>
+                        <p class="font-bold text-xl">₦45.8m</p>
+                    </div>
+                    <img src="assets/total-amount-paid.png" alt="balance-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs text-green-500">↑ 18% from last month</p>
+            </div>
+
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Total Income</p>
+                        <p class="font-bold text-xl">₦12.5m</p>
+                    </div>
+                    <img src="assets/total-booking-amount.png" alt="income-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs text-green-500">↑ 22% from last month</p>
+            </div>
+
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Total Expenses</p>
+                        <p class="font-bold text-xl">₦8.2m</p>
+                    </div>
+                    <img src="assets/total-refund.png" alt="expenses-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs text-red-500">↑ 10% from last month</p>
+            </div>
+
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Pending Transfers</p>
+                        <p class="font-bold text-xl">78</p>
+                    </div>
+                    <img src="assets/total-deposit.png" alt="transfers-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs text-yellow-500">Requires approval</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Account Balance Chart -->
+        <section class="px-5">
+            <div class="w-full bg-white rounded-2xl p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <p class="text-lg font-bold">Account Balance Trend</p>
+                        <span class="text-sm text-gray-600">Monthly balance overview</span>
+                    </div>
+                    <select class="rounded-full border p-2 bg-background">
+                        <option>This Year</option>
+                        <option>Last Year</option>
+                    </select>
+                </div>
+                <canvas id="balanceChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Section 3: Recent Transactions -->
+        <section class="px-5">
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <p class="text-lg font-bold">Recent Transactions</p>
+                    <button class="text-primary-blue text-sm hover:underline">View All</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-background">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-sm font-semibold">Transaction ID</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold">Type</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold">Description</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold">Amount</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold">Date</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">TXN-00145</td>
+                                <td class="px-4 py-3 text-sm">Credit</td>
+                                <td class="px-4 py-3 text-sm">Ticket Sales</td>
+                                <td class="px-4 py-3 text-sm text-green-600">+₦45k</td>
+                                <td class="px-4 py-3 text-sm">2024-07-27</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs">Completed</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">TXN-00144</td>
+                                <td class="px-4 py-3 text-sm">Debit</td>
+                                <td class="px-4 py-3 text-sm">Fuel Purchase</td>
+                                <td class="px-4 py-3 text-sm text-red-600">-₦120k</td>
+                                <td class="px-4 py-3 text-sm">2024-07-27</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs">Completed</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">TXN-00143</td>
+                                <td class="px-4 py-3 text-sm">Credit</td>
+                                <td class="px-4 py-3 text-sm">Wallet Deposit</td>
+                                <td class="px-4 py-3 text-sm text-green-600">+₦30k</td>
+                                <td class="px-4 py-3 text-sm">2024-07-26</td>
+                                <td class="px-4 py-3"><span class="bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full text-xs">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Expense Breakdown -->
+        <section class="px-5 grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div class="bg-white rounded-lg p-5">
+                <p class="text-lg font-bold mb-4">Expense Breakdown</p>
+                <canvas id="expenseChart"></canvas>
+            </div>
+
+            <div class="bg-white rounded-lg p-5">
+                <p class="text-lg font-bold mb-4">Income Sources</p>
+                <canvas id="incomeChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Section 5: Bank Accounts -->
+        <section class="px-5">
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <p class="text-lg font-bold">Linked Bank Accounts</p>
+                    <button class="bg-primary-blue text-white px-4 py-2 rounded-lg">
+                        <i class="ri-add-line"></i> Add Account
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="border rounded-lg p-4 hover:shadow-lg transition-shadow">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <p class="font-bold">First Bank Nigeria</p>
+                                <p class="text-sm text-gray-600">****5678</p>
+                            </div>
+                            <span class="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs">Active</span>
+                        </div>
+                        <p class="text-2xl font-bold">₦15.2m</p>
+                        <p class="text-xs text-gray-600 mt-2">Main Operating Account</p>
+                    </div>
+
+                    <div class="border rounded-lg p-4 hover:shadow-lg transition-shadow">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <p class="font-bold">Access Bank</p>
+                                <p class="text-sm text-gray-600">****1234</p>
+                            </div>
+                            <span class="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs">Active</span>
+                        </div>
+                        <p class="text-2xl font-bold">₦8.5m</p>
+                        <p class="text-xs text-gray-600 mt-2">Savings Account</p>
+                    </div>
+
+                    <div class="border rounded-lg p-4 hover:shadow-lg transition-shadow">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <p class="font-bold">GTBank</p>
+                                <p class="text-sm text-gray-600">****9012</p>
+                            </div>
+                            <span class="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs">Active</span>
+                        </div>
+                        <p class="text-2xl font-bold">₦22.1m</p>
+                        <p class="text-xs text-gray-600 mt-2">Reserve Account</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Payment Gateway Status -->
+        <section class="px-5 grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <i class="ri-bank-card-line text-2xl text-blue-600"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold">Paystack</p>
+                        <span class="text-xs text-green-600">● Active</span>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600">Transactions Today: 245</p>
+                <p class="text-sm text-gray-600">Volume: ₦1.2m</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                        <i class="ri-bank-line text-2xl text-green-600"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold">Flutterwave</p>
+                        <span class="text-xs text-green-600">● Active</span>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600">Transactions Today: 189</p>
+                <p class="text-sm text-gray-600">Volume: ₦890k</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                        <i class="ri-wallet-line text-2xl text-purple-600"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold">Bank Transfer</p>
+                        <span class="text-xs text-green-600">● Active</span>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600">Transactions Today: 67</p>
+                <p class="text-sm text-gray-600">Volume: ₦450k</p>
+            </div>
+        </section>
+
+        <!-- Section 7: Pending Approvals -->
+        <section class="px-5 mb-10">
+            <div class="bg-white rounded-lg p-5">
+                <p class="text-lg font-bold mb-4">Pending Approvals</p>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center p-4 border rounded-lg hover:bg-gray-50">
+                        <div>
+                            <p class="font-medium">Driver Commission Payment</p>
+                            <p class="text-sm text-gray-600">Chukwuma Okafor - ₦25k</p>
+                            <p class="text-xs text-gray-500">Requested 2 hours ago</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm">Approve</button>
+                            <button class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm">Reject</button>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center p-4 border rounded-lg hover:bg-gray-50">
+                        <div>
+                            <p class="font-medium">Refund Request</p>
+                            <p class="text-sm text-gray-600">Passenger #12345 - ₦1.5k</p>
+                            <p class="text-xs text-gray-500">Requested 5 hours ago</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm">Approve</button>
+                            <button class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm">Reject</button>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center p-4 border rounded-lg hover:bg-gray-50">
+                        <div>
+                            <p class="font-medium">Agent Withdrawal</p>
+                            <p class="text-sm text-gray-600">Ngozi Eze - ₦50k</p>
+                            <p class="text-xs text-gray-500">Requested 1 day ago</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm">Approve</button>
+                            <button class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm">Reject</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Balance Chart
+        const balanceCtx = document.getElementById("balanceChart").getContext("2d");
+        new Chart(balanceCtx, {
+            type: "line",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                datasets: [{
+                    label: "Account Balance",
+                    data: [35000000, 38000000, 40000000, 42000000, 43000000, 45800000],
+                    borderColor: "#1f2b6c",
+                    backgroundColor: "rgba(31, 43, 108, 0.1)",
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: "top" }
+                }
+            }
+        });
+
+        // Expense Chart
+        const expenseCtx = document.getElementById("expenseChart").getContext("2d");
+        new Chart(expenseCtx, {
+            type: "doughnut",
+            data: {
+                labels: ["Fuel", "Maintenance", "Salaries", "Operations", "Others"],
+                datasets: [{
+                    data: [35, 20, 25, 15, 5],
+                    backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: "bottom" }
+                }
+            }
+        });
+
+        // Income Chart
+        const incomeCtx = document.getElementById("incomeChart").getContext("2d");
+        new Chart(incomeCtx, {
+            type: "pie",
+            data: {
+                labels: ["Ticket Sales", "Wallet Deposits", "Agent Commission", "Others"],
+                datasets: [{
+                    data: [60, 25, 10, 5],
+                    backgroundColor: ["#27c840", "#42A5F5", "#FFA726", "#9575CD"],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: "bottom" }
+                }
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

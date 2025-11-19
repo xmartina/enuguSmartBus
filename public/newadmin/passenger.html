@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Passenger Management - Enugu Smart Bus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-blue": "#1f2b6c",
+                        "primary-green": "#27c840",
+                        "dark-green": "#22b038",
+                        "light-green": "#0f9918",
+                        "dark-blue": "#001447",
+                        background: "#F1F8FF",
+                        overlay: "#00131ac4",
+                    },
+                    fontFamily: {
+                        inter: ["Inter", "sans-serif"],
+                        poppins: ["Poppins", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css">
+</head>
+
+<body class="bg-background">
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+
+    <aside id="sidebar"
+        class="fixed left-0 top-0 h-full w-full lg:w-64 bg-white shadow-lg transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 lg:z-auto overflow-y-scroll">
+        <div class="relative flex justify-between lg:justify-center my-5 px-5">
+            <div class="flex items-center justify-center w-32 h-32 rounded-full">
+                <img src="assets/top-bar-logo.png" alt="User Avatar" class="w-full rounded-full">
+            </div>
+            <button id="closeButton" class="absolute right-5 lg:hidden p-2 hover:bg-gray-100 rounded-md">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <ul class="flex flex-col gap-2 p-5">
+            <li>
+                <a href="index.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/dashboard.png" class="w-5 h-5" /> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="driver-dashboard.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/user-icon.png" /> Driver Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="payment-system.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/user-icon.png" /> Payment System
+                </a>
+            </li>
+            <li>
+                <a href="manage-map.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/map-icon.png" /> Manage Map
+                </a>
+            </li>
+            <li>
+                <a href="ticket-booking.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/ticket-icon.png" /> Ticket Booking
+                </a>
+            </li>
+            <li>
+                <a href="agent.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/agent.png" /> Agent
+                </a>
+            </li>
+            <li>
+                <a href="account.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/account-icon.png" /> Account
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex p-2 rounded-lg gap-2 items-center bg-primary-blue text-white">
+                    <img src="assets/passenger-icon.png" /> Passenger
+                </a>
+            </li>
+            <li>
+                <a href="hr-management.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/hr-icon.png" /> HR Management
+                </a>
+            </li>
+            <li>
+                <a href="report.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/report-icon.png" /> Report
+                </a>
+            </li>
+            <li>
+                <a href="inquiry.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/inquiry-icon.png" /> Inquiry
+                </a>
+            </li>
+        </ul>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="software-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/password.png" class="w-5 h-5" /> Software Setting
+                </a>
+            </li>
+            <li>
+                <a href="website-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/equalizer.png" /> Website Setting
+                </a>
+            </li>
+            <li>
+                <a href="user.html" class="flex p-2 hover:bg-background text-red-500 transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/logout.png" class="w-5 h-5" /> Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="lg:ml-72 flex flex-col gap-5 min-h-screen overflow-y-scroll">
+        <header class="relative">
+            <div class="bg-white flex items-center justify-between p-5 rounded-b-lg px-5">
+                <div class="max-w-xl flex gap-2 border rounded-full p-2 bg-background">
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <input class="w-full focus:outline-none bg-transparent" placeholder="Search passengers" />
+                </div>
+                <div class="flex items-center gap-5">
+                    <img src="assets/bell.png" alt="" class="w-8 h-8" />
+                    <div class="hidden md:flex lg:flex bg-background rounded-full px-2 items-center gap-4">
+                        <img src="assets/profile-pic.png" alt="profile-img" class="rounded-full w-8 h-8" />
+                        <div class="">
+                            <p class="font-semibold">Praise Adefemi</p>
+                            <span class="text-xs">Admin</span>
+                        </div>
+                    </div>
+                    <button id="menuButton" class="lg:hidden p-2 rounded-md bg-primary-blue">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <section class="flex flex-col gap-5 px-5">
+            <div class="">
+                <p class="text-2xl font-bold">Passenger Management</p>
+                <span class="text-sm">Monitor and manage all registered passengers</span>
+            </div>
+        </section>
+
+        <!-- Section 1: Passenger Statistics -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 px-5">
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Total Passengers</p>
+                        <p class="font-bold text-xl">287k</p>
+                    </div>
+                    <img src="assets/total-registered.png" alt="total-passengers-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs text-green-500">↑ 15% from last month</p>
+            </div>
+
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Active Today</p>
+                        <p class="font-bold text-xl">12.5k</p>
+                    </div>
+                    <img src="assets/total-trip.png" alt="active-passengers-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs text-green-500">↑ 8% from yesterday</p>
+            </div>
+
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">New Registrations</p>
+                        <p class="font-bold text-xl">1.2k</p>
+                    </div>
+                    <img src="assets/total-ticket-booking.png" alt="new-passengers-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs text-green-500">This month</p>
+            </div>
+
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Wallet Balance</p>
+                        <p class="font-bold text-xl">₦45.2m</p>
+                    </div>
+                    <img src="assets/total-amount-paid.png" alt="wallet-balance-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs text-gray-600">Total across all wallets</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Passenger Growth Chart -->
+        <section class="px-5">
+            <div class="w-full bg-white rounded-2xl p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <p class="text-lg font-bold">Passenger Growth Trend</p>
+                        <span class="text-sm text-gray-600">Monthly registration overview</span>
+                    </div>
+                    <select class="rounded-full border p-2 bg-background">
+                        <option>This Year</option>
+                        <option>Last Year</option>
+                    </select>
+                </div>
+                <canvas id="passengerGrowthChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Section 3: Recent Passengers -->
+        <section class="px-5">
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <p class="text-lg font-bold">Recently Registered Passengers</p>
+                    <button class="text-primary-blue text-sm hover:underline">View All</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-background">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-sm font-semibold">Passenger ID</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold">Name</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold">Phone</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold">Wallet Balance</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold">Total Trips</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold">Status</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">PSG-00145</td>
+                                <td class="px-4 py-3 text-sm">Chioma Eze</td>
+                                <td class="px-4 py-3 text-sm">0803-456-7890</td>
+                                <td class="px-4 py-3 text-sm">₦2.5k</td>
+                                <td class="px-4 py-3 text-sm">45</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs">Active</span></td>
+                                <td class="px-4 py-3"><button class="text-primary-blue hover:underline text-sm">View</button></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">PSG-00144</td>
+                                <td class="px-4 py-3 text-sm">Uche Okafor</td>
+                                <td class="px-4 py-3 text-sm">0701-234-5678</td>
+                                <td class="px-4 py-3 text-sm">₦1.8k</td>
+                                <td class="px-4 py-3 text-sm">32</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs">Active</span></td>
+                                <td class="px-4 py-3"><button class="text-primary-blue hover:underline text-sm">View</button></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">PSG-00143</td>
+                                <td class="px-4 py-3 text-sm">Ada Nwankwo</td>
+                                <td class="px-4 py-3 text-sm">0812-987-6543</td>
+                                <td class="px-4 py-3 text-sm">₦500</td>
+                                <td class="px-4 py-3 text-sm">12</td>
+                                <td class="px-4 py-3"><span class="bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full text-xs">Inactive</span></td>
+                                <td class="px-4 py-3"><button class="text-primary-blue hover:underline text-sm">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Passenger Demographics -->
+        <section class="px-5 grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div class="bg-white rounded-lg p-5">
+                <p class="text-lg font-bold mb-4">Age Distribution</p>
+                <canvas id="ageChart"></canvas>
+            </div>
+
+            <div class="bg-white rounded-lg p-5">
+                <p class="text-lg font-bold mb-4">Gender Distribution</p>
+                <canvas id="genderChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Section 5: Top Passengers by Trips -->
+        <section class="px-5">
+            <div class="bg-white rounded-lg p-5">
+                <p class="text-lg font-bold mb-4">Most Active Passengers</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="border rounded-lg p-4 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center text-white font-bold">
+                                1
+                            </div>
+                            <div>
+                                <p class="font-bold">Emeka Obi</p>
+                                <p class="text-sm text-gray-600">PSG-00012</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Total Trips: <span class="font-bold text-primary-blue">456</span></p>
+                        <p class="text-sm text-gray-600">Total Spent: <span class="font-bold text-green-600">₦228k</span></p>
+                    </div>
+
+                    <div class="border rounded-lg p-4 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 bg-gradient-to-br from-gray-300 to-gray-500 rounded-full flex items-center justify-center text-white font-bold">
+                                2
+                            </div>
+                            <div>
+                                <p class="font-bold">Ngozi Agu</p>
+                                <p class="text-sm text-gray-600">PSG-00034</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Total Trips: <span class="font-bold text-primary-blue">398</span></p>
+                        <p class="text-sm text-gray-600">Total Spent: <span class="font-bold text-green-600">₦199k</span></p>
+                    </div>
+
+                    <div class="border rounded-lg p-4 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white font-bold">
+                                3
+                            </div>
+                            <div>
+                                <p class="font-bold">Chidi Okeke</p>
+                                <p class="text-sm text-gray-600">PSG-00089</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600">Total Trips: <span class="font-bold text-primary-blue">367</span></p>
+                        <p class="text-sm text-gray-600">Total Spent: <span class="font-bold text-green-600">₦183k</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Passenger Activity Heatmap -->
+        <section class="px-5 mb-10">
+            <div class="bg-white rounded-lg p-5">
+                <p class="text-lg font-bold mb-4">Passenger Activity by Hour</p>
+                <canvas id="activityHeatmap"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Passenger Growth Chart
+        const passengerGrowthCtx = document.getElementById("passengerGrowthChart").getContext("2d");
+        new Chart(passengerGrowthCtx, {
+            type: "line",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                datasets: [{
+                    label: "New Passengers",
+                    data: [15000, 18500, 22000, 25000, 28000, 32000],
+                    borderColor: "#1f2b6c",
+                    backgroundColor: "rgba(31, 43, 108, 0.1)",
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: "top" }
+                }
+            }
+        });
+
+        // Age Distribution Chart
+        const ageCtx = document.getElementById("ageChart").getContext("2d");
+        new Chart(ageCtx, {
+            type: "bar",
+            data: {
+                labels: ["18-25", "26-35", "36-45", "46-55", "56+"],
+                datasets: [{
+                    label: "Passengers",
+                    data: [45000, 89000, 67000, 42000, 24000],
+                    backgroundColor: "#1f2b6c",
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Gender Distribution Chart
+        const genderCtx = document.getElementById("genderChart").getContext("2d");
+        new Chart(genderCtx, {
+            type: "doughnut",
+            data: {
+                labels: ["Male", "Female", "Other"],
+                datasets: [{
+                    data: [52, 46, 2],
+                    backgroundColor: ["#1f2b6c", "#27c840", "#FFA726"],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: "bottom" }
+                }
+            }
+        });
+
+        // Activity Heatmap
+        const activityCtx = document.getElementById("activityHeatmap").getContext("2d");
+        new Chart(activityCtx, {
+            type: "bar",
+            data: {
+                labels: ["6AM", "8AM", "10AM", "12PM", "2PM", "4PM", "6PM", "8PM", "10PM"],
+                datasets: [{
+                    label: "Active Passengers",
+                    data: [1200, 5600, 4200, 3800, 3200, 6800, 8500, 4200, 2100],
+                    backgroundColor: "#27c840",
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

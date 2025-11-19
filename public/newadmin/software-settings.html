@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Settings - ESB Smart Bus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            blue: '#0066FF',
+                            orange: '#FF6B00'
+                        },
+                        background: '#F5F7FA'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background">
+    <aside class="bg-white w-72 fixed h-full overflow-y-scroll z-20 hidden lg:block">
+        <div class="p-5 flex flex-col gap-5">
+            <img src="assets/top-bar-logo.png" class="w-40" />
+            <div class="flex gap-2 items-center">
+                <img src="assets/profile-pic.png" class="w-10 h-10 rounded-full" />
+                <div>
+                    <h3 class="font-semibold text-sm">Admin User</h3>
+                    <p class="text-xs text-gray-500">Administrator</p>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="index.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/dashboard.png" /> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="ticket-booking.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/ticket-icon.png" /> Ticket Booking
+                </a>
+            </li>
+            <li>
+                <a href="manage-map.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/map-icon.png" /> Manage Map
+                </a>
+            </li>
+            <li>
+                <a href="driver-dashboard.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/cards.png" /> Driver Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="payment-system.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/tickets.png" /> Payment System
+                </a>
+            </li>
+            <li>
+                <a href="agent.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/agent.png" /> Agent
+                </a>
+            </li>
+            <li>
+                <a href="account.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/account-icon.png" /> Account
+                </a>
+            </li>
+            <li>
+                <a href="passenger.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/passenger-icon.png" /> Passenger
+                </a>
+            </li>
+            <li>
+                <a href="hr-management.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/hr-icon.png" /> HR Management
+                </a>
+            </li>
+            <li>
+                <a href="report.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/report-icon.png" /> Report
+                </a>
+            </li>
+            <li>
+                <a href="inquiry.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/inquiry-icon.png" /> Inquiry
+                </a>
+            </li>
+        </ul>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="#" class="flex p-2 rounded-lg gap-2 items-center bg-primary-blue text-white">
+                    <img src="assets/password.png" class="w-5 h-5" /> Software Setting
+                </a>
+            </li>
+            <li>
+                <a href="website-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/equalizer.png" /> Website Setting
+                </a>
+            </li>
+            <li>
+                <a href="user.html" class="flex p-2 hover:bg-background text-red-500 transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/logout.png" class="w-5 h-5" /> Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="lg:ml-72 flex flex-col gap-5 min-h-screen overflow-y-scroll pb-10">
+        <header class="relative">
+            <img src="assets/hero-banner.png" class="w-full h-52 object-cover" />
+            <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-between px-10">
+                <div class="text-white">
+                    <h1 class="text-4xl font-bold">Software Settings</h1>
+                    <p class="text-lg">Configure system preferences and application settings</p>
+                </div>
+                <div class="flex gap-3 items-center">
+                    <img src="assets/bell.png" class="w-6 h-6 cursor-pointer" />
+                    <img src="assets/profile-pic.png" class="w-10 h-10 rounded-full cursor-pointer" />
+                </div>
+            </div>
+        </header>
+
+        <!-- System Configuration Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">System Configuration</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">System Name</label>
+                        <input type="text" value="ESB Smart Bus System" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">System Version</label>
+                        <input type="text" value="v2.5.1" class="w-full border border-gray-300 rounded-lg px-4 py-2" readonly />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Time Zone</label>
+                        <select class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                            <option>Africa/Lagos (WAT)</option>
+                            <option>UTC</option>
+                            <option>America/New_York</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Date Format</label>
+                        <select class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                            <option>DD/MM/YYYY</option>
+                            <option>MM/DD/YYYY</option>
+                            <option>YYYY-MM-DD</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Currency</label>
+                        <select class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                            <option>NGN (₦)</option>
+                            <option>USD ($)</option>
+                            <option>EUR (€)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Language</label>
+                        <select class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                            <option>English</option>
+                            <option>Igbo</option>
+                            <option>Yoruba</option>
+                            <option>Hausa</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-end">
+                    <button class="bg-primary-blue text-white px-6 py-2 rounded-lg">Save Changes</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Database Configuration Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Database Configuration</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Database Host</label>
+                        <input type="text" value="localhost" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Database Port</label>
+                        <input type="text" value="3306" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Database Name (ESB)</label>
+                        <input type="text" value="esbcom_smartbus" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Database Name (Payment)</label>
+                        <input type="text" value="esbcom_ovopay" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Database Username</label>
+                        <input type="text" value="admin" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Max Connections</label>
+                        <input type="number" value="100" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <button class="bg-green-600 text-white px-6 py-2 rounded-lg mr-2">Test Connection</button>
+                    <button class="bg-primary-blue text-white px-6 py-2 rounded-lg">Save Configuration</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Email & Notification Settings Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Email & Notification Settings</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">SMTP Host</label>
+                        <input type="text" placeholder="smtp.gmail.com" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">SMTP Port</label>
+                        <input type="text" value="587" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Email Address</label>
+                        <input type="email" placeholder="noreply@enugusmartbus.com" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Email Password</label>
+                        <input type="password" placeholder="••••••••" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <h3 class="font-semibold mb-3">Notification Preferences</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" checked class="w-4 h-4" />
+                            <span>Send email notifications for new bookings</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" checked class="w-4 h-4" />
+                            <span>Send SMS notifications to passengers</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" checked class="w-4 h-4" />
+                            <span>Send payment confirmation emails</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" class="w-4 h-4" />
+                            <span>Send daily reports to administrators</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-end">
+                    <button class="bg-primary-blue text-white px-6 py-2 rounded-lg">Save Settings</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payment Gateway Integration Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Payment Gateway Integration</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Primary Gateway</label>
+                        <select class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                            <option>Paystack</option>
+                            <option>Flutterwave</option>
+                            <option>Interswitch</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Gateway Mode</label>
+                        <select class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                            <option>Live</option>
+                            <option>Test</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Public Key</label>
+                        <input type="text" placeholder="pk_live_xxxxxxxxxxxxx" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Secret Key</label>
+                        <input type="password" placeholder="sk_live_xxxxxxxxxxxxx" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Transaction Fee (%)</label>
+                        <input type="number" value="1.5" step="0.1" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Minimum Amount (₦)</label>
+                        <input type="number" value="100" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-end">
+                    <button class="bg-primary-blue text-white px-6 py-2 rounded-lg">Update Gateway Settings</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Settings Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Security Settings</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Session Timeout (minutes)</label>
+                        <input type="number" value="30" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Max Login Attempts</label>
+                        <input type="number" value="5" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Password Min Length</label>
+                        <input type="number" value="8" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Lock Account After (attempts)</label>
+                        <input type="number" value="5" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <h3 class="font-semibold mb-3">Security Features</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" checked class="w-4 h-4" />
+                            <span>Enable Two-Factor Authentication (2FA)</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" checked class="w-4 h-4" />
+                            <span>Require password change every 90 days</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" checked class="w-4 h-4" />
+                            <span>Enable IP whitelist for admin access</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" class="w-4 h-4" />
+                            <span>Log all admin activities</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="mt-5 flex justify-end">
+                    <button class="bg-primary-blue text-white px-6 py-2 rounded-lg">Save Security Settings</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Backup & Maintenance Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Backup & Maintenance</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="border rounded-lg p-4">
+                        <h3 class="font-semibold mb-3">Automated Backups</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm font-semibold mb-2">Backup Frequency</label>
+                                <select class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                                    <option>Daily</option>
+                                    <option>Weekly</option>
+                                    <option>Monthly</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2">Backup Time</label>
+                                <input type="time" value="02:00" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2">Retention Period (days)</label>
+                                <input type="number" value="30" class="w-full border border-gray-300 rounded-lg px-4 py-2" />
+                            </div>
+                            <button class="w-full bg-green-600 text-white px-4 py-2 rounded-lg">Run Backup Now</button>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg p-4">
+                        <h3 class="font-semibold mb-3">System Maintenance</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span class="text-sm">Database Optimization</span>
+                                <button class="text-blue-600 text-sm hover:underline">Run</button>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span class="text-sm">Clear Cache</span>
+                                <button class="text-blue-600 text-sm hover:underline">Clear</button>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span class="text-sm">Clear Logs</span>
+                                <button class="text-blue-600 text-sm hover:underline">Clear</button>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span class="text-sm">System Health Check</span>
+                                <button class="text-blue-600 text-sm hover:underline">Run</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <h3 class="font-semibold mb-3">Recent Backups</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-3 text-left">Backup Date</th>
+                                    <th class="px-4 py-3 text-left">Type</th>
+                                    <th class="px-4 py-3 text-left">Size</th>
+                                    <th class="px-4 py-3 text-left">Status</th>
+                                    <th class="px-4 py-3 text-left">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <td class="px-4 py-3">Dec 14, 2024 02:00 AM</td>
+                                    <td class="px-4 py-3">Full Backup</td>
+                                    <td class="px-4 py-3">2.4 GB</td>
+                                    <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Success</span></td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-blue-600 hover:underline text-sm">Download</button>
+                                    </td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="px-4 py-3">Dec 13, 2024 02:00 AM</td>
+                                    <td class="px-4 py-3">Full Backup</td>
+                                    <td class="px-4 py-3">2.3 GB</td>
+                                    <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Success</span></td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-blue-600 hover:underline text-sm">Download</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

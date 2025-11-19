@@ -1,0 +1,533 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Driver Dashboard - Enugu Smart Bus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-blue": "#1f2b6c",
+                        "primary-green": "#27c840",
+                        "dark-green": "#22b038",
+                        "light-green": "#0f9918",
+                        "dark-blue": "#001447",
+                        background: "#F1F8FF",
+                        overlay: "#00131ac4",
+                    },
+                    fontFamily: {
+                        inter: ["Inter", "sans-serif"],
+                        poppins: ["Poppins", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css">
+</head>
+<body class="bg-background">
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-full lg:w-64 bg-white shadow-lg transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 lg:z-auto overflow-y-scroll">
+        <div class="relative flex justify-between lg:justify-center my-5 px-5">
+            <div class="flex items-center justify-center w-32 h-32 rounded-full">
+                <img src="assets/top-bar-logo.png" alt="Logo" class="w-full rounded-full">
+            </div>
+            <button id="closeButton" class="absolute right-5 lg:hidden p-2 hover:bg-gray-100 rounded-md">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <ul class="flex flex-col gap-2 p-5">
+            <li>
+                <a href="index.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/dashboard.png" class="w-5 h-5" /> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="driver-dashboard.html" class="flex p-2 rounded-lg gap-2 items-center bg-primary-blue text-white">
+                    <img src="assets/user-icon.png" /> Driver Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="payment-system.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/cards.png" /> Payment System
+                </a>
+            </li>
+            <li>
+                <a href="manage-map.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/map-icon.png" /> Manage Map
+                </a>
+            </li>
+            <li>
+                <a href="ticket-booking.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/ticket-icon.png" /> Ticket Booking
+                </a>
+            </li>
+            <li>
+                <a href="agent.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/agent.png" /> Agent
+                </a>
+            </li>
+            <li>
+                <a href="account.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/account-icon.png" /> Account
+                </a>
+            </li>
+            <li>
+                <a href="passenger.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/passenger-icon.png" /> Passenger
+                </a>
+            </li>
+            <li>
+                <a href="hr-management.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/hr-icon.png" /> HR Management
+                </a>
+            </li>
+            <li>
+                <a href="report.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/report-icon.png" /> Report
+                </a>
+            </li>
+            <li>
+                <a href="inquiry.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/inquiry-icon.png" /> Inquiry
+                </a>
+            </li>
+        </ul>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="software-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/password.png" class="w-5 h-5" /> Software Setting
+                </a>
+            </li>
+            <li>
+                <a href="website-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/equalizer.png" /> Website Setting
+                </a>
+            </li>
+            <li>
+                <a href="user.html" class="flex p-2 hover:bg-background text-red-500 transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/logout.png" class="w-5 h-5" /> Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="lg:ml-72 flex flex-col gap-5 min-h-screen overflow-y-scroll pb-10">
+        <header class="relative">
+            <div class="bg-white flex items-center justify-between p-5 rounded-b-lg px-5">
+                <div class="max-w-xl flex gap-2 border rounded-full p-2 bg-background">
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <input class="w-full focus:outline-none bg-transparent" placeholder="Search drivers and vehicles" />
+                </div>
+                <div class="flex items-center gap-5">
+                    <img src="assets/bell.png" alt="" class="w-8 h-8" />
+                    <div class="hidden md:flex lg:flex bg-background rounded-full px-2 items-center gap-4">
+                        <img src="assets/profile-pic.png" alt="profile-img" class="rounded-full w-8 h-8" />
+                        <div>
+                            <p class="font-semibold">Praise Adefemi</p>
+                            <span class="text-xs">Admin</span>
+                        </div>
+                    </div>
+                    <button id="menuButton" class="lg:hidden p-2 rounded-md bg-primary-blue">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <section class="px-5">
+            <div class="flex justify-between items-center flex-wrap gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold">Driver Management</h1>
+                    <p class="text-sm text-gray-600">Manage drivers, vehicles, and fitness records</p>
+                </div>
+                <button class="bg-primary-blue text-white px-6 py-2 rounded-lg hover:bg-dark-blue transition-all">
+                    <i class="ri-add-line"></i> Add New Driver
+                </button>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 px-5">
+            <div class="bg-white rounded-lg p-5 flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm">Total Drivers</p>
+                    <p class="text-2xl font-bold mt-2">48</p>
+                </div>
+                <div class="bg-blue-100 p-4 rounded-full">
+                    <i class="ri-user-line text-2xl text-primary-blue"></i>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg p-5 flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm">Active Today</p>
+                    <p class="text-2xl font-bold mt-2">32</p>
+                </div>
+                <div class="bg-green-100 p-4 rounded-full">
+                    <i class="ri-steering-2-line text-2xl text-green-600"></i>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg p-5 flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm">Total Vehicles</p>
+                    <p class="text-2xl font-bold mt-2">25</p>
+                </div>
+                <div class="bg-orange-100 p-4 rounded-full">
+                    <i class="ri-bus-line text-2xl text-orange-600"></i>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg p-5 flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm">Fitness Due</p>
+                    <p class="text-2xl font-bold mt-2">5</p>
+                </div>
+                <div class="bg-red-100 p-4 rounded-full">
+                    <i class="ri-alert-line text-2xl text-red-600"></i>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5 grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b flex justify-between items-center">
+                    <h2 class="font-bold text-lg">Active Drivers</h2>
+                    <input type="text" placeholder="Search..." class="border rounded-lg px-3 py-1 text-sm" />
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Driver</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Vehicle</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center gap-3">
+                                        <img src="assets/profile-pic.png" class="w-8 h-8 rounded-full" />
+                                        <div>
+                                            <p class="font-medium">Williams Nwaneri</p>
+                                            <p class="text-xs text-gray-500">ID: DRV001</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-sm">Bus-025</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">Active</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-primary-blue hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center gap-3">
+                                        <img src="assets/profile-pic.png" class="w-8 h-8 rounded-full" />
+                                        <div>
+                                            <p class="font-medium">Emeka Chukwu</p>
+                                            <p class="text-xs text-gray-500">ID: DRV002</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-sm">Bus-013</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">Active</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-primary-blue hover:underline text-sm">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Vehicle Status</h2>
+                </div>
+                <div class="p-5 space-y-4">
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <i class="ri-bus-line text-2xl text-green-600"></i>
+                            <div>
+                                <p class="font-medium">Royal Bus - Bus 025</p>
+                                <p class="text-xs text-gray-600">Reg: ABC-123-XY</p>
+                            </div>
+                        </div>
+                        <span class="text-green-600 text-sm font-medium">On Route</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <i class="ri-bus-line text-2xl text-blue-600"></i>
+                            <div>
+                                <p class="font-medium">Toyota Bus - Bus 013</p>
+                                <p class="text-xs text-gray-600">Reg: DEF-456-ZW</p>
+                            </div>
+                        </div>
+                        <span class="text-blue-600 text-sm font-medium">Available</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <i class="ri-bus-line text-2xl text-orange-600"></i>
+                            <div>
+                                <p class="font-medium">Royal Bus - Bus 007</p>
+                                <p class="text-xs text-gray-600">Reg: GHI-789-UV</p>
+                            </div>
+                        </div>
+                        <span class="text-orange-600 text-sm font-medium">Maintenance</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b flex justify-between items-center">
+                    <h2 class="font-bold text-lg">Recent Fitness Checks</h2>
+                    <button class="text-primary-blue text-sm hover:underline">View All</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Vehicle</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fitness Name</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Mileage</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="px-4 py-3 font-medium">Bus-025</td>
+                                <td class="px-4 py-3 text-sm">Monthly Service</td>
+                                <td class="px-4 py-3 text-sm">2025-09-15</td>
+                                <td class="px-4 py-3 text-sm">45k km</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">Passed</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5 grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Driver Performance Metrics</h2>
+                </div>
+                <div class="p-5 space-y-4">
+                    <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                        <div>
+                            <p class="text-sm text-gray-600">Trips Completed Today</p>
+                            <p class="text-2xl font-bold mt-1">156</p>
+                        </div>
+                        <i class="ri-checkbox-circle-line text-3xl text-blue-600"></i>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div>
+                            <p class="text-sm text-gray-600">Average Rating</p>
+                            <p class="text-2xl font-bold mt-1">4.8/5.0</p>
+                        </div>
+                        <i class="ri-star-line text-3xl text-green-600"></i>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                        <div>
+                            <p class="text-sm text-gray-600">Total Distance</p>
+                            <p class="text-2xl font-bold mt-1">1,245 km</p>
+                        </div>
+                        <i class="ri-map-pin-line text-3xl text-orange-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Top Performing Drivers</h2>
+                </div>
+                <div class="p-5 space-y-3">
+                    <div class="flex items-center justify-between p-3 border rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                                <span class="font-bold text-yellow-600">1</span>
+                            </div>
+                            <div>
+                                <p class="font-medium">Williams Nwaneri</p>
+                                <p class="text-xs text-gray-600">89 trips | 4.9★</p>
+                            </div>
+                        </div>
+                        <span class="text-green-600 font-bold">₦285k</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 border rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                                <span class="font-bold text-gray-600">2</span>
+                            </div>
+                            <div>
+                                <p class="font-medium">Emeka Chukwu</p>
+                                <p class="text-xs text-gray-600">76 trips | 4.8★</p>
+                            </div>
+                        </div>
+                        <span class="text-green-600 font-bold">₦245k</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 border rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                                <span class="font-bold text-orange-600">3</span>
+                            </div>
+                            <div>
+                                <p class="font-medium">Chidi Okafor</p>
+                                <p class="text-xs text-gray-600">68 trips | 4.7★</p>
+                            </div>
+                        </div>
+                        <span class="text-green-600 font-bold">₦218k</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Driver Schedule & Availability</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Driver</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Shift</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Route</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Start Time</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">End Time</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center gap-2">
+                                        <img src="assets/profile-pic.png" class="w-8 h-8 rounded-full" />
+                                        <span class="font-medium">Williams Nwaneri</span>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-sm">Morning</td>
+                                <td class="px-4 py-3 text-sm">Enugu - Nsukka</td>
+                                <td class="px-4 py-3 text-sm">06:00 AM</td>
+                                <td class="px-4 py-3 text-sm">02:00 PM</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">On Duty</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center gap-2">
+                                        <img src="assets/profile-pic.png" class="w-8 h-8 rounded-full" />
+                                        <span class="font-medium">Emeka Chukwu</span>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-sm">Afternoon</td>
+                                <td class="px-4 py-3 text-sm">Enugu - Onitsha</td>
+                                <td class="px-4 py-3 text-sm">02:00 PM</td>
+                                <td class="px-4 py-3 text-sm">10:00 PM</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">Scheduled</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5 grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Driver Earnings</h2>
+                </div>
+                <div class="p-5 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Today's Earnings</span>
+                        <span class="font-bold text-lg">₦45k</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">This Week</span>
+                        <span class="font-bold text-lg">₦285k</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">This Month</span>
+                        <span class="font-bold text-lg">₦1.2m</span>
+                    </div>
+                    <hr />
+                    <div class="flex justify-between items-center pt-2">
+                        <span class="text-sm font-medium">Total Earnings</span>
+                        <span class="font-bold text-xl text-green-600">₦5.8m</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Incident Reports</h2>
+                </div>
+                <div class="p-5 space-y-3">
+                    <div class="flex items-start gap-3 p-3 bg-red-50 rounded-lg">
+                        <i class="ri-alert-line text-red-600 text-xl"></i>
+                        <div>
+                            <p class="font-medium text-sm">Minor Accident</p>
+                            <p class="text-xs text-gray-600">Bus-025 | 2 days ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-yellow-50 rounded-lg">
+                        <i class="ri-error-warning-line text-yellow-600 text-xl"></i>
+                        <div>
+                            <p class="font-medium text-sm">Vehicle Breakdown</p>
+                            <p class="text-xs text-gray-600">Bus-013 | 5 days ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Fuel Consumption</h2>
+                </div>
+                <div class="p-5 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Average per Trip</span>
+                        <span class="font-bold">8.5 L</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Total Today</span>
+                        <span class="font-bold">1,325 L</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Cost Today</span>
+                        <span class="font-bold text-red-600">₦858k</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

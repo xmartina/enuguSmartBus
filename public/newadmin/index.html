@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enugu Smart Bus System Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-blue": "#1f2b6c",
+                        "primary-green": "#27c840",
+                        "dark-green": "#22b038",
+                        "light-green": "#0f9918",
+                        "dark-blue": "#001447",
+                        background: "#F1F8FF",
+                        overlay: "#00131ac4",
+                    },
+                    fontFamily: {
+                        inter: ["Inter", "sans-serif"],
+                        poppins: ["Poppins", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css">
+</head>
+
+<body class="bg-background">
+    <!-- Mobile Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+
+    <!--Side Menu-->
+    <aside id="sidebar"
+        class="fixed left-0 top-0 h-full w-full lg:w-64 bg-white shadow-lg transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 lg:z-auto overflow-y-scroll">
+        <div class="relative flex justify-between lg:justify-center my-5 px-5">
+            <div class="flex items-center justify-center w-32 h-32 rounded-full">
+                <img src="assets/top-bar-logo.png" alt="User Avatar" class="w-full rounded-full">
+            </div>
+            <button id="closeButton" class="absolute right-5 lg:hidden p-2 hover:bg-gray-100 rounded-md">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <ul class="flex flex-col gap-2 p-5">
+            <li>
+                <a href="#" class="flex p-2 rounded-lg gap-2 items-center bg-primary-blue text-white">
+                    <img src="assets/dashboard.png" class="w-5 h-5" /> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="driver-dashboard.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/user-icon.png" /> Driver Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="payment-system.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/user-icon.png" /> Payment System
+                </a>
+            </li>
+            <li>
+                <a href="manage-map.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/map-icon.png" /> Manage Map
+                </a>
+            </li>
+            <li>
+                <a href="ticket-booking.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/ticket-icon.png" /> Ticket Booking
+                </a>
+            </li>
+            <li>
+                <a href="agent.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/agent.png" /> Agent
+                </a>
+            </li>
+            <li>
+                <a href="account.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/account-icon.png" /> Account
+                </a>
+            </li>
+            <li>
+                <a href="passenger.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/passenger-icon.png" /> Passenger
+                </a>
+            </li>
+            <li>
+                <a href="hr-management.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/hr-icon.png" /> HR Management
+                </a>
+            </li>
+            <li>
+                <a href="report.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/report-icon.png" /> Report
+                </a>
+            </li>
+            <li>
+                <a href="inquiry.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/inquiry-icon.png" /> Inquiry
+                </a>
+            </li>
+        </ul>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="software-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/password.png" class="w-5 h-5" /> Software Setting
+                </a>
+            </li>
+            <li>
+                <a href="website-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/equalizer.png" /> Website Setting
+                </a>
+            </li>
+            <li>
+                <a href="user.html"
+                    class="flex p-2 hover:bg-background text-red-500 transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/logout.png" class="w-5 h-5" /> Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="lg:ml-72 flex flex-col gap-5 min-h-screen overflow-y-scroll">
+        <!-- Header Section-->
+        <header class="relative">
+            <div class="bg-white flex items-center justify-between p-5 rounded-b-lg px-5">
+                <div class="max-w-xl flex gap-2 border rounded-full p-2 bg-background">
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <input class="w-full focus:outline-none bg-transparent"
+                        placeholder="Search drivers, agent and ticket" />
+                </div>
+                <div class="flex items-center gap-5">
+                    <img src="assets/bell.png" alt="" class="w-8 h-8" />
+                    <div class="hidden md:flex lg:flex bg-background rounded-full px-2 items-center gap-4">
+                        <img src="assets/profile-pic.png" alt="profile-img" class="rounded-full w-8 h-8" />
+                        <div class="">
+                            <p class="font-semibold">Praise Adefemi</p>
+                            <span class="text-xs">Admin</span>
+                        </div>
+                    </div>
+                    <button id="menuButton" class="lg:hidden p-2 rounded-md bg-primary-blue">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!---->
+        <section class="flex flex-col gap-5 px-5">
+            <div class="">
+                <p class="text-2xl font-bold">Good morning, Admin.</p>
+                <span class="text-sm">Here is the summary of what is presently happening on Enugu Smart
+                    Bus</span>
+            </div>
+            <div class="flex flex-wrap gap-5 justify-between items-center my-5">
+                <div class="flex cursor-pointer items-center border rounded-lg bg-white">
+                    <span class="p-2 border-r-2 hover:bg-background">12 months</span>
+                    <span class="p-2 border-r-2 hover:bg-background">30 days</span>
+                    <span class="p-2 border-r-2 hover:bg-background">7 days</span>
+                    <span class="p-2 hover:bg-background">24 hours</span>
+                </div>
+                <div class="flex px-2 items-center rounded-lg border bg-white">
+                    <img src="assets/calendar.png" alt="calendar-icon" class="w-5 h-5" />
+                    <select class="bg-transparent p-2">
+                        <option>Select dates</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card Section-->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 px-5">
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Total Registerd Passengers</p>
+                        <p class="font-bold text-xl">287k</p>
+                    </div>
+                    <img src="assets/total-registered.png" alt="total-trip-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs">12 Completed Trips Today</p>
+            </div>
+
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Total Trips Today</p>
+                        <p class="font-bold text-xl">560</p>
+                    </div>
+                    <img src="assets/total-trip.png" alt="total-ticket-booking-icon" class="w--10 h-10" />
+                </div>
+                <p class="text-xs">12 Completed Trips Today</p>
+            </div>
+
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Total Amount Paid Today</p>
+                        <p class="font-bold text-xl">₦343k</p>
+                    </div>
+                    <img src="assets/total-amount-paid.png" alt="total-booking-amount-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs">12 Completed Trips Today</p>
+            </div>
+
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Total Wallet Deposit</p>
+                        <p class="font-bold text-xl">415</p>
+                    </div>
+                    <img src="assets/total-deposit.png" alt="total-passengers-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs">12 Completed Trips Today</p>
+            </div>
+
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Total Ticket Bookings</p>
+                        <p class="font-bold text-xl">45</p>
+                    </div>
+                    <img src="assets/total-ticket-booking.png" alt="total-trip-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs">12 Completed Trips Today</p>
+            </div>
+
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Total Booking Amount</p>
+                        <p class="font-bold text-xl">₦560k</p>
+                    </div>
+                    <img src="assets/total-booking-amount.png" alt="total-ticket-booking-icon" class="w--10 h-10" />
+                </div>
+                <p class="text-xs">12 Completed Trips Today</p>
+            </div>
+
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Total Refund Request</p>
+                        <p class="font-bold text-xl">43</p>
+                    </div>
+                    <img src="assets/total-refund.png" alt="total-booking-amount-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs">12 Completed Trips Today</p>
+            </div>
+
+            <div class="bg-white rounded-lg flex flex-col gap-2 p-5">
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col gap-4">
+                        <p class="text-sm">Total Staff</p>
+                        <p class="font-bold text-xl">48</p>
+                    </div>
+                    <img src="assets/total-staff.png" alt="total-passengers-icon" class="w-10 h-10" />
+                </div>
+                <p class="text-xs">12 Completed Trips Today</p>
+            </div>
+        </section>
+
+        <!--Chart Section-->
+        <section class="px-5">
+            <div class="w-full bg-white rounded-2xl">
+                <!--Card Header-->
+                <div class="flex flex-wrap justify-between gap-2 items-center p-5 border-b">
+                    <div class="">
+                        <p class="text-md lg:text-lg font-bold">Yearly & Monthly Income Chart</p>
+                        <span class="text-xs lg:text-sm">See your booking statistics progress</span>
+                    </div>
+                    <div class="justify-end">
+                        <select class=" rounded-full border p-2 bg-transparent">
+                            <option>This Month</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!--Line Chart-->
+                <div class="p-5">
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chart Section 2-->
+        <section class="px-5 grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <div class="col-span-1 lg:col-span-2 w-full bg-white rounded-2xl">
+                <!--Card Header-->
+                <div class="flex flex-wrap justify-between gap-2 items-center p-5">
+                    <p class="text-md font-bold">Expenses Chart</p>
+                    <select class=" rounded-full border p-2 bg-background">
+                        <option>Pick date</option>
+                    </select>
+                </div>
+
+                <div class="">
+                    <canvas id="mixedChart"></canvas>
+                </div>
+            </div>
+
+            <div class="col-span-1 w-full bg-white rounded-2xl">
+                <div class="p-5">
+                    <p class="text-md font-bold">Report Summary</p>
+                </div>
+
+                <div class="">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chart Section 3-->
+        <section class="px-5 grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div class="w-full bg-white rounded-2xl">
+                <!--Card Header-->
+                <div class="flex flex-wrap justify-between gap-2 items-center p-5">
+                    <p class="text-md font-bold">Monthly Ticket Booking</p>
+                </div>
+
+                <div class="">
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+            </div>
+
+            <div class="w-full bg-white rounded-2xl">
+                <div class="p-5">
+                    <p class="text-md font-bold">Agent Ticket Booking</p>
+                </div>
+
+                <div class="">
+                    <canvas id="agentChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Extra sections for payment-system.html -->
+        <section class="px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="bg-white rounded-lg p-5 flex flex-col gap-3">
+                <p class="text-lg font-bold">Payment Gateway Status</p>
+                <p>Status: <span class="text-green-500 font-semibold">Active</span></p>
+                <p>Last Checked: 2024-07-27 10:30 AM</p>
+                <div class="flex justify-end">
+                    <button class="bg-primary-blue text-white px-4 py-2 rounded-lg">Manage Gateways</button>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg p-5 flex flex-col gap-3">
+                <p class="text-lg font-bold">Recent Transactions</p>
+                <ul class="list-disc list-inside">
+                    <li>Transaction ID: 123456789, Amount: ₦5000, Status: Success</li>
+                    <li>Transaction ID: 123456790, Amount: ₦7500, Status: Pending</li>
+                    <li>Transaction ID: 123456791, Amount: ₦3000, Status: Failed</li>
+                </ul>
+                <div class="flex justify-end">
+                    <button class="bg-primary-blue text-white px-4 py-2 rounded-lg">View All</button>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg p-5 flex flex-col gap-3">
+                <p class="text-lg font-bold">Transaction Analytics</p>
+                <p>Total Processed: 1500</p>
+                <p>Total Value: ₦750,000</p>
+                <p>Average Transaction: ₦500</p>
+            </div>
+        </section>
+
+        <section class="px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="bg-white rounded-lg p-5 flex flex-col gap-3">
+                <p class="text-lg font-bold">Refunds Overview</p>
+                <p>Total Requests: 50</p>
+                <p>Approved: 40</p>
+                <p>Pending: 10</p>
+                <div class="flex justify-end">
+                    <button class="bg-primary-blue text-white px-4 py-2 rounded-lg">Manage Refunds</button>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg p-5 flex flex-col gap-3">
+                <p class="text-lg font-bold">Dispute Management</p>
+                <p>Open Disputes: 5</p>
+                <p>Resolved Disputes: 20</p>
+                <div class="flex justify-end">
+                    <button class="bg-primary-blue text-white px-4 py-2 rounded-lg">View Disputes</button>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg p-5 flex flex-col gap-3">
+                <p class="text-lg font-bold">Payment Method Distribution</p>
+                <canvas id="paymentMethodChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Extra sections for driver-dashboard.html -->
+        <section class="px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="bg-white rounded-lg p-5 flex flex-col gap-3">
+                <p class="text-lg font-bold">Driver Performance</p>
+                <p>Active Drivers: 120</p>
+                <p>Idle Drivers: 30</p>
+                <p>Average Rating: 4.5/5</p>
+            </div>
+            <div class="bg-white rounded-lg p-5 flex flex-col gap-3">
+                <p class="text-lg font-bold">Trip Statistics</p>
+                <p>Total Trips Today: 560</p>
+                <p>Completed Trips: 500</p>
+                <p>Cancelled Trips: 60</p>
+            </div>
+            <div class="bg-white rounded-lg p-5 flex flex-col gap-3">
+                <p class="text-lg font-bold">Earnings Overview</p>
+                <p>Daily Earnings: ₦15,000</p>
+                <p>Weekly Earnings: ₦90,000</p>
+                <p>Monthly Earnings: ₦350,000</p>
+            </div>
+        </section>
+
+        <section class="px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="bg-white rounded-lg p-5 flex flex-col gap-3">
+                <p class="text-lg font-bold">Driver Availability</p>
+                <p>Drivers Online: 95</p>
+                <p>Drivers Offline: 55</p>
+                <p>Estimated Wait Time: 5 mins</p>
+            </div>
+            <div class="bg-white rounded-lg p-5 flex flex-col gap-3">
+                <p class="text-lg font-bold">Vehicle Status</p>
+                <p>Vehicles Operational: 100</p>
+                <p>Vehicles Under Maintenance: 10</p>
+                <p>Vehicles Available: 90</p>
+            </div>
+            <div class="bg-white rounded-lg p-5 flex flex-col gap-3">
+                <p class="text-lg font-bold">Driver App Usage</p>
+                <p>Active Users: 110</p>
+                <p>Average Session: 30 mins</p>
+                <p>New Registrations: 5</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Placeholder for new chart for Payment Method Distribution
+        const paymentMethodCtx = document.getElementById("paymentMethodChart").getContext("2d");
+        new Chart(paymentMethodCtx, {
+            type: "pie",
+            data: {
+                labels: ["Credit Card", "Debit Card", "Mobile Money", "Bank Transfer"],
+                datasets: [{
+                    data: [30, 25, 35, 10],
+                    backgroundColor: ["#42A5F5", "#66BB6A", "#FFA726", "#9575CD"],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: "bottom" },
+                    title: {
+                        display: true,
+                        text: "Payment Methods",
+                    },
+                },
+            },
+        });
+
+
+        // ==========================
+        // PIE CHART
+        // ==========================
+        const pieCtx = document.getElementById("pieChart").getContext("2d");
+
+        new Chart(pieCtx, {
+            type: "doughnut",
+            data: {
+                labels: ["Income", "Expenses", "Trip"],
+                datasets: [
+                    {
+                        label: "Distribution",
+                        data: [1688, 2568, 1568],
+                        backgroundColor: [
+                            "orange",
+                            "green",
+                            "blue",
+                        ],
+                        borderColor: [
+                            "rgba(255, 99, 132, 1)",
+                            "rgba(54, 162, 235, 1)",
+                            "rgba(255, 206, 86, 1)",
+                        ],
+                        borderWidth: 1,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: "bottom" },
+                    title: {
+                        display: true,
+                        text: "Color Usage Breakdown",
+                    },
+                },
+            },
+        });
+
+        // ==========================
+        // LINE CHART
+        // ==========================
+        const lineCtx = document.getElementById("lineChart").getContext("2d");
+
+        new Chart(lineCtx, {
+            type: "line",
+            data: {
+                labels: ["January", "February", "March", "April", "May", "June"],
+                datasets: [
+                    {
+                        label: "Sales Over Time",
+                        data: [10, 20, 15, 30, 25, 40],
+                        fill: false,
+                        borderColor: "rgba(75, 192, 192, 1)",
+                        tension: 0.3,
+                        pointBackgroundColor: "rgba(75, 192, 192, 1)",
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: "top" },
+                    title: {
+                        display: true,
+                        text: "Monthly Sales Growth",
+                    },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+
+        // =========================
+        // LINE & BAR CHART
+        //===========================
+        const ctx = document.getElementById("mixedChart").getContext("2d");
+
+        new Chart(ctx, {
+            data: {
+                labels: ["January", "February", "March", "April", "May", "June"],
+                datasets: [
+                    {
+                        type: "bar",
+                        label: "Sales (in units)",
+                        data: [120, 190, 300, 500, 200, 300],
+                        backgroundColor: "rgba(54, 162, 235, 0.7)",
+                        borderColor: "rgba(54, 162, 235, 1)",
+                        borderWidth: 1,
+                        yAxisID: 'y',
+                    },
+                    {
+                        type: "line",
+                        label: "Revenue (in $)",
+                        data: [1000, 1500, 1200, 2000, 1800, 2500],
+                        borderColor: "rgba(255, 99, 132, 1)",
+                        backgroundColor: "rgba(255, 99, 132, 0.3)",
+                        fill: false,
+                        tension: 0.4,
+                        yAxisID: 'y1',
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: "index",
+                    intersect: false,
+                },
+                stacked: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Sales and Revenue Comparison (Bar + Line)",
+                    },
+                    legend: {
+                        position: "bottom",
+                    },
+                },
+                scales: {
+                    y: {
+                        type: "linear",
+                        display: true,
+                        position: "left",
+                        title: {
+                            display: true,
+                            text: "Sales (units)",
+                        },
+                    },
+                    y1: {
+                        type: "linear",
+                        display: true,
+                        position: "right",
+                        grid: {
+                            drawOnChartArea: false, // keeps the grids separate
+                        },
+                        title: {
+                            display: true,
+                            text: "Revenue ($)",
+                        },
+                    },
+                },
+            },
+        });
+
+        // =========================
+        // MONTHLY TICKET BOOKING CHART
+        // =========================
+
+        const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+
+        new Chart(monthlyCtx, {
+            type: 'line',
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "Tickets",
+                    data: [40, 50, 35, 45, 30, 25, 40, 30, 42, 48, 50, 43],
+                    borderColor: "#1e90ff",
+                    borderWidth: 2,
+                    pointBackgroundColor: "#1e90ff",
+                    pointRadius: 6,
+                    fill: false,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { display: false },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+
+        // ------------ AGENT TICKET BOOKING CHART ----------------
+        const agentCtx = document.getElementById('agentChart').getContext('2d');
+
+        new Chart(agentCtx, {
+            type: 'line',
+            data: {
+                labels: ["8:00", "12:00", "16:00", "20:00"],
+                datasets: [
+                    {
+                        label: "Agent 1",
+                        data: [10, 40, 20, 35],
+                        borderColor: "green",
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.5
+                    },
+                    {
+                        label: "Agent 2",
+                        data: [5, 32, 15, 50],
+                        borderColor: "tomato",
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.5
+                    }
+                ]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        labels: { boxWidth: 20 }
+                    }
+                },
+                scales: {
+                    y: { display: false },
+                    x: { grid: { color: "#eee" } }
+                }
+            }
+        });
+
+
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

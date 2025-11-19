@@ -1,0 +1,599 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - ESB Smart Bus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            blue: '#0066FF',
+                            orange: '#FF6B00'
+                        },
+                        background: '#F5F7FA'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background">
+    <aside class="bg-white w-72 fixed h-full overflow-y-scroll z-20 hidden lg:block">
+        <div class="p-5 flex flex-col gap-5">
+            <img src="assets/top-bar-logo.png" class="w-40" />
+            <div class="flex gap-2 items-center">
+                <img src="assets/profile-pic.png" class="w-10 h-10 rounded-full" />
+                <div>
+                    <h3 class="font-semibold text-sm">Admin User</h3>
+                    <p class="text-xs text-gray-500">Administrator</p>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="index.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/dashboard.png" /> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="ticket-booking.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/ticket-icon.png" /> Ticket Booking
+                </a>
+            </li>
+            <li>
+                <a href="manage-map.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/map-icon.png" /> Manage Map
+                </a>
+            </li>
+            <li>
+                <a href="driver-dashboard.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/cards.png" /> Driver Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="payment-system.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/tickets.png" /> Payment System
+                </a>
+            </li>
+            <li>
+                <a href="agent.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/agent.png" /> Agent
+                </a>
+            </li>
+            <li>
+                <a href="account.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/account-icon.png" /> Account
+                </a>
+            </li>
+            <li>
+                <a href="passenger.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/passenger-icon.png" /> Passenger
+                </a>
+            </li>
+            <li>
+                <a href="hr-management.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/hr-icon.png" /> HR Management
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex p-2 rounded-lg gap-2 items-center bg-primary-blue text-white">
+                    <img src="assets/report-icon.png" /> Report
+                </a>
+            </li>
+            <li>
+                <a href="inquiry.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/inquiry-icon.png" /> Inquiry
+                </a>
+            </li>
+        </ul>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="software-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/password.png" class="w-5 h-5" /> Software Setting
+                </a>
+            </li>
+            <li>
+                <a href="website-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/equalizer.png" /> Website Setting
+                </a>
+            </li>
+            <li>
+                <a href="user.html" class="flex p-2 hover:bg-background text-red-500 transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/logout.png" class="w-5 h-5" /> Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="lg:ml-72 flex flex-col gap-5 min-h-screen overflow-y-scroll pb-10">
+        <header class="relative">
+            <img src="assets/hero-banner.png" class="w-full h-52 object-cover" />
+            <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-between px-10">
+                <div class="text-white">
+                    <h1 class="text-4xl font-bold">Reports & Analytics</h1>
+                    <p class="text-lg">Comprehensive Business Intelligence & Insights</p>
+                </div>
+                <div class="flex gap-3 items-center">
+                    <img src="assets/bell.png" class="w-6 h-6 cursor-pointer" />
+                    <img src="assets/profile-pic.png" class="w-10 h-10 rounded-full cursor-pointer" />
+                </div>
+            </div>
+        </header>
+
+        <!-- Report Categories Section -->
+        <section class="px-10">
+            <h2 class="text-2xl font-bold mb-5">Report Categories</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="bg-white p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img src="assets/total-booking-amount.png" class="w-12 h-12" />
+                        <h3 class="font-semibold">Financial Reports</h3>
+                    </div>
+                    <p class="text-sm text-gray-600">Revenue, expenses, and profit analysis</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img src="assets/total-ticket-booking.png" class="w-12 h-12" />
+                        <h3 class="font-semibold">Booking Reports</h3>
+                    </div>
+                    <p class="text-sm text-gray-600">Ticket sales and booking trends</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img src="assets/total-trip.png" class="w-12 h-12" />
+                        <h3 class="font-semibold">Operations Reports</h3>
+                    </div>
+                    <p class="text-sm text-gray-600">Fleet performance and trip analytics</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img src="assets/total-staff.png" class="w-12 h-12" />
+                        <h3 class="font-semibold">HR Reports</h3>
+                    </div>
+                    <p class="text-sm text-gray-600">Employee and payroll analytics</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Financial Summary Report Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <div class="flex justify-between items-center mb-5">
+                    <h2 class="text-2xl font-bold">Financial Summary Report</h2>
+                    <div class="flex gap-2">
+                        <select class="border border-gray-300 rounded-lg px-4 py-2">
+                            <option>This Month</option>
+                            <option>Last Month</option>
+                            <option>This Quarter</option>
+                            <option>This Year</option>
+                            <option>Custom Range</option>
+                        </select>
+                        <button class="bg-primary-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                            Export PDF
+                        </button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-5">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Total Revenue</h3>
+                        <p class="text-2xl font-bold text-green-600">₦48.5M</p>
+                        <p class="text-xs text-green-600 mt-1">↑ 12.5% from last month</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Total Expenses</h3>
+                        <p class="text-2xl font-bold text-red-600">₦32.8M</p>
+                        <p class="text-xs text-red-600 mt-1">↑ 8.3% from last month</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Net Profit</h3>
+                        <p class="text-2xl font-bold text-primary-blue">₦15.7M</p>
+                        <p class="text-xs text-green-600 mt-1">↑ 22.1% from last month</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Profit Margin</h3>
+                        <p class="text-2xl font-bold text-primary-orange">32.4%</p>
+                        <p class="text-xs text-green-600 mt-1">↑ 3.2% from last month</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <h3 class="font-semibold mb-3">Revenue Breakdown</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Ticket Sales</span>
+                                <span class="font-bold text-green-600">₦38.2M (78.8%)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Charter Services</span>
+                                <span class="font-bold text-blue-600">₦7.5M (15.5%)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Freight Services</span>
+                                <span class="font-bold text-orange-600">₦2.8M (5.7%)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold mb-3">Expense Breakdown</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Fuel Costs</span>
+                                <span class="font-bold text-red-600">₦18.5M (56.4%)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Salaries & Wages</span>
+                                <span class="font-bold text-orange-600">₦8.5M (25.9%)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Maintenance</span>
+                                <span class="font-bold text-yellow-600">₦3.2M (9.8%)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Other Expenses</span>
+                                <span class="font-bold text-gray-600">₦2.6M (7.9%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking & Sales Report Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <div class="flex justify-between items-center mb-5">
+                    <h2 class="text-2xl font-bold">Booking & Sales Report</h2>
+                    <button class="bg-primary-orange text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition">
+                        Generate Report
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Total Bookings</h3>
+                        <p class="text-2xl font-bold text-primary-blue">8,452</p>
+                        <p class="text-xs text-green-600 mt-1">↑ 15.3% from last month</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Average Ticket Price</h3>
+                        <p class="text-2xl font-bold text-green-600">₦4,520</p>
+                        <p class="text-xs text-gray-500 mt-1">Across all routes</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Cancellation Rate</h3>
+                        <p class="text-2xl font-bold text-orange-500">3.2%</p>
+                        <p class="text-xs text-green-600 mt-1">↓ 0.8% from last month</p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <h3 class="font-semibold mb-3">Top Performing Routes</h3>
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Route</th>
+                                <th class="px-4 py-3 text-left">Total Bookings</th>
+                                <th class="px-4 py-3 text-left">Revenue</th>
+                                <th class="px-4 py-3 text-left">Avg. Occupancy</th>
+                                <th class="px-4 py-3 text-left">Growth</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-semibold">Enugu - Onitsha</td>
+                                <td class="px-4 py-3">1,845</td>
+                                <td class="px-4 py-3">₦9.2M</td>
+                                <td class="px-4 py-3">87%</td>
+                                <td class="px-4 py-3 text-green-600">↑ 18.5%</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-semibold">Enugu - Aba</td>
+                                <td class="px-4 py-3">1,624</td>
+                                <td class="px-4 py-3">₦8.1M</td>
+                                <td class="px-4 py-3">82%</td>
+                                <td class="px-4 py-3 text-green-600">↑ 12.3%</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-semibold">Enugu - Lagos</td>
+                                <td class="px-4 py-3">1,458</td>
+                                <td class="px-4 py-3">₦14.6M</td>
+                                <td class="px-4 py-3">92%</td>
+                                <td class="px-4 py-3 text-green-600">↑ 22.1%</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-semibold">Enugu - Abuja</td>
+                                <td class="px-4 py-3">1,285</td>
+                                <td class="px-4 py-3">₦11.6M</td>
+                                <td class="px-4 py-3">78%</td>
+                                <td class="px-4 py-3 text-green-600">↑ 9.7%</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-semibold">Enugu - Port Harcourt</td>
+                                <td class="px-4 py-3">1,142</td>
+                                <td class="px-4 py-3">₦6.9M</td>
+                                <td class="px-4 py-3">75%</td>
+                                <td class="px-4 py-3 text-orange-600">↑ 5.2%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fleet Performance Report Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Fleet Performance Report</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-5">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Total Trips</h3>
+                        <p class="text-2xl font-bold text-primary-blue">3,245</p>
+                        <p class="text-xs text-gray-500 mt-1">This month</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">On-Time Performance</h3>
+                        <p class="text-2xl font-bold text-green-600">94.2%</p>
+                        <p class="text-xs text-green-600 mt-1">↑ 2.1% improvement</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Fleet Utilization</h3>
+                        <p class="text-2xl font-bold text-blue-600">82.5%</p>
+                        <p class="text-xs text-gray-500 mt-1">Average across fleet</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Fuel Efficiency</h3>
+                        <p class="text-2xl font-bold text-orange-500">8.5 km/L</p>
+                        <p class="text-xs text-green-600 mt-1">↑ 0.3 km/L improvement</p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Vehicle ID</th>
+                                <th class="px-4 py-3 text-left">Route</th>
+                                <th class="px-4 py-3 text-left">Trips</th>
+                                <th class="px-4 py-3 text-left">Total Distance</th>
+                                <th class="px-4 py-3 text-left">Fuel Used</th>
+                                <th class="px-4 py-3 text-left">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">BUS-001</td>
+                                <td class="px-4 py-3">Enugu - Onitsha</td>
+                                <td class="px-4 py-3">124</td>
+                                <td class="px-4 py-3">12,480 km</td>
+                                <td class="px-4 py-3">1,468 L</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Excellent</span></td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">BUS-002</td>
+                                <td class="px-4 py-3">Enugu - Lagos</td>
+                                <td class="px-4 py-3">96</td>
+                                <td class="px-4 py-3">33,600 km</td>
+                                <td class="px-4 py-3">3,953 L</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Good</span></td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">BUS-003</td>
+                                <td class="px-4 py-3">Enugu - Aba</td>
+                                <td class="px-4 py-3">112</td>
+                                <td class="px-4 py-3">14,560 km</td>
+                                <td class="px-4 py-3">1,783 L</td>
+                                <td class="px-4 py-3"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Average</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Analytics Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Customer Analytics Report</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Total Customers</h3>
+                        <p class="text-2xl font-bold text-primary-blue">24.5K</p>
+                        <p class="text-xs text-green-600 mt-1">↑ 1,248 new this month</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Repeat Customer Rate</h3>
+                        <p class="text-2xl font-bold text-green-600">68.5%</p>
+                        <p class="text-xs text-green-600 mt-1">↑ 3.2% from last month</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Customer Satisfaction</h3>
+                        <p class="text-2xl font-bold text-orange-500">4.6/5.0</p>
+                        <p class="text-xs text-gray-500 mt-1">Based on 3,425 reviews</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <h3 class="font-semibold mb-3">Customer Demographics</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Age 18-25</span>
+                                <span class="font-bold">28.5%</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Age 26-35</span>
+                                <span class="font-bold">42.3%</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Age 36-50</span>
+                                <span class="font-bold">22.1%</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Age 50+</span>
+                                <span class="font-bold">7.1%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold mb-3">Booking Channels</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Mobile App</span>
+                                <span class="font-bold text-blue-600">52.8%</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Website</span>
+                                <span class="font-bold text-green-600">28.5%</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Physical Office</span>
+                                <span class="font-bold text-orange-600">12.4%</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 border border-gray-200 rounded">
+                                <span class="text-sm">Agent Network</span>
+                                <span class="font-bold text-purple-600">6.3%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payment Analytics Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <h2 class="text-2xl font-bold mb-5">Payment Analytics Report</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-5">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Total Payments Processed</h3>
+                        <p class="text-2xl font-bold text-green-600">₦48.5M</p>
+                        <p class="text-xs text-gray-500 mt-1">8,452 transactions</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Online Payments</h3>
+                        <p class="text-2xl font-bold text-blue-600">₦36.4M</p>
+                        <p class="text-xs text-gray-500 mt-1">75% of total</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Cash Payments</h3>
+                        <p class="text-2xl font-bold text-orange-500">₦12.1M</p>
+                        <p class="text-xs text-gray-500 mt-1">25% of total</p>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-gray-500 text-sm mb-2">Failed Transactions</h3>
+                        <p class="text-2xl font-bold text-red-600">2.1%</p>
+                        <p class="text-xs text-green-600 mt-1">↓ 0.5% improvement</p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <h3 class="font-semibold mb-3">Payment Method Breakdown</h3>
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Payment Method</th>
+                                <th class="px-4 py-3 text-left">Transactions</th>
+                                <th class="px-4 py-3 text-left">Total Amount</th>
+                                <th class="px-4 py-3 text-left">Percentage</th>
+                                <th class="px-4 py-3 text-left">Avg. Transaction</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">Card Payment</td>
+                                <td class="px-4 py-3">4,226</td>
+                                <td class="px-4 py-3">₦24.3M</td>
+                                <td class="px-4 py-3">50.1%</td>
+                                <td class="px-4 py-3">₦5,752</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">Bank Transfer</td>
+                                <td class="px-4 py-3">1,690</td>
+                                <td class="px-4 py-3">₦12.1M</td>
+                                <td class="px-4 py-3">24.9%</td>
+                                <td class="px-4 py-3">₦7,160</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">Cash</td>
+                                <td class="px-4 py-3">2,113</td>
+                                <td class="px-4 py-3">₦12.1M</td>
+                                <td class="px-4 py-3">25.0%</td>
+                                <td class="px-4 py-3">₦5,727</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scheduled Reports Section -->
+        <section class="px-10">
+            <div class="bg-white rounded-lg shadow-md p-5">
+                <div class="flex justify-between items-center mb-5">
+                    <h2 class="text-2xl font-bold">Scheduled Reports</h2>
+                    <button class="bg-primary-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                        + Schedule New Report
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Report Name</th>
+                                <th class="px-4 py-3 text-left">Frequency</th>
+                                <th class="px-4 py-3 text-left">Recipients</th>
+                                <th class="px-4 py-3 text-left">Last Generated</th>
+                                <th class="px-4 py-3 text-left">Next Run</th>
+                                <th class="px-4 py-3 text-left">Status</th>
+                                <th class="px-4 py-3 text-left">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">Monthly Financial Summary</td>
+                                <td class="px-4 py-3">Monthly</td>
+                                <td class="px-4 py-3">Finance Team (5)</td>
+                                <td class="px-4 py-3">Dec 1, 2024</td>
+                                <td class="px-4 py-3">Jan 1, 2025</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Active</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">Edit</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">Weekly Performance Report</td>
+                                <td class="px-4 py-3">Weekly</td>
+                                <td class="px-4 py-3">Management (3)</td>
+                                <td class="px-4 py-3">Dec 9, 2024</td>
+                                <td class="px-4 py-3">Dec 16, 2024</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Active</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">Edit</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-4 py-3">Daily Booking Summary</td>
+                                <td class="px-4 py-3">Daily</td>
+                                <td class="px-4 py-3">Operations (8)</td>
+                                <td class="px-4 py-3">Dec 14, 2024</td>
+                                <td class="px-4 py-3">Dec 15, 2024</td>
+                                <td class="px-4 py-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Active</span></td>
+                                <td class="px-4 py-3">
+                                    <button class="text-blue-600 hover:underline text-sm">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

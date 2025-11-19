@@ -1,0 +1,511 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Map - Enugu Smart Bus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-blue": "#1f2b6c",
+                        "primary-green": "#27c840",
+                        "dark-green": "#22b038",
+                        "light-green": "#0f9918",
+                        "dark-blue": "#001447",
+                        background: "#F1F8FF",
+                        overlay: "#00131ac4",
+                    },
+                    fontFamily: {
+                        inter: ["Inter", "sans-serif"],
+                        poppins: ["Poppins", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-background">
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-full lg:w-64 bg-white shadow-lg transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 lg:z-auto overflow-y-scroll">
+        <div class="relative flex justify-between lg:justify-center my-5 px-5">
+            <div class="flex items-center justify-center w-32 h-32 rounded-full">
+                <img src="assets/top-bar-logo.png" alt="Logo" class="w-full rounded-full">
+            </div>
+            <button id="closeButton" class="absolute right-5 lg:hidden p-2 hover:bg-gray-100 rounded-md">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <ul class="flex flex-col gap-2 p-5">
+            <li>
+                <a href="index.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/dashboard.png" class="w-5 h-5" /> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="driver-dashboard.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/user-icon.png" /> Driver Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="payment-system.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/cards.png" /> Payment System
+                </a>
+            </li>
+            <li>
+                <a href="manage-map.html" class="flex p-2 rounded-lg gap-2 items-center bg-primary-blue text-white">
+                    <img src="assets/map-icon.png" /> Manage Map
+                </a>
+            </li>
+            <li>
+                <a href="ticket-booking.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/ticket-icon.png" /> Ticket Booking
+                </a>
+            </li>
+            <li>
+                <a href="agent.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/agent.png" /> Agent
+                </a>
+            </li>
+            <li>
+                <a href="account.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/account-icon.png" /> Account
+                </a>
+            </li>
+            <li>
+                <a href="passenger.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/passenger-icon.png" /> Passenger
+                </a>
+            </li>
+            <li>
+                <a href="hr-management.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/hr-icon.png" /> HR Management
+                </a>
+            </li>
+            <li>
+                <a href="report.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/report-icon.png" /> Report
+                </a>
+            </li>
+            <li>
+                <a href="inquiry.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/inquiry-icon.png" /> Inquiry
+                </a>
+            </li>
+        </ul>
+        <hr />
+        <ul class="p-5">
+            <li>
+                <a href="software-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/password.png" class="w-5 h-5" /> Software Setting
+                </a>
+            </li>
+            <li>
+                <a href="website-settings.html" class="flex p-2 hover:bg-background transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/equalizer.png" /> Website Setting
+                </a>
+            </li>
+            <li>
+                <a href="user.html" class="flex p-2 hover:bg-background text-red-500 transition-all rounded-lg gap-2 items-center">
+                    <img src="assets/logout.png" class="w-5 h-5" /> Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="lg:ml-72 flex flex-col gap-5 min-h-screen overflow-y-scroll pb-10">
+        <header class="relative">
+            <div class="bg-white flex items-center justify-between p-5 rounded-b-lg px-5">
+                <div class="max-w-xl flex gap-2 border rounded-full p-2 bg-background">
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <input class="w-full focus:outline-none bg-transparent" placeholder="Search routes and locations" />
+                </div>
+                <div class="flex items-center gap-5">
+                    <img src="assets/bell.png" alt="" class="w-8 h-8" />
+                    <div class="hidden md:flex lg:flex bg-background rounded-full px-2 items-center gap-4">
+                        <img src="assets/profile-pic.png" alt="profile-img" class="rounded-full w-8 h-8" />
+                        <div>
+                            <p class="font-semibold">Praise Adefemi</p>
+                            <span class="text-xs">Admin</span>
+                        </div>
+                    </div>
+                    <button id="menuButton" class="lg:hidden p-2 rounded-md bg-primary-blue">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <section class="px-5">
+            <div class="flex justify-between items-center flex-wrap gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold">Manage Routes & Locations</h1>
+                    <p class="text-sm text-gray-600">Configure bus routes, stops, and trip schedules</p>
+                </div>
+                <button class="bg-primary-blue text-white px-6 py-2 rounded-lg hover:bg-dark-blue transition-all">
+                    <i class="ri-add-line"></i> Add New Route
+                </button>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 px-5">
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-600 text-sm">Total Routes</p>
+                        <p class="text-2xl font-bold mt-2">28</p>
+                        <p class="text-xs text-green-600 mt-1">↑ 3 new this month</p>
+                    </div>
+                    <div class="bg-blue-100 p-3 rounded-lg">
+                        <i class="ri-route-line text-xl text-blue-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-600 text-sm">Active Routes</p>
+                        <p class="text-2xl font-bold mt-2">24</p>
+                        <p class="text-xs text-gray-600 mt-1">Currently operational</p>
+                    </div>
+                    <div class="bg-green-100 p-3 rounded-lg">
+                        <i class="ri-map-pin-line text-xl text-green-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-600 text-sm">Total Stops</p>
+                        <p class="text-2xl font-bold mt-2">156</p>
+                        <p class="text-xs text-gray-600 mt-1">Across all routes</p>
+                    </div>
+                    <div class="bg-orange-100 p-3 rounded-lg">
+                        <i class="ri-pin-distance-line text-xl text-orange-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-5">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-gray-600 text-sm">Avg Route Distance</p>
+                        <p class="text-2xl font-bold mt-2">42km</p>
+                        <p class="text-xs text-gray-600 mt-1">Per route</p>
+                    </div>
+                    <div class="bg-purple-100 p-3 rounded-lg">
+                        <i class="ri-speed-line text-xl text-purple-600"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b flex justify-between items-center">
+                    <h2 class="font-bold text-lg">All Routes</h2>
+                    <div class="flex gap-3">
+                        <select class="border rounded-lg px-3 py-1 text-sm">
+                            <option>All Routes</option>
+                            <option>Active</option>
+                            <option>Inactive</option>
+                        </select>
+                        <input type="text" placeholder="Search routes..." class="border rounded-lg px-3 py-1 text-sm" />
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Route Name</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">From - To</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Distance</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stops</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fare</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="px-4 py-3 font-medium">Route A1</td>
+                                <td class="px-4 py-3 text-sm">Enugu - Nsukka</td>
+                                <td class="px-4 py-3 text-sm">65km</td>
+                                <td class="px-4 py-3 text-sm">12</td>
+                                <td class="px-4 py-3 font-bold">₦2.5k</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">Active</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-primary-blue hover:underline text-sm mr-2">Edit</button>
+                                    <button class="text-red-600 hover:underline text-sm">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-medium">Route B2</td>
+                                <td class="px-4 py-3 text-sm">Enugu - Onitsha</td>
+                                <td class="px-4 py-3 text-sm">85km</td>
+                                <td class="px-4 py-3 text-sm">15</td>
+                                <td class="px-4 py-3 font-bold">₦3.5k</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs">Active</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-primary-blue hover:underline text-sm mr-2">Edit</button>
+                                    <button class="text-red-600 hover:underline text-sm">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-medium">Route C3</td>
+                                <td class="px-4 py-3 text-sm">Enugu - Abuja</td>
+                                <td class="px-4 py-3 text-sm">240km</td>
+                                <td class="px-4 py-3 text-sm">8</td>
+                                <td class="px-4 py-3 font-bold">₦8k</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 bg-orange-100 text-orange-600 rounded-full text-xs">Inactive</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <button class="text-primary-blue hover:underline text-sm mr-2">Edit</button>
+                                    <button class="text-red-600 hover:underline text-sm">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5 grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Popular Routes</h2>
+                </div>
+                <div class="p-5 space-y-3">
+                    <div class="flex items-center justify-between p-3 border rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                <i class="ri-route-line text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Enugu - Nsukka</p>
+                                <p class="text-xs text-gray-600">423 trips this month</p>
+                            </div>
+                        </div>
+                        <span class="font-bold text-green-600">₦1.05m</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 border rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                <i class="ri-route-line text-green-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Enugu - Onitsha</p>
+                                <p class="text-xs text-gray-600">312 trips this month</p>
+                            </div>
+                        </div>
+                        <span class="font-bold text-green-600">₦780k</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 border rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                                <i class="ri-route-line text-orange-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Enugu - Abuja</p>
+                                <p class="text-xs text-gray-600">187 trips this month</p>
+                            </div>
+                        </div>
+                        <span class="font-bold text-green-600">₦935k</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Route Performance</h2>
+                </div>
+                <div class="p-5">
+                    <canvas id="routePerformanceChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Bus Stops Management</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stop Name</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Location</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Routes</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Daily Traffic</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="px-4 py-3 font-medium">Ogui Road Terminal</td>
+                                <td class="px-4 py-3 text-sm">Ogui, Enugu</td>
+                                <td class="px-4 py-3 text-sm">A1, B2, C5</td>
+                                <td class="px-4 py-3 text-sm">850 passengers</td>
+                                <td class="px-4 py-3">
+                                    <button class="text-primary-blue hover:underline text-sm">View Details</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-medium">Coal Camp</td>
+                                <td class="px-4 py-3 text-sm">Coal Camp, Enugu</td>
+                                <td class="px-4 py-3 text-sm">A1, B3</td>
+                                <td class="px-4 py-3 text-sm">620 passengers</td>
+                                <td class="px-4 py-3">
+                                    <button class="text-primary-blue hover:underline text-sm">View Details</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-medium">University of Nigeria</td>
+                                <td class="px-4 py-3 text-sm">Nsukka, Enugu</td>
+                                <td class="px-4 py-3 text-sm">A1</td>
+                                <td class="px-4 py-3 text-sm">1,200 passengers</td>
+                                <td class="px-4 py-3">
+                                    <button class="text-primary-blue hover:underline text-sm">View Details</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5 grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Trip Schedule</h2>
+                </div>
+                <div class="p-5 space-y-3">
+                    <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                        <div>
+                            <p class="font-medium text-sm">Morning Peak</p>
+                            <p class="text-xs text-gray-600">6:00 AM - 10:00 AM</p>
+                        </div>
+                        <span class="font-bold">45 trips</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                        <div>
+                            <p class="font-medium text-sm">Afternoon</p>
+                            <p class="text-xs text-gray-600">10:00 AM - 4:00 PM</p>
+                        </div>
+                        <span class="font-bold">32 trips</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
+                        <div>
+                            <p class="font-medium text-sm">Evening Peak</p>
+                            <p class="text-xs text-gray-600">4:00 PM - 8:00 PM</p>
+                        </div>
+                        <span class="font-bold">38 trips</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Route Maintenance</h2>
+                </div>
+                <div class="p-5 space-y-3">
+                    <div class="p-3 bg-yellow-50 border-l-4 border-yellow-500 rounded">
+                        <p class="font-medium text-sm">Route B2 - Road Work</p>
+                        <p class="text-xs text-gray-600">Expected delay: 15 mins</p>
+                        <p class="text-xs text-gray-500 mt-1">Until: Dec 15, 2025</p>
+                    </div>
+                    <div class="p-3 bg-red-50 border-l-4 border-red-500 rounded">
+                        <p class="font-medium text-sm">Route C3 - Closed</p>
+                        <p class="text-xs text-gray-600">Temporary closure</p>
+                        <p class="text-xs text-gray-500 mt-1">Reopens: Jan 5, 2025</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Distance Analytics</h2>
+                </div>
+                <div class="p-5 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Total Distance Covered</span>
+                        <span class="font-bold">12,450 km</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Avg Trip Distance</span>
+                        <span class="font-bold">42 km</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Longest Route</span>
+                        <span class="font-bold">240 km</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Shortest Route</span>
+                        <span class="font-bold">8 km</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-5">
+            <div class="bg-white rounded-lg">
+                <div class="p-5 border-b">
+                    <h2 class="font-bold text-lg">Real-time Route Tracking</h2>
+                </div>
+                <div class="p-5">
+                    <div class="bg-gray-100 rounded-lg h-96 flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="ri-map-2-line text-6xl text-gray-400"></i>
+                            <p class="text-gray-600 mt-4">Interactive Map View</p>
+                            <p class="text-sm text-gray-500">Track active buses in real-time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const routePerformanceCtx = document.getElementById('routePerformanceChart').getContext('2d');
+        new Chart(routePerformanceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Trips',
+                    data: [65, 72, 68, 75, 70, 85, 78],
+                    backgroundColor: '#1f2b6c'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
