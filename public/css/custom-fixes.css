@@ -1,0 +1,348 @@
+/* ===================================================
+   DROPDOWN MENU HEIGHT FIX
+   Prevents parent menu items from expanding in height
+   =================================================== */
+
+/* Fix for parent menu items - prevent height expansion */
+.metismenu > li {
+  position: relative;
+  margin-bottom: 0.35rem;
+}
+
+/* Ensure parent link doesn't expand with dropdown */
+.metismenu > li > a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.9rem;
+  color: #475467;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  min-height: auto;
+  height: auto;
+  max-height: 52px; /* Fixed height for parent items */
+}
+
+/* Fix for nested menus - they should not affect parent height */
+.metismenu .nav-second-level,
+.metismenu .nav-third-level,
+.metismenu .nav-fourth-level {
+  margin-top: 0.35rem;
+  margin-left: 0.45rem;
+  padding-left: 0.85rem;
+  border-left: 1px solid #E4E7EC;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ensure parent li doesn't expand - dropdown content flows naturally */
+.metismenu > li {
+  overflow: visible;
+}
+
+/* Smooth animation for dropdown collapse/expand */
+.metismenu .mm-collapse {
+  transition: height 0.35s ease-in-out;
+}
+
+.metismenu .mm-collapsing {
+  overflow: hidden;
+  transition: height 0.35s ease;
+}
+
+/* ===================================================
+   MODERN TABLE STYLES
+   Beautiful tables with smooth edges and sweet UI
+   =================================================== */
+
+/* Table Container */
+.table-responsive {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+  background: white;
+  margin-bottom: 1.5rem;
+}
+
+/* Modern Table Base */
+.table {
+  margin-bottom: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  background-color: white;
+}
+
+/* Table Header Styling */
+.table thead {
+  background: linear-gradient(135deg, #1f2b6c 0%, #2d3a7d 100%);
+  position: relative;
+}
+
+.table thead th {
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1rem 1.25rem;
+  border: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.table thead th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.table thead th:last-child {
+  border-top-right-radius: 12px;
+}
+
+/* Table Body Styling */
+.table tbody tr {
+  transition: all 0.25s ease;
+  border-bottom: 1px solid #E4E7EC;
+}
+
+.table tbody tr:hover {
+  background-color: #F8FAFC;
+  transform: scale(1.002);
+  box-shadow: 0 2px 8px rgba(31, 43, 108, 0.08);
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table tbody td {
+  padding: 1rem 1.25rem;
+  vertical-align: middle;
+  color: #334155;
+  font-size: 0.9375rem;
+  border: none;
+}
+
+.table tbody th {
+  padding: 1rem 1.25rem;
+  vertical-align: middle;
+  color: #1f2b6c;
+  font-weight: 600;
+  border: none;
+}
+
+/* Striped Tables */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #F9FAFB;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+  background-color: white;
+}
+
+.table-striped tbody tr:hover {
+  background-color: #F1F5F9 !important;
+}
+
+/* Bordered Tables */
+.table-bordered {
+  border: 1px solid #E4E7EC;
+  border-radius: 12px;
+}
+
+.table-bordered thead th,
+.table-bordered tbody td,
+.table-bordered tbody th {
+  border-right: 1px solid #E4E7EC;
+}
+
+.table-bordered thead th:last-child,
+.table-bordered tbody td:last-child,
+.table-bordered tbody th:last-child {
+  border-right: none;
+}
+
+/* Action Buttons in Tables */
+.table td .btn,
+.table td button {
+  margin: 0 0.15rem;
+  border-radius: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.table td .btn:hover,
+.table td button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.table td .btn-info {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border: none;
+  color: white;
+}
+
+.table td .btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border: none;
+  color: white;
+}
+
+.table td .btn-success {
+  background: linear-gradient(135deg, #27c840 0%, #22b038 100%);
+  border: none;
+  color: white;
+}
+
+.table td .btn-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border: none;
+  color: white;
+}
+
+.table td .btn-sm {
+  padding: 0.325rem 0.65rem;
+  font-size: 0.8125rem;
+}
+
+/* Table Form Elements */
+.table td form {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+  margin: 0;
+}
+
+/* Status Badges */
+.table .badge {
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.8125rem;
+}
+
+/* Responsive Table Wrapper */
+@media (max-width: 768px) {
+  .table-responsive {
+    border-radius: 8px;
+  }
+  
+  .table thead th,
+  .table tbody td,
+  .table tbody th {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .table td .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8125rem;
+  }
+}
+
+/* DataTables Specific Enhancements */
+.dataTables_wrapper {
+  padding: 1.25rem;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+  margin-bottom: 1rem;
+}
+
+.dataTables_wrapper .dataTables_length select {
+  border: 1px solid #E4E7EC;
+  border-radius: 0.5rem;
+  padding: 0.375rem 2rem 0.375rem 0.75rem;
+  margin: 0 0.5rem;
+  background-color: white;
+  transition: all 0.2s ease;
+}
+
+.dataTables_wrapper .dataTables_length select:focus {
+  border-color: #1f2b6c;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(31, 43, 108, 0.1);
+}
+
+.dataTables_wrapper .dataTables_filter input {
+  border: 1px solid #E4E7EC;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+  border-color: #1f2b6c;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(31, 43, 108, 0.1);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  border-radius: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  margin: 0 0.15rem;
+  transition: all 0.2s ease;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background: linear-gradient(135deg, #1f2b6c 0%, #2d3a7d 100%);
+  color: white !important;
+  border: none;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover:not(.disabled) {
+  background: #F1F5F9;
+  color: #1f2b6c !important;
+  border: 1px solid #E4E7EC;
+}
+
+/* Card Enhancements for Tables */
+.card {
+  border-radius: 12px;
+  border: 1px solid #E4E7EC;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.12);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+  border-bottom: 1px solid #E4E7EC;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  color: #1f2b6c;
+}
+
+/* Smooth Scrollbar for Tables */
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #F1F5F9;
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}

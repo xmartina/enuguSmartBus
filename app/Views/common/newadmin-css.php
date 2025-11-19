@@ -44,6 +44,7 @@ if (isset($pageheading)) {
 <link rel="stylesheet" href="<?= base_url('public/jstree/dist/themes/default/style.min.css'); ?>">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css">
 <link rel="stylesheet" href="<?= base_url('public/newadmin/styles.css'); ?>">
+<link rel="stylesheet" href="<?= base_url('public/css/custom-fixes.css'); ?>">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
