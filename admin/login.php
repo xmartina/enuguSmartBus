@@ -1,11 +1,14 @@
 <?php
 // Admin Login Page - PHP 8.3 Compatible
-// Disable error display for security (errors logged instead)
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
+// WARNING: This uses hardcoded credentials for demo purposes only
+// For production: implement proper password hashing and database authentication
+
+// Error handling - display errors in development, hide in production
+// Set via environment variable or default to secure setting
+$is_development = (getenv('DEBUG_MODE') === 'true') ? true : false;
+ini_set('display_errors', $is_development ? 1 : 0);
+ini_set('display_startup_errors', $is_development ? 1 : 0);
 error_reporting(E_ALL);
-ini_set('log_errors', 1);
-ini_set('error_log', '/tmp/php_errors.log');
 
 // Session setup
 if (session_status() === PHP_SESSION_NONE) {
@@ -35,39 +38,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($username) || empty($password)) {
         $error = "Please enter both username and password.";
     } else {
-        // Try database authentication first (with fallback)
+        // Try database connection (for future DB authentication)
+        $db_connected = false;
         try {
             include_once '../config/database.php';
             $database = new Database();
             $db = $database->getConnection();
-            
-            // Simple hardcoded authentication (you can add DB auth later)
-            if ($username === $valid_username && $password === $valid_password) {
-                // Login successful
-                $_SESSION['admin_logged_in'] = true;
-                $_SESSION['admin_username'] = $username;
-                $_SESSION['login_time'] = time();
-                
-                // Redirect to dashboard
-                header("Location: index.php");
-                exit();
-            } else {
-                $error = "Invalid username or password!";
-            }
+            $db_connected = ($db !== null);
         } catch (Exception $e) {
-            // Log error but don't expose details to user
-            error_log("Login error: " . $e->getMessage());
-            
-            // Fallback authentication if database fails
-            if ($username === $valid_username && $password === $valid_password) {
-                $_SESSION['admin_logged_in'] = true;
-                $_SESSION['admin_username'] = $username;
-                $_SESSION['login_time'] = time();
-                header("Location: index.php");
-                exit();
-            } else {
-                $error = "Invalid username or password!";
+            // Database connection failed - log it
+            error_log("Database connection error during login: " . $e->getMessage());
+            if ($is_development) {
+                $error = "Database connection failed. Check your database settings. Using fallback authentication.";
             }
+        }
+        
+        // Simple hardcoded authentication
+        // TODO: Replace with password_hash/password_verify and database lookup
+        if ($username === $valid_username && $password === $valid_password) {
+            // Login successful
+            $_SESSION['admin_logged_in'] = true;
+            $_SESSION['admin_username'] = $username;
+            $_SESSION['login_time'] = time();
+            $_SESSION['db_connected'] = $db_connected;
+            
+            // Redirect to dashboard
+            header("Location: index.php");
+            exit();
+        } else {
+            $error = "Invalid username or password!";
         }
     }
 }
