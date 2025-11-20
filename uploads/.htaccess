@@ -1,18 +1,16 @@
 RewriteEngine Off
 
-# Increase PHP limits
-php_value upload_max_filesize 10M
-php_value post_max_size 10M
-php_value max_file_uploads 20
-php_value max_execution_time 300
-php_value memory_limit 256M
+# PHP limits are now configured in .user.ini
+# (Compatible with FastCGI/FPM on cPanel PHP 8.3+)
 
+# Cache control for images
 <FilesMatch "\.(jpg|jpeg|png|gif|webp|ico)$">
     Header set Cache-Control "max-age=2592000, public"
     Order Allow,Deny
     Allow from all
 </FilesMatch>
 
+# Prevent PHP execution in uploads directory (security)
 <FilesMatch "\.(php|phtml|php3|php4|php5|phps)$">
     Deny from all
 </FilesMatch>

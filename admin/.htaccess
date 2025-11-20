@@ -1,6 +1,2 @@
-# Increase PHP limits
-
-php_value post_max_size 10M
-php_value max_file_uploads 20
-php_value max_execution_time 300
-php_value memory_limit 256M
+# PHP limits are now configured in .user.ini
+# (Compatible with FastCGI/FPM on cPanel PHP 8.3+)
