@@ -81,17 +81,15 @@ class Database {
         }
     }
 
-    // Get file URL for frontend - FIXED VERSION
+    // Get file URL for frontend - AUTO-DETECTION VERSION
     public function getFileUrl($filename) {
         if (!$filename) return null;
         
         // Remove any leading slashes or dots from filename
         $filename = ltrim($filename, './');
         
-        // For XAMPP/localhost setup, we need to include the project folder
-        $project_folder = 'cms'; // Change this to your project folder name
-        
-        return '/' . $project_folder . '/uploads/' . $filename;
+        // Use UrlHelper for consistent path detection
+        return UrlHelper::getUploadUrl($filename);
     }
 
     // Alternative method for admin area
